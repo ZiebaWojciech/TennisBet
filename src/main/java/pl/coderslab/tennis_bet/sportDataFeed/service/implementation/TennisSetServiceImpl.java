@@ -24,10 +24,6 @@ public class TennisSetServiceImpl implements TennisSetService {
 
     }
 
-    @Autowired
-    public void setTennisGameService(TennisGameService tennisGameService) {
-        this.tennisGameService = tennisGameService;
-    }
 
     @Autowired
     public void setResultService(ResultService resultService) {

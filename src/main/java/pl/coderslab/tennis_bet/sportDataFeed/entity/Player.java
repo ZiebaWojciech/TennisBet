@@ -18,14 +18,10 @@ import java.util.List;
 public class Player {
     @Id
     private int id;
-
     private String name;
     private String surname;
     @Enumerated(EnumType.STRING)
     private Country countryCode;
     private LocalDate birthday;
-
-    @OneToOne(mappedBy = "player", cascade = CascadeType.ALL)
-    private AtpRankingPosition currentAtpRankingPositions;
 
 }

@@ -11,6 +11,8 @@ import java.time.LocalDate;
 public class AtpRankingPosition {
     @Id
     private long id;
+    @ManyToOne
+    private Player player;
     private LocalDate date;
     private int points;
     private int standing;

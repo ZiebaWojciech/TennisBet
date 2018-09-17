@@ -6,10 +6,11 @@ import pl.coderslab.tennis_bet.sportDataFeed.entity.AtpRankingPosition;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.Event;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.Player;
 import pl.coderslab.tennis_bet.sportDataFeed.service.AtpRankingPositionService;
-import pl.coderslab.tennis_bet.sportDataFeed.service.EventService;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class OddsService {
@@ -20,16 +21,16 @@ public class OddsService {
         this.atpRankingPositionService = atpRankingPositionService;
     }
 
-    private double prematchOddsCalculate(Event event) {
+    public double prematchOddsCalculate(Event event) {
         Player playerOne = event.getPlayerOne();
         Player playerTwo = event.getPlayerTwo();
 
         int pointsDifference = getAtpPoint(playerOne) - getAtpPoint(playerTwo);
-        int standingIntervalDifference = getStandingInterval(playerOne) - getStandingInterval(playerTwo);
+        int standingIntervalDifference = getPointsInterval(playerOne) - getPointsInterval(playerTwo);
         double ageDifference = getPlayerAge(playerOne) - getPlayerAge(playerTwo);
         int homePlayFactorDifference = getHomePlayFactor(playerOne, event) - getHomePlayFactor(playerTwo, event);
 
-        return 2.30 + 0.0002*pointsDifference + 0.187*standingIntervalDifference - 0.064*ageDifference + 0.497*homePlayFactorDifference;
+        return 2.30 + 0.0002 * pointsDifference + 0.187 * standingIntervalDifference - 0.064 * ageDifference + 0.497 * homePlayFactorDifference;
     }
 
     private int getHomePlayFactor(Player player, Event event) {
@@ -37,16 +38,16 @@ public class OddsService {
     }
 
     private double getPlayerAge(Player player) {
-        return Period.between(player.getBirthday(), LocalDate.now()).getYears();
+        return (Period.between(player.getBirthday(), LocalDate.now()).toTotalMonths())/12.0;
     }
 
 
-    private int getStandingInterval(Player player) {
-        int standing = getPlayerCurrentAtpRanking(player).getStanding();
-        if(standing<400) return 0;
-        else if(standing<800) return 1;
-        else if(standing<1200) return 2;
-        else if(standing<2000) return 3;
+    private int getPointsInterval(Player player) {
+        int standing = getPlayerCurrentAtpRanking(player).getPoints();
+        if (standing < 400) return 0;
+        else if (standing < 800) return 1;
+        else if (standing < 1200) return 2;
+        else if (standing < 2000) return 3;
         else return 4;
     }
 
