@@ -6,13 +6,10 @@ import pl.coderslab.tennis_bet.sportDataFeed.entity.AtpRankingPosition;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.Event;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.Player;
 import pl.coderslab.tennis_bet.sportDataFeed.service.AtpRankingPositionService;
+import pl.coderslab.tennis_bet.sportDataFeed.service.EventService;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.Period;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 @Service
 public class OddsService {
@@ -23,21 +20,46 @@ public class OddsService {
         this.atpRankingPositionService = atpRankingPositionService;
     }
 
-    private BigDecimal prematchOddsCalculate(Event event) {
+    private double prematchOddsCalculate(Event event) {
         Player playerOne = event.getPlayerOne();
         Player playerTwo = event.getPlayerTwo();
 
-        AtpRankingPosition playerOneCurrentAptRanking = atpRankingPositionService.getAllByPlayerId(playerOne.getId()).stream()
-                .sorted( (a,b) ->  b.getDate().isAfter(a.getDate())? 1 : 0 )
-                .findFirst()
-                .orElse(null);
+        int pointsDifference = getAtpPoint(playerOne) - getAtpPoint(playerTwo);
+        int standingIntervalDifference = getStandingInterval(playerOne) - getStandingInterval(playerTwo);
+        double ageDifference = getPlayerAge(playerOne) - getPlayerAge(playerTwo);
+        int homePlayFactorDifference = getHomePlayFactor(playerOne, event) - getHomePlayFactor(playerTwo, event);
 
-        AtpRankingPosition playerTwoCurrentAptRanking = atpRankingPositionService.getAllByPlayerId(playerTwo.getId()).stream()
-                .sorted( (a,b) ->  b.getDate().isAfter(a.getDate())? 1 : 0 )
-                .findFirst()
-                .orElse(null);
-
-        return null;
-
+        return 2.30 + 0.0002*pointsDifference + 0.187*standingIntervalDifference - 0.064*ageDifference + 0.497*homePlayFactorDifference;
     }
+
+    private int getHomePlayFactor(Player player, Event event) {
+        return player.getCountryCode().equals(event.getCountry()) ? 1 : 0;
+    }
+
+    private double getPlayerAge(Player player) {
+        return Period.between(player.getBirthday(), LocalDate.now()).getYears();
+    }
+
+
+    private int getStandingInterval(Player player) {
+        int standing = getPlayerCurrentAtpRanking(player).getStanding();
+        if(standing<400) return 0;
+        else if(standing<800) return 1;
+        else if(standing<1200) return 2;
+        else if(standing<2000) return 3;
+        else return 4;
+    }
+
+
+    private int getAtpPoint(Player player) {
+        return getPlayerCurrentAtpRanking(player).getPoints();
+    }
+
+    private AtpRankingPosition getPlayerCurrentAtpRanking(Player player) {
+        return atpRankingPositionService.getAllByPlayerId(player.getId())
+                .stream()
+                .min((first, second) -> Period.between(first.getDate(), second.getDate()).getDays())
+                .orElse(null);
+    }
+
 }

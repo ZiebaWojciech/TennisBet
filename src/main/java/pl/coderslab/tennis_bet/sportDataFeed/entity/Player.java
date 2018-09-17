@@ -7,6 +7,7 @@ import pl.coderslab.tennis_bet.sportDataFeed.entity.enumUtil.Country;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Player {
     private String surname;
     @Enumerated(EnumType.STRING)
     private Country countryCode;
-    private Date birthday;
+    private LocalDate birthday;
 
     @OneToOne(mappedBy = "player", cascade = CascadeType.ALL)
     private AtpRankingPosition currentAtpRankingPositions;
