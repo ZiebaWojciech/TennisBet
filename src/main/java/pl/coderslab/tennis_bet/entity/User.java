@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.Set;
 
 @Entity
 @Data
@@ -27,6 +28,9 @@ public class User {
 
     @NotEmpty
     private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
 
     @NotEmpty
     @OneToOne(cascade = CascadeType.ALL)
