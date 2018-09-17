@@ -33,7 +33,7 @@ public class RegisterController {
         if (result.hasErrors()) {
             return "/registration/registration-form";
         }
-        userService.saveUserWithPassword(user);
+        userService.saveNewUser(user);
         return "redirect:/homepage";
     }
 }

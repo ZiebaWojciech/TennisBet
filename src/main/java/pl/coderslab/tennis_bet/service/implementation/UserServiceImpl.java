@@ -4,8 +4,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennis_bet.entity.Role;
 import pl.coderslab.tennis_bet.entity.User;
-import pl.coderslab.tennis_bet.repository.RoleRepository;
+import pl.coderslab.tennis_bet.entity.enumUtil.RoleName;
 import pl.coderslab.tennis_bet.repository.UserRepository;
+import pl.coderslab.tennis_bet.service.RoleService;
 import pl.coderslab.tennis_bet.service.UserService;
 
 import java.util.Arrays;
@@ -15,12 +16,12 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleService roleRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
+        this.roleService = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -35,15 +36,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getByLogin(String login) {
-        return userRepository.getByUsername(login);
+    public User getByUsername(String username) {
+        return userRepository.getByUsername(username);
     }
 
     @Override
-    public User saveUserWithPassword(User user) {
+    public User saveNewUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Role userRole = roleRepository.getByName("ROLE_USER");
+        Role userRole = roleService.getByName(RoleName.ROLE_USER);
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+        user.setActive(true);
         return userRepository.save(user);
     }
 

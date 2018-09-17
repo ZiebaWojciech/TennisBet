@@ -14,12 +14,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-//                .antMatchers("/home").permitAll()
-//                .antMatchers("/user/**").permitAll()
-//                .anyRequest().authenticated()
-                .anyRequest().permitAll();
-//                .and().formLogin().defaultSuccessUrl("/home")
-//                .and().logout().logoutSuccessUrl("/home").permitAll();
+                .antMatchers("/homepage").permitAll()
+                .antMatchers("/register").permitAll()
+                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/login").anonymous()
+                .and().formLogin().defaultSuccessUrl("/homepage").loginPage("/login")
+                .and().exceptionHandling().accessDeniedPage("/403")
+                .and().logout().logoutSuccessUrl("/homepage").permitAll();
     }
 
     @Bean

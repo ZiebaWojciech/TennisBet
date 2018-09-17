@@ -1,42 +1,36 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="layout">
+      layout:decorate="~{tennis-layout}">
 
 <div layout:fragment="page-content">
     <div class="bg-danger">
-
         <div class="container">
             <div class="card card-login mx-auto mt-5">
                 <div class="card-header">Login</div>
                 <div class="card-body">
-                    <form>
+                    <form th:action="@{/login}" method="post" >
                         <div class="form-group">
                             <div class="form-label-group">
-                                <input type="email" id="inputEmail" class="form-control" placeholder="Email address"
+                                <input type="text" id="inputUsername"
+                                       name="username"                                               class="form-control"
+                                       placeholder="Username"
                                        required="required" autofocus="autofocus">
-                                <label for="inputEmail">Email address</label>
+                                <label for="inputUsername">Username</label>
                             </div>
-                        </div>
-                        <div class="form-group">
                             <div class="form-label-group">
-                                <input type="password" id="inputPassword" class="form-control" placeholder="Password"
-                                       required="required">
+                                <input type="password" id="inputPassword"
+                                       name="password"                                               class="form-control"
+                                       placeholder="Password"
+                                       required="required" autofocus="autofocus">
                                 <label for="inputPassword">Password</label>
                             </div>
+                            <button class="btn btn-dark btn-block" type="submit"> Login</button>
                         </div>
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="remember-me">
-                                    Remember Password
-                                </label>
-                            </div>
-                        </div>
-                        <a class="btn btn-primary btn-block" href="index.html">Login</a>
                     </form>
                     <div class="text-center">
-                        <a class="d-block small mt-3" href="register.html">Register an Account</a>
+                        <p>Already have an account? <a class="d-block small mt-3" href="register.html">Login</a></p>
+
                         <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
                     </div>
                 </div>

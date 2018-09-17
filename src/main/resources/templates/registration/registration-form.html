@@ -8,37 +8,44 @@
 
         <div class="container">
             <div class="card card-login mx-auto mt-5">
-                <div class="card-header">Login</div>
+                <div class="card-header">Registration</div>
                 <div class="card-body">
                     <form th:action="@{/register}" method="post" th:object="${user}">
                         <div class="form-group">
                             <div class="form-label-group">
                                 <input th:field="*{username}" type="text" id="inputUsername" class="form-control"
-                                       placeholder="Login"
+                                       placeholder="Username"
                                        required="required" autofocus="autofocus">
-                                <label for="inputUsername">Username: </label>
+                                <label for="inputUsername">Username</label>
                                 <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
                             </div>
                             <div class="form-label-group">
                                 <input th:field="*{email}" type="email" id="inputEmail" class="form-control"
                                        placeholder="Email address"
                                        required="required" autofocus="autofocus">
-                                <label for="inputEmail">Email address: </label>
+                                <label for="inputEmail">Email address</label>
                                 <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
                             </div>
                             <div class="form-label-group">
                                 <input th:field="*{name}" type="text" id="inputName" class="form-control"
                                        placeholder="Name"
                                        required="required" autofocus="autofocus">
-                                <label for="inputName">Name: </label>
+                                <label for="inputName">Name</label>
                                 <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
                             </div>
                             <div class="form-label-group">
                                 <input th:field="*{surname}" type="text" id="inputSurname" class="form-control"
                                        placeholder="Surname"
                                        required="required" autofocus="autofocus">
-                                <label for="inputSurname">Surname: </label>
+                                <label for="inputSurname">Surname</label>
                                 <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
+                            </div>
+                            <div class="form-label-group">
+                                <input th:field="*{password}" type="password" id="inputPassword" class="form-control"
+                                       placeholder="Password"
+                                       required="required" autofocus="autofocus">
+                                <label for="inputSurname">Password</label>
+                                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
                             </div>
                             <button class="btn btn-dark btn-block" type="submit"> Register</button>
                         </div>

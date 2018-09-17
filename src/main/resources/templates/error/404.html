@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{tennis-layout}">
+
+<div layout:fragment="page-content">
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">404
+      <small>Page not found</small>
+    </h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a th:href="@{/homepage}">Home</a>
+      </li>
+      <li class="breadcrumb-item active">404</li>
+    </ol>
+
+    <div class="jumbotron">
+      <h1 class="display-1">404</h1>
+      <p>Ahe page you're looking for could not be found. Here are some helpful links to get you back on track:</p>
+      <ul>
+        <li>
+          <a th:href="@{/homepage}">Home</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.jumbotron -->
+
+  </div>
+  <!-- /.container -->
+</div>
+</html>
+
