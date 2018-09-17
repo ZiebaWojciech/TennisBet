@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @Data
 public class Event {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull
     @Enumerated(EnumType.STRING)

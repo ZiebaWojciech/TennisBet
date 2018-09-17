@@ -10,10 +10,7 @@ import java.time.LocalDate;
 @Data
 public class AtpRankingPosition {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @OneToOne
-    private Player player;
     private LocalDate date;
     private int points;
     private int standing;

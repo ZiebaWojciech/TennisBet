@@ -10,7 +10,6 @@ import java.util.List;
 @Data
 public class TennisSet {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private int sequenceNumber;
@@ -25,9 +24,5 @@ public class TennisSet {
 
     @ManyToOne
     private Player tennisSetWinner;
-
-    public void addGame(TennisGame tennisGame) {
-        this.games.add(tennisGame);
-    }
 
 }

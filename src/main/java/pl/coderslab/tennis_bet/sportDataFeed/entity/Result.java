@@ -10,7 +10,6 @@ import java.util.List;
 @Data
 public class Result {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @OneToMany(cascade = {CascadeType.ALL})
@@ -24,16 +23,5 @@ public class Result {
 
     private int setsWonByPlayerOne;
     private int setsWonByPlayerTwo;
-
-//    @JsonIgnore
-    private int tennisSetInMatchSequentNumber = 1;
-
-    public void addSet(TennisSet tennisSet){
-        tennisSet.setSequenceNumber(tennisSetInMatchSequentNumber++);
-        this.sets.add(tennisSet);
-
-    }
-
-
 }
 

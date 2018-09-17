@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Data
 public class TennisGame {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
     private int id;
 
     private boolean inPlay;

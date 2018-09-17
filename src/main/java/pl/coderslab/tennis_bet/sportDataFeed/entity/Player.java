@@ -7,6 +7,8 @@ import pl.coderslab.tennis_bet.sportDataFeed.entity.enumUtil.Country;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -14,7 +16,6 @@ import java.sql.Date;
 @NoArgsConstructor
 public class Player {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
@@ -22,5 +23,8 @@ public class Player {
     @Enumerated(EnumType.STRING)
     private Country countryCode;
     private Date birthday;
+
+    @OneToOne(mappedBy = "player", cascade = CascadeType.ALL)
+    private AtpRankingPosition currentAtpRankingPositions;
 
 }
