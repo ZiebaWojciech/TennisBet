@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 
 @Entity
@@ -14,7 +15,8 @@ public class User {
     private int id;
 
     @NotEmpty
-    @Column(unique = true)
+    @Size(max = 30)
+    @Column(unique = true, length = 30)
     private String login;
 
     @NotEmpty
@@ -27,6 +29,7 @@ public class User {
     private String password;
 
     @NotEmpty
+    @OneToOne(cascade = CascadeType.ALL)
     private Wallet wallet;
 
     private boolean active;

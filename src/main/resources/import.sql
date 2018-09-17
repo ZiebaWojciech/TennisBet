@@ -202,3 +202,6 @@ INSERT INTO tennis_bet.event (id, country, status, time_of_start, player_one_id,
 INSERT INTO tennis_bet.event (id, country, status, time_of_start, player_one_id, player_two_id) VALUES (2, 'ESP', 'SCHEDULED', '2018-09-16 20:00:00', 1, 5);
 INSERT INTO tennis_bet.event (id, country, status, time_of_start, player_one_id, player_two_id) VALUES (3, 'ESP', 'SCHEDULED', '2018-09-16 10:10:00', 2, 1);
 INSERT INTO tennis_bet.event (id, country, status, time_of_start, player_one_id, player_two_id) VALUES (4, 'ESP', 'SCHEDULED', '2018-09-16 10:01:00', 1, 2);
+
+INSERT INTO tennis_bet.role (id, name) VALUES (1, 'ROLE_USER');
+INSERT INTO tennis_bet.role (id, name) VALUES (2, 'ROLE_ADMIN');
