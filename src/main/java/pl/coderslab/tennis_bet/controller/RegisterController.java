@@ -25,16 +25,16 @@ public class RegisterController {
     @GetMapping(path = "")
     public String  registerUserInit(Model model) {
         model.addAttribute("user", new User());
-        return "/registration/user_add";
+        return "/registration/registration-form";
     }
 
     @PostMapping(path = "")
     public String registerUser(@Valid User user, BindingResult result) {
         if (result.hasErrors()) {
-            return "/user/user_add";
+            return "/registration/registration-form";
         }
         userService.saveUserWithPassword(user);
-        return "redirect:/user/user_all";
+        return "redirect:/homepage";
     }
 }
 

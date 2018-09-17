@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{tennis-layout}">
+
+<div layout:fragment="page-content">
+    <div class="bg-danger">
+
+        <div class="container">
+            <div class="card card-login mx-auto mt-5">
+                <div class="card-header">Login</div>
+                <div class="card-body">
+                    <form th:action="@{/register}" method="post" th:object="${user}">
+                        <div class="form-group">
+                            <div class="form-label-group">
+                                <input th:field="*{username}" type="text" id="inputUsername" class="form-control"
+                                       placeholder="Login"
+                                       required="required" autofocus="autofocus">
+                                <label for="inputUsername">Username: </label>
+                                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+                            </div>
+                            <div class="form-label-group">
+                                <input th:field="*{email}" type="email" id="inputEmail" class="form-control"
+                                       placeholder="Email address"
+                                       required="required" autofocus="autofocus">
+                                <label for="inputEmail">Email address: </label>
+                                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                            </div>
+                            <div class="form-label-group">
+                                <input th:field="*{name}" type="text" id="inputName" class="form-control"
+                                       placeholder="Name"
+                                       required="required" autofocus="autofocus">
+                                <label for="inputName">Name: </label>
+                                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                            </div>
+                            <div class="form-label-group">
+                                <input th:field="*{surname}" type="text" id="inputSurname" class="form-control"
+                                       placeholder="Surname"
+                                       required="required" autofocus="autofocus">
+                                <label for="inputSurname">Surname: </label>
+                                <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
+                            </div>
+                            <button class="btn btn-dark btn-block" type="submit"> Register</button>
+                        </div>
+                    </form>
+                    <div class="text-center">
+                        <p>Already have an account? <a class="d-block small mt-3" href="register.html">Login</a></p>
+
+                        <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>
+

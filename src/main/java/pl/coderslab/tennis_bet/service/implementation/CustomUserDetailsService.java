@@ -26,6 +26,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         for (Role role : user.getRoles()) {
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getName().name()));
         }
-        return new CurrentUser(user.getLogin(), user.getPassword(),grantedAuthorities,user);
+        return new CurrentUser(user.getUsername(), user.getPassword(),grantedAuthorities,user);
     }
 }
