@@ -14,13 +14,6 @@
             <small sec:authentication="name"></small>
         </h1>
 
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="index.html">Home</a>
-            </li>
-            <li class="breadcrumb-item active">Services</li>
-        </ol>
-
         <!-- Image Header -->
         <img class="img-fluid rounded mb-4" src="http://placehold.it/1200x300" alt="">
 
@@ -28,12 +21,13 @@
         <div class="row">
             <div class="col-lg-4 mb-4">
                 <div class="card h-100">
-                    <h4 class="card-header">Card Title</h4>
+                    <h4 class="card-header">Your wallet</h4>
                     <div class="card-body">
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+                        <p class="card-text"> Check your balance, your transfer history, withdraw your winnings and recharge for more fun!</p>
+                        <p class="card-text" th:text="'Your current balance '+${user.wallet.balance} +' PLN'"> </p>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Learn More</a>
+                        <a th:href="@{/user/wallet}" class="btn btn-primary">Go to wallet</a>
                     </div>
                 </div>
             </div>

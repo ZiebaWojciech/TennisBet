@@ -213,3 +213,10 @@ INSERT INTO tennis_bet.user_roles (user_id, roles_id) VALUES (2, 2);
 
 INSERT INTO tennis_bet.user (id, active, email, name, password, surname, username) VALUES (1, true, 'example@example.com', 'John', '$2a$10$JmgyEisjCcKwi5vu7iTS6eXetb/l8LiKki9p0diSH/oZhxjy2VwkK', 'Doe', 'example_user');
 INSERT INTO tennis_bet.user (id, active, email, name, password, surname, username) VALUES (2, true, 'admin@mail.com', 'Admin', '$2a$10$ejoqOAg.lci9PO8zZHUf5O0k3YHrCdYMpXWNDQ4xVG4xebNFt9ai2', 'Smith', 'example_admin');
+
+INSERT INTO tennis_bet.wallet (id, balance, user_id) VALUES (1, 0.00, 1);
+
+INSERT INTO tennis_bet.money_transaction (id, time, transaction_type, value, wallet_id) VALUES (1, '2018-09-17 22:03:32', 'RECHARGE', 10.00, 1);
+INSERT INTO tennis_bet.money_transaction (id, time, transaction_type, value, wallet_id) VALUES (2, '2018-09-17 22:03:32', 'RECHARGE', 10.00, 1);
+INSERT INTO tennis_bet.money_transaction (id, time, transaction_type, value, wallet_id) VALUES (3, '2018-09-17 22:03:32', 'RECHARGE', 10.00, 1);
+INSERT INTO tennis_bet.money_transaction (id, time, transaction_type, value, wallet_id) VALUES (4, '2018-09-17 22:03:32', 'RECHARGE', 10.00, 1);

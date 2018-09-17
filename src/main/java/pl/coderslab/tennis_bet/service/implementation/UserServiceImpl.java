@@ -4,6 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennis_bet.entity.Role;
 import pl.coderslab.tennis_bet.entity.User;
+import pl.coderslab.tennis_bet.entity.Wallet;
 import pl.coderslab.tennis_bet.entity.enumUtil.RoleName;
 import pl.coderslab.tennis_bet.repository.UserRepository;
 import pl.coderslab.tennis_bet.service.RoleService;
@@ -45,6 +46,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         Role userRole = roleService.getByName(RoleName.ROLE_USER);
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+        user.setWallet(new Wallet());
         user.setActive(true);
         return userRepository.save(user);
     }

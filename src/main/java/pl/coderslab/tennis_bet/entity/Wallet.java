@@ -17,7 +17,7 @@ public class Wallet {
     @OneToOne
     private  User user;
 
-    private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.valueOf(0.0);
 
     @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL)
     private List<MoneyTransaction> moneyTransactions = new ArrayList<>();

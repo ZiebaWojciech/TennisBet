@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.tennis_bet.entity.User;
@@ -25,19 +26,23 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(path = "/details")
-    public String  userAccount(@AuthenticationPrincipal CurrentUser currentUser, Model model) {
+    @ModelAttribute
+    public void setModelAttributes(@AuthenticationPrincipal CurrentUser currentUser, Model model) {
         model.addAttribute("user", currentUser.getUser());
-        return "user-account/details";
     }
 
-    @PostMapping(path = "")
-    public String registerUser(@Valid User user, BindingResult result) {
-        if (result.hasErrors()) {
-            return "/registration/registration-form";
-        }
-        userService.saveNewUser(user);
-        return "redirect:/homepage";
+    @GetMapping(path = "/account")
+    public String  userAccount() {
+        return "user/account";
     }
+    @GetMapping(path = "/wallet")
+    public String  userWallet() {
+        return "user/wallet";
+    }
+    @GetMapping(path = "/details")
+    public String  userDetails() {
+        return "user/details";
+    }
+
 }
 
