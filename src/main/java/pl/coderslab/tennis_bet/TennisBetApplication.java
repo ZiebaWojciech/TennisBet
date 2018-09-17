@@ -9,4 +9,5 @@ public class TennisBetApplication {
     public static void main(String[] args) {
         SpringApplication.run(TennisBetApplication.class, args);
     }
+
 }
