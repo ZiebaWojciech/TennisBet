@@ -35,4 +35,9 @@ public class TennisMatchServiceImpl implements TennisMatchService {
         return tennisMatchRepository.getAllByStatusEqualsOrderByTimeOfStartDesc(EventStatus.SCHEDULED);
     }
 
+    @Override
+    public TennisMatch save(TennisMatch tennisMatch) {
+        return tennisMatchRepository.save(tennisMatch);
+    }
+
 }

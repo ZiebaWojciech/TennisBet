@@ -6,7 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import pl.coderslab.tennis_bet.service.implementation.CustomUserDetailsService;
+import pl.coderslab.tennis_bet.betting_site.service.implementation.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity

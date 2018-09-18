@@ -198,11 +198,11 @@ INSERT INTO tennis_bet.player (id, birthday, country_code, name, surname) VALUES
 INSERT INTO tennis_bet.player (id, birthday, country_code, name, surname) VALUES (9, '1990-11-13', 'POL', 'Jerzy', 'Janowicz');
 INSERT INTO tennis_bet.player (id, birthday, country_code, name, surname) VALUES (10, '1997-08-07', 'POL', 'Michał', 'Dembek');
 
-INSERT INTO tennis_bet.tennis_match (id, country, status, time_of_start, player_one_id, player_two_id) VALUES (1, 'ESP', 'SCHEDULED', '2018-09-16 20:00:00', 2, 3);
-INSERT INTO tennis_bet.tennis_match (id, country, status, time_of_start, player_one_id, player_two_id) VALUES (2, 'ESP', 'SCHEDULED', '2018-09-16 20:00:00', 1, 5);
-INSERT INTO tennis_bet.tennis_match (id, country, status, time_of_start, player_one_id, player_two_id) VALUES (3, 'ESP', 'SCHEDULED', '2018-09-16 10:10:00', 2, 1);
-INSERT INTO tennis_bet.tennis_match (id, country, status, time_of_start, player_one_id, player_two_id) VALUES (4, 'ESP', 'SCHEDULED', '2018-09-16 10:01:00', 1, 2);
-
+INSERT INTO tennis_bet.tennis_match (id, country, player_one_winning_odd, player_two_winning_odd, status, time_of_start, player_one_id, player_two_id) VALUES (1, 'ESP', 3.25, 1.29, 'SCHEDULED', '2018-09-16 20:00:00', 2, 3);
+INSERT INTO tennis_bet.tennis_match (id, country, player_one_winning_odd, player_two_winning_odd, status, time_of_start, player_one_id, player_two_id) VALUES (2, 'ESP', 4.67, 1.16, 'SCHEDULED', '2018-09-16 20:00:00', 1, 5);
+INSERT INTO tennis_bet.tennis_match (id, country, player_one_winning_odd, player_two_winning_odd, status, time_of_start, player_one_id, player_two_id) VALUES (3, 'ESP', 1.36, 2.88, 'SCHEDULED', '2018-09-16 10:10:00', 2, 1);
+INSERT INTO tennis_bet.tennis_match (id, country, player_one_winning_odd, player_two_winning_odd, status, time_of_start, player_one_id, player_two_id) VALUES (4, 'ESP', 2.89, 1.36, 'SCHEDULED', '2018-09-16 10:01:00', 1, 2);
+INSERT INTO tennis_bet.tennis_match (id, country, player_one_winning_odd, player_two_winning_odd, status, time_of_start, player_one_id, player_two_id) VALUES (5, 'GBR', 2.49, 1.48, 'SCHEDULED', '2019-09-16 10:01:00', 2, 4);
 INSERT INTO tennis_bet.role (id, name) VALUES (1, 'ROLE_USER');
 INSERT INTO tennis_bet.role (id, name) VALUES (2, 'ROLE_ADMIN');
 

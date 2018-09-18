@@ -10,6 +10,4 @@ public interface TennisMatchService {
     List<TennisMatch> getUpcomingTennisMatches();
 
     TennisMatch save(TennisMatch tennisMatch);
-
-    void recalculateOdds(TennisMatch tennisMatch);
 }
