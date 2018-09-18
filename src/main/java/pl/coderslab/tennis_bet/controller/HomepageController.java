@@ -5,17 +5,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pl.coderslab.tennis_bet.sportDataFeed.service.EventService;
+import pl.coderslab.tennis_bet.sportDataFeed.service.TennisMatchService;
 
 @Controller
 @RequestMapping(path = "/homepage")
 public class HomepageController {
     @Autowired
-    EventService eventService;
+    TennisMatchService tennisMatchService;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     public String homepage(Model model){
-        model.addAttribute("upcomingEvents", eventService.getUpcomingEvents());
+        model.addAttribute("upcomingTennisMatches", tennisMatchService.getUpcomingTennisMatches());
         return "homepage";
     }
 }

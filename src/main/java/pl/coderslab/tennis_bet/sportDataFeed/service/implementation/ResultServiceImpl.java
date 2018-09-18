@@ -2,7 +2,7 @@ package pl.coderslab.tennis_bet.sportDataFeed.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.coderslab.tennis_bet.sportDataFeed.entity.Event;
+import pl.coderslab.tennis_bet.sportDataFeed.entity.TennisMatch;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.Result;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.TennisGame;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.TennisSet;
@@ -41,8 +41,8 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
-    public Result getOneByEvent(Event event) {
-        return resultRepository.getByEvent(event);
+    public Result getOneByEvent(TennisMatch tennisMatch) {
+        return resultRepository.getByTennisMatch(tennisMatch);
     }
 
     @Override

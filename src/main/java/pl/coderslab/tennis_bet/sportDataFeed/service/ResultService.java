@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ResultService {
     Result getOne(int id);
-    Result getOneByEvent(Event event);
+    Result getOneByEvent(TennisMatch tennisMatch);
 
     List<Result> getAll();
 

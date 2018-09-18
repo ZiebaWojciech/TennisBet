@@ -2,14 +2,13 @@ package pl.coderslab.tennis_bet.sportDataFeed.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
-import pl.coderslab.tennis_bet.sportDataFeed.entity.Event;
+import pl.coderslab.tennis_bet.sportDataFeed.entity.TennisMatch;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.Player;
-import pl.coderslab.tennis_bet.sportDataFeed.repository.EventRepository;
+import pl.coderslab.tennis_bet.sportDataFeed.repository.TennisMatchRepository;
 import pl.coderslab.tennis_bet.sportDataFeed.repository.PlayerRepository;
 
 import javax.servlet.ServletException;
@@ -20,20 +19,20 @@ import java.io.IOException;
 @Controller
 public class JsonController {
     @Autowired
-    EventRepository eventRepository;
+    TennisMatchRepository tennisMatchRepository;
     @Autowired
     PlayerRepository playerRepository;
 
     @RequestMapping("/get")
     public void getCountriesAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String url = "http://localhost:5000/api/events";
+        String url = "http://localhost:5000/api/tennisMatches";
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Event[]> responseCountries = restTemplate.getForEntity(
-                url, Event[].class);
-        Event[] events = responseCountries.getBody();
-        for (Event event : events) {
-            eventRepository.save(event);
-            System.out.println(event.getPlayerOne().getName() + " player one");
+        ResponseEntity<TennisMatch[]> responseCountries = restTemplate.getForEntity(
+                url, TennisMatch[].class);
+        TennisMatch[] tennisMatches = responseCountries.getBody();
+        for (TennisMatch tennisMatch : tennisMatches) {
+            tennisMatchRepository.save(tennisMatch);
+            System.out.println(tennisMatch.getPlayerOne().getName() + " player one");
         }
     }
 

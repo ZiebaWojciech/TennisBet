@@ -19,7 +19,7 @@ public class Result {
     @ManyToOne
     private Player looser;
     @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
-    private Event event;
+    private TennisMatch tennisMatch;
 
     private int setsWonByPlayerOne;
     private int setsWonByPlayerTwo;

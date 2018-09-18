@@ -2,12 +2,10 @@ package pl.coderslab.tennis_bet.sportDataFeed.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.coderslab.tennis_bet.sportDataFeed.entity.Player;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.Result;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.TennisSet;
 import pl.coderslab.tennis_bet.sportDataFeed.repository.TennisSetRepository;
 import pl.coderslab.tennis_bet.sportDataFeed.service.ResultService;
-import pl.coderslab.tennis_bet.sportDataFeed.service.TennisGameService;
 import pl.coderslab.tennis_bet.sportDataFeed.service.TennisSetService;
 
 import java.util.List;
@@ -48,13 +46,13 @@ public class TennisSetServiceImpl implements TennisSetService {
     @Override
     public long countGamesWonByPlayerOne(Result result) {
         return resultService.getCurrentSet(result).getGames().stream()
-                .filter(game -> result.getEvent().getPlayerOne().equals(game.getTennisGameWinner()))
+                .filter(game -> result.getTennisMatch().getPlayerOne().equals(game.getTennisGameWinner()))
                 .count();
     }
     @Override
     public long countGamesWonByPlayerTwo(Result result) {
         return resultService.getCurrentSet(result).getGames().stream()
-                .filter(game -> result.getEvent().getPlayerTwo().equals(game.getTennisGameWinner()))
+                .filter(game -> result.getTennisMatch().getPlayerTwo().equals(game.getTennisGameWinner()))
                 .count();
     }
 

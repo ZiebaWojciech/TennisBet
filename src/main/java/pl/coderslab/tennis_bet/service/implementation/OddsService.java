@@ -3,7 +3,7 @@ package pl.coderslab.tennis_bet.service.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.AtpRankingPosition;
-import pl.coderslab.tennis_bet.sportDataFeed.entity.Event;
+import pl.coderslab.tennis_bet.sportDataFeed.entity.TennisMatch;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.Player;
 import pl.coderslab.tennis_bet.sportDataFeed.service.AtpRankingPositionService;
 
@@ -21,14 +21,14 @@ public class OddsService {
         this.atpRankingPositionService = atpRankingPositionService;
     }
 
-    public BigDecimal[] prematchOddsCalculate(Event event) {
-        Player playerOne = event.getPlayerOne();
-        Player playerTwo = event.getPlayerTwo();
+    public BigDecimal[] prematchOddsCalculate(TennisMatch tennisMatch) {
+        Player playerOne = tennisMatch.getPlayerOne();
+        Player playerTwo = tennisMatch.getPlayerTwo();
 
         int pointsDifference = getAtpPoint(playerOne) - getAtpPoint(playerTwo);
         int standingIntervalDifference = getPointsInterval(playerOne) - getPointsInterval(playerTwo);
         double ageDifference = getPlayerAge(playerOne) - getPlayerAge(playerTwo);
-        int homePlayFactorDifference = getHomePlayFactor(playerOne, event) - getHomePlayFactor(playerTwo, event);
+        int homePlayFactorDifference = getHomePlayFactor(playerOne, tennisMatch) - getHomePlayFactor(playerTwo, tennisMatch);
 
         BigDecimal[] odds = new BigDecimal[2];
 
@@ -46,8 +46,8 @@ public class OddsService {
         return odds;
     }
 
-    private int getHomePlayFactor(Player player, Event event) {
-        return player.getCountryCode().equals(event.getCountry()) ? 1 : 0;
+    private int getHomePlayFactor(Player player, TennisMatch tennisMatch) {
+        return player.getCountryCode().equals(tennisMatch.getCountry()) ? 1 : 0;
     }
 
     private double getPlayerAge(Player player) {

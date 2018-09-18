@@ -1,27 +1,16 @@
 package pl.coderslab.tennis_bet.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennis_bet.entity.MoneyTransaction;
-import pl.coderslab.tennis_bet.entity.Role;
 import pl.coderslab.tennis_bet.entity.User;
 import pl.coderslab.tennis_bet.entity.Wallet;
-import pl.coderslab.tennis_bet.entity.enumUtil.RoleName;
 import pl.coderslab.tennis_bet.entity.enumUtil.TransactionType;
-import pl.coderslab.tennis_bet.repository.UserRepository;
 import pl.coderslab.tennis_bet.repository.WalletRepository;
-import pl.coderslab.tennis_bet.service.RoleService;
-import pl.coderslab.tennis_bet.service.UserService;
 import pl.coderslab.tennis_bet.service.WalletService;
-import pl.coderslab.tennis_bet.sportDataFeed.entity.Event;
-import pl.coderslab.tennis_bet.sportDataFeed.entity.enumUtil.EventStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
 
 @Service
 public class WalletServiceImpl implements WalletService {

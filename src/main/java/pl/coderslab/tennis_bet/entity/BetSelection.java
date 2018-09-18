@@ -3,7 +3,7 @@ package pl.coderslab.tennis_bet.entity;
 import lombok.Data;
 import pl.coderslab.tennis_bet.entity.enumUtil.BetSelectionStatus;
 import pl.coderslab.tennis_bet.entity.enumUtil.BetSelectionType;
-import pl.coderslab.tennis_bet.sportDataFeed.entity.Event;
+import pl.coderslab.tennis_bet.sportDataFeed.entity.TennisMatch;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,7 +17,7 @@ public class BetSelection {
     private int id;
     @NotNull
     @ManyToOne
-    private Event event;
+    private TennisMatch tennisMatch;
     @ManyToOne
     private BetTicket betTicket;
     @NotNull
