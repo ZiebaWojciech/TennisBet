@@ -6,10 +6,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.tennis_bet.entity.User;
 import pl.coderslab.tennis_bet.entity.transitionModel.CurrentUser;
 import pl.coderslab.tennis_bet.service.UserService;
@@ -31,15 +28,15 @@ public class UserController {
         model.addAttribute("user", currentUser.getUser());
     }
 
-    @GetMapping(path = "/account")
+    @RequestMapping(path = "/account", method = RequestMethod.GET)
     public String  userAccount() {
         return "user/account";
     }
-    @GetMapping(path = "/wallet")
+    @RequestMapping(path = "/wallet", method = RequestMethod.GET)
     public String  userWallet() {
         return "user/wallet";
     }
-    @GetMapping(path = "/details")
+    @RequestMapping(path = "/details", method = RequestMethod.GET)
     public String  userDetails() {
         return "user/details";
     }

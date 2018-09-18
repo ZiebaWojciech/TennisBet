@@ -1,6 +1,7 @@
 package pl.coderslab.tennis_bet.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import pl.coderslab.tennis_bet.entity.enumUtil.TransactionType;
 
@@ -18,7 +19,16 @@ public class MoneyTransaction {
     private Wallet wallet;
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
-    @CreationTimestamp
     private LocalDateTime time;
     private BigDecimal value;
+
+    public MoneyTransaction() {
+    }
+
+
+    public MoneyTransaction(TransactionType transactionType, LocalDateTime time, BigDecimal value) {
+        this.transactionType = transactionType;
+        this.time = time;
+        this.value = value;
+    }
 }

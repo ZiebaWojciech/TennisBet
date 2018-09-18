@@ -44,5 +44,54 @@
             </a>
         </div>
     </header>
+    <div class="mb-4" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="card">
+            <div class="card-header" role="tab" id="UpcomingEvents">
+                <h5 class="mb-0" th:text="'Upcoming events'"> </h5>
+            </div>
+        </div>
+        <div th:each="upcomingEvent, iterStat : ${upcomingEvents}" class="card" th:object="${upcomingEvent}">
+            <div class="card-header" role="tab" th:id="'heading'+${iterStat.count}">
+                <h5 class="mb-0">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                       th:href="'#collapse'+${iterStat.count}" aria-expanded="false"
+                       th:aria-controls="'collapse'+${iterStat.count}" th:text="*{playerOne.name}+' '+*{playerOne.surname}+' vs '+*{playerTwo.name}+' '+*{playerTwo.surname}+', starts at '+${#temporals.format(upcomingEvent.timeOfStart,'yyyy.MM.dd HH:mm')}"></a>
+                </h5>
+            </div>
+            <div th:id="'collapse'+${iterStat.count}" class="collapse" role="tabpanel"
+                 th:aria-labelledby="'headingTwo'+${iterStat.count}">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th th:text="*{playerOne.name}+' '+*{playerOne.surname}+' wins'"></th>
+                                <th th:text="*{playerTwo.name}+' '+*{playerTwo.surname}+' wins'"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <form th:action="@{/bet/add-to-ticket}" method="post">
+                                        <!--TODO links to proper events -->
+                                        <button name="selection" th:value="${event.playerOne.id}" th:text="'Point for '+${event.playerOne.surname}" type="submit"></button>
+
+
+                                    </form>
+                                    <button h:></button>
+                                </td>
+                            </tr>
+                            <tr th:each="transaction, iterStat : ${user.wallet.moneyTransactions}" th:object="${transaction}">
+                                <td th:text="*{transactionType}"></td>
+                                <td th:text="*{value}"></td>
+                                <td th:text="${#temporals.format(transaction.time,'yyyy.MM.dd HH:mm:ss')}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </html>

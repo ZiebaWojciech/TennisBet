@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{tennis-layout}">
+
+<div layout:fragment="page-content">
+    <div class="bg-danger">
+        <div class="container">
+            <div class="card card-login mx-auto mt-5">
+                <div class="card-header"> Withdraw  <em><span th:text="'Your balance : '+${user.wallet.balance}"></span></em> </div>
+                <div class="card-body">
+                    <form th:action="@{/user/wallet/withdraw}" method="post">
+                        <div class="form-group">
+                            <div class="form-label-group">
+                                <!--th:max="${user.wallet.balance}"-->
+                                <input type="number" min="0" step="0.01" id="inputAmount"
+                                       name="deductionAmount"
+                                       class="form-control"
+                                       placeholder="Amount"
+                                       required="required" autofocus="autofocus">
+                                <label for="inputAmount">Amount</label>
+                                <p th:text="${deductionSuccess}"></p>
+                            </div>
+                            <button class="btn btn-dark btn-block" type="submit"> Withdraw </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+</html>
+

@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import pl.coderslab.tennis_bet.entity.User;
 import pl.coderslab.tennis_bet.service.UserService;
 
@@ -22,13 +23,13 @@ public class RegisterController {
         this.userService = userService;
     }
 
-    @GetMapping(path = "")
+    @RequestMapping(path = "", method = RequestMethod.GET)
     public String  registerUserInit(Model model) {
         model.addAttribute("user", new User());
         return "/registration/registration-form";
     }
 
-    @PostMapping(path = "")
+    @RequestMapping(path = "", method = RequestMethod.POST)
     public String registerUser(@Valid User user, BindingResult result) {
         if (result.hasErrors()) {
             return "/registration/registration-form";

@@ -7,21 +7,21 @@ import pl.coderslab.tennis_bet.sportDataFeed.entity.Event;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.Player;
 import pl.coderslab.tennis_bet.sportDataFeed.service.AtpRankingPositionService;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class OddsService {
     private final AtpRankingPositionService atpRankingPositionService;
+    private final double SPORTBOOK_MARGIN_FACTOR = 1.08;
 
     @Autowired
     public OddsService(AtpRankingPositionService atpRankingPositionService) {
         this.atpRankingPositionService = atpRankingPositionService;
     }
 
-    public double prematchOddsCalculate(Event event) {
+    public BigDecimal[] prematchOddsCalculate(Event event) {
         Player playerOne = event.getPlayerOne();
         Player playerTwo = event.getPlayerTwo();
 
@@ -30,7 +30,20 @@ public class OddsService {
         double ageDifference = getPlayerAge(playerOne) - getPlayerAge(playerTwo);
         int homePlayFactorDifference = getHomePlayFactor(playerOne, event) - getHomePlayFactor(playerTwo, event);
 
-        return 2.30 + 0.0002 * pointsDifference + 0.187 * standingIntervalDifference - 0.064 * ageDifference + 0.497 * homePlayFactorDifference;
+        BigDecimal[] odds = new BigDecimal[2];
+
+        double playerOneWinningOddWithoutMargin = (2.30 + 0.0002 * pointsDifference + 0.187 * standingIntervalDifference - 0.064 * ageDifference + 0.497 * homePlayFactorDifference);
+
+        double playerOneWinningProbabilityWithoutMargin = 1 / playerOneWinningOddWithoutMargin;
+        double playerTwoWinningProbabilityWithoutMargin = 1 - playerOneWinningProbabilityWithoutMargin;
+
+        BigDecimal playerOneWinningOddWithMargin = new BigDecimal(1 / (SPORTBOOK_MARGIN_FACTOR * playerOneWinningProbabilityWithoutMargin)).setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal playerTwoWinningOddWithMargin = new BigDecimal(1 / (SPORTBOOK_MARGIN_FACTOR * playerTwoWinningProbabilityWithoutMargin)).setScale(2, BigDecimal.ROUND_HALF_UP);
+
+        odds[0] = playerOneWinningOddWithMargin;
+        odds[1] = playerTwoWinningOddWithMargin;
+
+        return odds;
     }
 
     private int getHomePlayFactor(Player player, Event event) {
@@ -38,7 +51,7 @@ public class OddsService {
     }
 
     private double getPlayerAge(Player player) {
-        return (Period.between(player.getBirthday(), LocalDate.now()).toTotalMonths())/12.0;
+        return (Period.between(player.getBirthday(), LocalDate.now()).toTotalMonths()) / 12.0;
     }
 
 
