@@ -1,26 +1,48 @@
 package pl.coderslab.tennis_bet.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import pl.coderslab.tennis_bet.service.OddsService;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.AtpRankingPosition;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.TennisMatch;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.Player;
 import pl.coderslab.tennis_bet.sportDataFeed.service.AtpRankingPositionService;
+import pl.coderslab.tennis_bet.sportDataFeed.service.TennisMatchService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 @Service
-public class OddsService {
+public class OddsServiceImpl implements OddsService {
     private final AtpRankingPositionService atpRankingPositionService;
+    private final TennisMatchService tennisMatchService;
     private final double SPORTBOOK_MARGIN_FACTOR = 1.08;
 
     @Autowired
-    public OddsService(AtpRankingPositionService atpRankingPositionService) {
+    public OddsServiceImpl(AtpRankingPositionService atpRankingPositionService, TennisMatchService tennisMatchService) {
         this.atpRankingPositionService = atpRankingPositionService;
+        this.tennisMatchService = tennisMatchService;
     }
 
+    @Scheduled(cron = "* * * ? * TUE")
+    /**
+     * Odds are recalculated every Tuesday as the new ATP ranking
+     * is being announced every other Monday
+     */
+    @Override
+    public void recalculatePrematchOdds() {
+        List<TennisMatch> upcomingTennisMatches = tennisMatchService.getUpcomingTennisMatches();
+        for(TennisMatch upcomingMatch : upcomingTennisMatches){
+            BigDecimal[] odds = prematchOddsCalculate(upcomingMatch);
+            upcomingMatch.setPlayerOneWinningOdd(odds[0]);
+            upcomingMatch.setPlayerTwoWinningOdd(odds[0]);
+            tennisMatchService.save(upcomingMatch);
+        }
+    }
+    @Override
     public BigDecimal[] prematchOddsCalculate(TennisMatch tennisMatch) {
         Player playerOne = tennisMatch.getPlayerOne();
         Player playerTwo = tennisMatch.getPlayerTwo();
@@ -74,6 +96,7 @@ public class OddsService {
                 .stream()
                 .min((first, second) -> Period.between(first.getDate(), second.getDate()).getDays())
                 .orElse(null);
+
     }
 
 }

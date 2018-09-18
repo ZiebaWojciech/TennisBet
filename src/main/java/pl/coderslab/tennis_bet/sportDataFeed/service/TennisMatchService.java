@@ -8,5 +8,8 @@ public interface TennisMatchService {
     TennisMatch getOne(int id);
     List<TennisMatch> getAll();
     List<TennisMatch> getUpcomingTennisMatches();
+
     TennisMatch save(TennisMatch tennisMatch);
+
+    void recalculateOdds(TennisMatch tennisMatch);
 }

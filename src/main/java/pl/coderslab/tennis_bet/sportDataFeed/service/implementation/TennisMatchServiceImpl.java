@@ -1,6 +1,7 @@
 package pl.coderslab.tennis_bet.sportDataFeed.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.*;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.enumUtil.EventStatus;
@@ -33,11 +34,5 @@ public class TennisMatchServiceImpl implements TennisMatchService {
     public List<TennisMatch> getUpcomingTennisMatches() {
         return tennisMatchRepository.getAllByStatusEqualsOrderByTimeOfStartDesc(EventStatus.SCHEDULED);
     }
-
-    @Override
-    public TennisMatch save(TennisMatch tennisMatch) {
-        return tennisMatchRepository.save(tennisMatch);
-    }
-
 
 }

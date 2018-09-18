@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pl.coderslab.tennis_bet.service.implementation.OddsService;
+import pl.coderslab.tennis_bet.service.implementation.OddsServiceImpl;
 import pl.coderslab.tennis_bet.sportDataFeed.service.TennisMatchService;
 
 @Controller
 public class TestController {
     @Autowired
-    OddsService oddsService;
+    OddsServiceImpl oddsService;
     @Autowired
     TennisMatchService tennisMatchService;
 

@@ -61,34 +61,34 @@
             <div th:id="'collapse'+${iterStat.count}" class="collapse" role="tabpanel"
                  th:aria-labelledby="'headingTwo'+${iterStat.count}">
                 <div class="card-body">
-                    <!--<div class="table-responsive">-->
-                        <!--&lt;!&ndash;<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<thead>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<tr>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<th th:text="*{playerOne.name}+' '+*{playerOne.surname}+' wins'"></th>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<th th:text="*{playerTwo.name}+' '+*{playerTwo.surname}+' wins'"></th>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</tr>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</thead>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<tbody>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<tr>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<td>&ndash;&gt;-->
-                                    <!--&lt;!&ndash;&lt;!&ndash;<form th:action="@{/bet/add-to-ticket}" method="post">&ndash;&gt;&ndash;&gt;-->
-                                        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;TODO links to proper tennisMatches &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-                                        <!--&lt;!&ndash;&lt;!&ndash;<button name="selection" th:value="${tennisMatch.playerOne.id}" th:text="'Point for '+${tennisMatch.playerOne.surname}" type="submit"></button>&ndash;&gt;&ndash;&gt;-->
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th th:text="*{playerOne.name}+' '+*{playerOne.surname}+' wins'"></th>
+                                <th th:text="*{playerTwo.name}+' '+*{playerTwo.surname}+' wins'"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <form th:action="@{/bet/add-to-ticket}" method="post">
+                                        <!--TODO links to proper tennisMatches -->
+                                        <button name="selection" th:value="*{playerOne.id}" th:text="${odds[${iterStat}]}" type="submit"></button>
 
 
-                                    <!--&lt;!&ndash;</form>&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<button h:></button>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</td>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</tr>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<tr th:each="transaction, iterStat : ${user.wallet.moneyTransactions}" th:object="${transaction}">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<td th:text="*{transactionType}"></td>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<td th:text="*{value}"></td>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<td th:text="${#temporals.format(transaction.time,'yyyy.MM.dd HH:mm:ss')}"></td>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</tr>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</tbody>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-                    <!--</div>-->
+                                    </form>
+                                    <button h:></button>
+                                </td>
+                            </tr>
+                            <tr th:each="transaction, iterStat : ${user.wallet.moneyTransactions}" th:object="${transaction}">
+                                <td th:text="*{transactionType}"></td>
+                                <td th:text="*{value}"></td>
+                                <td th:text="${#temporals.format(transaction.time,'yyyy.MM.dd HH:mm:ss')}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

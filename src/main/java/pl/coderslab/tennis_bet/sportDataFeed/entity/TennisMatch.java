@@ -8,6 +8,7 @@ import pl.coderslab.tennis_bet.sportDataFeed.entity.enumUtil.EventStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -30,4 +31,7 @@ public class TennisMatch {
     @NotNull
     @Enumerated(EnumType.STRING)
     private EventStatus status;
+    //TODO service to refresh odds (schedule) but only before match (status)
+    private BigDecimal playerOneWinningOdd;
+    private BigDecimal playerTwoWinningOdd;
 }
