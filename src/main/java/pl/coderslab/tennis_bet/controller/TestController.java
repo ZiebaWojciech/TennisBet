@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pl.coderslab.tennis_bet.service.OddsService;
-import pl.coderslab.tennis_bet.sportDataFeed.entity.Event;
+import pl.coderslab.tennis_bet.service.implementation.OddsService;
 import pl.coderslab.tennis_bet.sportDataFeed.service.EventService;
 
 @Controller
