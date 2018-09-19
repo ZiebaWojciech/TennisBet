@@ -10,5 +10,7 @@ public interface BetSelectionService {
     BetTicket addNewBetSelectionToBetTicket(BetTicket betTicket, String betSelectionType, BigDecimal odd, TennisMatch tennisMatch);
     boolean isBetUniqueForEvent(BetTicket betTicket, TennisMatch tennisMatch);
 
-    void resolveBetAfterEventStatusChange(BetSelection betSelection);
+    void resolveBetAfterEventStatusChange(TennisMatch tennisMatch);
+    void resolvingBetSelectionAfterCompletedEvent(BetSelection betSelection, TennisMatch tennisMatch);
+
 }

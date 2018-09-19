@@ -1,6 +1,7 @@
 package pl.coderslab.tennis_bet.betting_site.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennis_bet.betting_site.entity.BetSelection;
 import pl.coderslab.tennis_bet.betting_site.entity.BetTicket;
@@ -13,6 +14,7 @@ import pl.coderslab.tennis_bet.betting_site.service.TennisMatchService;
 import pl.coderslab.tennis_bet.sport_events_data.entity.enumUtil.EventStatus;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -49,14 +51,26 @@ public class BetSelectionServiceImpl implements BetSelectionService {
     }
 
     @Override
-    public void resolveBetAfterEventStatusChange(BetSelection betSelection) {
-        TennisMatch tennisMatch = betSelection.getTennisMatch();
-        if(tennisMatch.getStatus() == EventStatus.CANCELLED){
-            betSelection.setBetSelectionStatus(BetSelectionStatus.VOID);
-        } else if(tennisMatch.getStatus() == EventStatus.COMPLETED){
-            if(tennisMatch.get)
-            betSelection.setBetSelectionStatus(BetSelectionStatus.SUBMITTED);
+    public void resolveBetAfterEventStatusChange(TennisMatch tennisMatch) {
+        List<BetSelection> betSelectionsRelatedToTennisMatch = tennisMatch.getBetSelectionsRelatedToMatch();
+        for(BetSelection betSelection : betSelectionsRelatedToTennisMatch){
+            if (tennisMatch.getStatus() == EventStatus.CANCELLED) {
+                betSelection.setBetSelectionStatus(BetSelectionStatus.VOID);
+            } else if (tennisMatch.getStatus() == EventStatus.COMPLETED) {
+                resolvingBetSelectionAfterCompletedEvent(betSelection, tennisMatch);
+            }
+        }
 
     }
+
+    @Override
+    public void resolvingBetSelectionAfterCompletedEvent(BetSelection betSelection, TennisMatch tennisMatch) {
+        for (BetSelectionType eventResolvedType : tennisMatch.getResult().getBetSelectionTypes()) {
+            if (eventResolvedType.equals(betSelection.getBetSelectionType())) {
+                betSelection.setBetSelectionStatus(BetSelectionStatus.WON);
+            } else {
+                betSelection.setBetSelectionStatus(BetSelectionStatus.LOST);
+            }
+        }
     }
 }
