@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.tennis_bet.betting_site.service.implementation.OddsServiceImpl;
-import pl.coderslab.tennis_bet.sportDataFeed.service.TennisMatchService;
+import pl.coderslab.tennis_bet.betting_site.service.TennisMatchService;
 
 @Controller
 public class TestController {

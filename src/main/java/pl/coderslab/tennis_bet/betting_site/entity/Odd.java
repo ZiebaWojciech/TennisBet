@@ -1,14 +1,15 @@
 package pl.coderslab.tennis_bet.betting_site.entity;
 
-import lombok.Data;
-import pl.coderslab.tennis_bet.sportDataFeed.entity.TennisMatch;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Odd {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

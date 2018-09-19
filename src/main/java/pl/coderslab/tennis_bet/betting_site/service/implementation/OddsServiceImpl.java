@@ -3,12 +3,14 @@ package pl.coderslab.tennis_bet.betting_site.service.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import pl.coderslab.tennis_bet.betting_site.entity.Odd;
+import pl.coderslab.tennis_bet.betting_site.repository.OddsRepository;
 import pl.coderslab.tennis_bet.betting_site.service.OddsService;
-import pl.coderslab.tennis_bet.sportDataFeed.entity.AtpRankingPosition;
-import pl.coderslab.tennis_bet.sportDataFeed.entity.TennisMatch;
-import pl.coderslab.tennis_bet.sportDataFeed.entity.Player;
-import pl.coderslab.tennis_bet.sportDataFeed.service.AtpRankingPositionService;
-import pl.coderslab.tennis_bet.sportDataFeed.service.TennisMatchService;
+import pl.coderslab.tennis_bet.sport_events_data.entity.AtpRankingPosition;
+import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
+import pl.coderslab.tennis_bet.sport_events_data.entity.Player;
+import pl.coderslab.tennis_bet.sport_events_data.service.AtpRankingPositionService;
+import pl.coderslab.tennis_bet.betting_site.service.TennisMatchService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,14 +19,21 @@ import java.util.List;
 
 @Service
 public class OddsServiceImpl implements OddsService {
+    private final OddsRepository oddsRepository;
     private final AtpRankingPositionService atpRankingPositionService;
     private final TennisMatchService tennisMatchService;
     private final double SPORTBOOK_MARGIN_FACTOR = 1.08;
 
     @Autowired
-    public OddsServiceImpl(AtpRankingPositionService atpRankingPositionService, TennisMatchService tennisMatchService) {
+    public OddsServiceImpl(OddsRepository oddsRepository, AtpRankingPositionService atpRankingPositionService, TennisMatchService tennisMatchService) {
+        this.oddsRepository = oddsRepository;
         this.atpRankingPositionService = atpRankingPositionService;
         this.tennisMatchService = tennisMatchService;
+    }
+
+    @Override
+    public Odd getOddsOfEvent(TennisMatch tennisMatch) {
+        return oddsRepository.getAllByTennisMatch(tennisMatch);
     }
 
     @Scheduled(cron = "* * * ? * TUE")

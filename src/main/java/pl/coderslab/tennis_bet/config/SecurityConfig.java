@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/betting/all").permitAll()
                 .antMatchers("/betting/**").hasRole("USER")
                 .antMatchers("/login").anonymous()
-                .and().formLogin().defaultSuccessUrl("/homepage").loginPage("/login")
+                .and().formLogin().defaultSuccessUrl("/betting/all").loginPage("/login")
                 .and().exceptionHandling().accessDeniedPage("/403")
                 .and().logout().logoutSuccessUrl("/homepage").permitAll();
     }

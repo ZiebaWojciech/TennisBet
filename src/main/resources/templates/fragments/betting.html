@@ -1,14 +1,15 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:include="fragments/header::pageheader">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
-
-<div th:include="fragments/header::navigation"></div>
+<body>
 <!-- Page Content -->
-<div class="container">
+<div th:fragment="ticket-panel" class="container">
 
     <!-- Page Heading/Breadcrumbs -->
     <h1 class="mt-4 mb-3">Sport betting
@@ -74,7 +75,6 @@
                               method="post">
                             <p th:if="${stakeMessage}" th:text="${stakeMessage}"></p>
                             <p th:if="${doubleBet}" th:text="${doubleBet}"></p>
-                            <p th:if="${oddsChanged}"> Odds has changed <a th:href="@{/betting/delete-ticket}"> Start again </a> </p>
                             <p th:if="${notEnoughFunds}">You don't have enough funds <a th:href="@{/user/wallet}">Recharge</a>
                             </p>
                             <input name="stake" type="number" th:step="0.01">
@@ -106,20 +106,5 @@
 
 </div>
 <!-- /.container -->
-<!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
-    </div>
-    <!-- /.container -->
-</footer>
-
-<!-- Bootstrap core JavaScript -->
-<script src="/vendor/jquery/jquery.min.js"></script>
-<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
 </body>
-
 </html>

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pl.coderslab.tennis_bet.sportDataFeed.service.TennisMatchService;
+import pl.coderslab.tennis_bet.betting_site.service.TennisMatchService;
 
 @Controller
 @RequestMapping(path = "/homepage")

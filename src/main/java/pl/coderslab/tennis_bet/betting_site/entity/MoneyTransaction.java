@@ -1,6 +1,8 @@
 package pl.coderslab.tennis_bet.betting_site.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.TransactionType;
 
 import javax.persistence.*;
@@ -8,7 +10,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class MoneyTransaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
