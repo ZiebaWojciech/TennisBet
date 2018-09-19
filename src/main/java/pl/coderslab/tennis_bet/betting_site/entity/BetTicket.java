@@ -38,6 +38,8 @@ public class BetTicket {
 
     private BigDecimal cashOutValue;
 
+    private int uncheckedBetSelectionsCounter;
+
     public void addBetSelection(BetSelection betSelection) {
         this.betSelections.add(betSelection);
     }
@@ -46,4 +48,7 @@ public class BetTicket {
         this.betSelections.remove(betSelection);
     }
 
+    public void decrementUncheckedBetSelectionsCounter() {
+        this.uncheckedBetSelectionsCounter--;
+    }
 }

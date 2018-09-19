@@ -59,21 +59,22 @@ public class BetSelectionServiceImpl implements BetSelectionService {
             if (tennisMatch.getStatus() == EventStatus.CANCELLED) {
                 betSelection.setBetSelectionStatus(BetSelectionStatus.FINISHED);
                 betSelection.setBetSelectionResult(BetSelectionResult.VOID);
+
                 BigDecimal updatedCashOutValue = betTicketService.calculateCashOutValue(betSelection.getBetTicket());
                 betSelection.getBetTicket().setCashOutValue(updatedCashOutValue);
-            } else if (tennisMatch.getStatus() == EventStatus.COMPLETED) {
-                betSelection.setBetSelectionStatus(BetSelectionStatus.FINISHED);
-                resolvingBetSelectionAfterCompletedEvent(betSelection, tennisMatch);
-            }
-            if(betTicketService.isTicketCompleted(betSelection.getBetTicket())){
-                betTicketService.resolveBetTicket(betSelection.getBetTicket());
-            }
-        }
 
+                betSelection.getBetTicket().decrementUncheckedBetSelectionsCounter();
+            } else if (tennisMatch.getStatus() == EventStatus.COMPLETED) {
+                resolvingBetSelectionAfterCompletedEvent(betSelection, tennisMatch);
+                betSelection.getBetTicket().decrementUncheckedBetSelectionsCounter();
+            }
+            betTicketService.save(betSelection.getBetTicket());
+        }
     }
 
     @Override
     public void resolvingBetSelectionAfterCompletedEvent(BetSelection betSelection, TennisMatch tennisMatch) {
+        betSelection.setBetSelectionStatus(BetSelectionStatus.FINISHED);
         for (MarketResults marketResults : tennisMatch.getResult().getMarketResults()) {
             if (marketResults.getBetSelectionType().equals(betSelection.getBetSelectionType())) {
                 betSelection.setBetSelectionResult(BetSelectionResult.WON);

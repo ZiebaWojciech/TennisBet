@@ -50,6 +50,7 @@ public class BetTicketServiceImpl implements BetTicketService {
     public void submitTicket(BigDecimal stake, BetTicket betTicket) {
         betTicket.setStake(stake);
         betTicket.setCashOutValue(calculateCashOutValue(betTicket));
+        betTicket.setUncheckedBetSelectionsCounter(betTicket.getBetSelections().size());
         betTicket.setBetTicketStatus(BetTicketStatus.SUBMITTED);
         betTicket.setBetTicketResult(BetTicketResult.ONGOING);
         betTicket.getBetSelections().forEach(v -> v.setBetSelectionStatus(BetSelectionStatus.SUBMITTED));
