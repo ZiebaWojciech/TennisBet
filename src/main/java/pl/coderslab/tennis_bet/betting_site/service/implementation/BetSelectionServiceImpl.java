@@ -10,6 +10,7 @@ import pl.coderslab.tennis_bet.betting_site.repository.BetSelectionRepository;
 import pl.coderslab.tennis_bet.betting_site.service.BetSelectionService;
 import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
 import pl.coderslab.tennis_bet.betting_site.service.TennisMatchService;
+import pl.coderslab.tennis_bet.sport_events_data.entity.enumUtil.EventStatus;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -45,5 +46,17 @@ public class BetSelectionServiceImpl implements BetSelectionService {
     @Override
     public boolean isBetUniqueForEvent(BetTicket betTicket, TennisMatch tennisMatch) {
         return betTicket.getBetSelections().stream().noneMatch(v -> v.getTennisMatch().getId() == tennisMatch.getId());
+    }
+
+    @Override
+    public void resolveBetAfterEventStatusChange(BetSelection betSelection) {
+        TennisMatch tennisMatch = betSelection.getTennisMatch();
+        if(tennisMatch.getStatus() == EventStatus.CANCELLED){
+            betSelection.setBetSelectionStatus(BetSelectionStatus.VOID);
+        } else if(tennisMatch.getStatus() == EventStatus.COMPLETED){
+            if(tennisMatch.get)
+            betSelection.setBetSelectionStatus(BetSelectionStatus.SUBMITTED);
+
+    }
     }
 }

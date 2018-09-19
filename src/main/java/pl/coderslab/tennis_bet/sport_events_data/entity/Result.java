@@ -14,17 +14,13 @@ import java.util.List;
 public class Result {
     @Id
     private int id;
-
     @OneToMany(cascade = {CascadeType.ALL})
     private List<TennisSet> sets = new ArrayList<>();
+    @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
+    private TennisMatch tennisMatch;
     @ManyToOne
     private Player winner;
     @ManyToOne
     private Player looser;
-    @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
-    private TennisMatch tennisMatch;
-//TODO check if is to delete
-//    private int setsWonByPlayerOne;
-//    private int setsWonByPlayerTwo;
 }
 
