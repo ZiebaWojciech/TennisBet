@@ -1,6 +1,6 @@
 package pl.coderslab.tennis_bet.betting_site.entity.enumUtil;
 
-public enum TicketStatus {
+public enum BetTicketStatus {
     CREATED_NOT_SUBMITTED,
     SUBMITTED,
     ENDED_NOT_CASHED,

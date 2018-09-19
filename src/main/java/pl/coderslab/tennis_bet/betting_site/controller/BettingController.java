@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.tennis_bet.betting_site.entity.BetTicket;
-import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.TicketStatus;
+import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetTicketStatus;
 import pl.coderslab.tennis_bet.betting_site.entity.transitionModel.CurrentUser;
 import pl.coderslab.tennis_bet.betting_site.service.BetSelectionService;
 import pl.coderslab.tennis_bet.betting_site.service.BetTicketService;
@@ -35,7 +35,7 @@ public class BettingController {
             if (ticket == null) {
                 BetTicket betTicket = new BetTicket();
                 betTicket.setUser(currentUser.getUser());
-                betTicket.setTicketStatus(TicketStatus.CREATED_NOT_SUBMITTED);
+                betTicket.setBetTicketStatus(BetTicketStatus.CREATED_NOT_SUBMITTED);
                 request.getSession().setAttribute("ticket", betTicket);
             }
         }

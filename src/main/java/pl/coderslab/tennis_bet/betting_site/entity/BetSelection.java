@@ -2,6 +2,7 @@ package pl.coderslab.tennis_bet.betting_site.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionResult;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionStatus;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionType;
 
@@ -27,6 +28,9 @@ public class BetSelection {
     @NotNull
     @Enumerated(EnumType.STRING)
     private BetSelectionStatus betSelectionStatus;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private BetSelectionResult betSelectionResult;
     @NotNull
     private BigDecimal odd;
 

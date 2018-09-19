@@ -1,15 +1,16 @@
 package pl.coderslab.tennis_bet.betting_site.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennis_bet.betting_site.entity.BetSelection;
 import pl.coderslab.tennis_bet.betting_site.entity.BetTicket;
+import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionResult;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionStatus;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionType;
 import pl.coderslab.tennis_bet.betting_site.repository.BetSelectionRepository;
 import pl.coderslab.tennis_bet.betting_site.service.BetSelectionService;
 import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
+import pl.coderslab.tennis_bet.betting_site.service.BetTicketService;
 import pl.coderslab.tennis_bet.betting_site.service.TennisMatchService;
 import pl.coderslab.tennis_bet.sport_events_data.entity.enumUtil.EventStatus;
 
@@ -23,6 +24,8 @@ public class BetSelectionServiceImpl implements BetSelectionService {
     BetSelectionRepository betSelectionRepository;
     @Autowired
     TennisMatchService tennisMatchService;
+    @Autowired
+    BetTicketService betTicketService;
 
 
     @Override
@@ -55,9 +58,14 @@ public class BetSelectionServiceImpl implements BetSelectionService {
         List<BetSelection> betSelectionsRelatedToTennisMatch = tennisMatch.getBetSelectionsRelatedToMatch();
         for(BetSelection betSelection : betSelectionsRelatedToTennisMatch){
             if (tennisMatch.getStatus() == EventStatus.CANCELLED) {
-                betSelection.setBetSelectionStatus(BetSelectionStatus.VOID);
+                betSelection.setBetSelectionStatus(BetSelectionStatus.FINISHED);
+                betSelection.setBetSelectionResult(BetSelectionResult.VOID);
             } else if (tennisMatch.getStatus() == EventStatus.COMPLETED) {
+                betSelection.setBetSelectionStatus(BetSelectionStatus.FINISHED);
                 resolvingBetSelectionAfterCompletedEvent(betSelection, tennisMatch);
+            }
+            if(betTicketService.isTicketCompleted(betSelection.getBetTicket())){
+                betTicketService.resolveBetTicket(betSelection.getBetTicket());
             }
         }
 
@@ -67,9 +75,9 @@ public class BetSelectionServiceImpl implements BetSelectionService {
     public void resolvingBetSelectionAfterCompletedEvent(BetSelection betSelection, TennisMatch tennisMatch) {
         for (BetSelectionType eventResolvedType : tennisMatch.getResult().getBetSelectionTypes()) {
             if (eventResolvedType.equals(betSelection.getBetSelectionType())) {
-                betSelection.setBetSelectionStatus(BetSelectionStatus.WON);
+                betSelection.setBetSelectionResult(BetSelectionResult.WON);
             } else {
-                betSelection.setBetSelectionStatus(BetSelectionStatus.LOST);
+                betSelection.setBetSelectionResult(BetSelectionResult.LOST);
             }
         }
     }

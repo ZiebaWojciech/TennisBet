@@ -1,5 +1,6 @@
 package pl.coderslab.tennis_bet.betting_site.service;
 
+import pl.coderslab.tennis_bet.betting_site.entity.BetSelection;
 import pl.coderslab.tennis_bet.betting_site.entity.BetTicket;
 
 import java.math.BigDecimal;
@@ -10,4 +11,8 @@ public interface BetTicketService {
 
     boolean submitTicket(BigDecimal stake, BetTicket betTicket);
     BetTicket removeBetSelectionFromTicket(BetTicket betTicket, UUID temporalId);
+
+    boolean isTicketCompleted(BetTicket betTicket);
+
+    void resolveBetTicket(BetTicket betTicket);
 }

@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import pl.coderslab.tennis_bet.betting_site.entity.BetSelection;
 import pl.coderslab.tennis_bet.betting_site.entity.BetTicket;
 import pl.coderslab.tennis_bet.betting_site.entity.Odd;
+import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionResult;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionStatus;
-import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.TicketStatus;
+import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetTicketResult;
+import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetTicketStatus;
 import pl.coderslab.tennis_bet.betting_site.repository.BetTicketRepository;
 import pl.coderslab.tennis_bet.betting_site.service.BetTicketService;
 import pl.coderslab.tennis_bet.betting_site.service.OddsService;
@@ -36,7 +38,7 @@ public class BetTicketServiceImpl implements BetTicketService {
             return false;
         }
         betTicket.setStake(stake);
-        betTicket.setTicketStatus(TicketStatus.SUBMITTED);
+        betTicket.setBetTicketStatus(BetTicketStatus.SUBMITTED);
         betTicket.getBetSelections().forEach(v -> v.setBetSelectionStatus(BetSelectionStatus.SUBMITTED));
         walletService.deductFromBalance(betTicket.getUser().getWallet(), stake);
         save(betTicket);
@@ -63,5 +65,27 @@ public class BetTicketServiceImpl implements BetTicketService {
         BetSelection betSelection = betTicket.getBetSelections().stream().filter(v -> v.getTemporalId().compareTo(temporalId) == 0).findFirst().get();
         betTicket.removeBetSelection(betSelection);
         return betTicket;
+    }
+
+    @Override
+    public boolean isTicketCompleted(BetTicket betTicket) {
+        List<BetSelection> betSelections = betTicket.getBetSelections();
+        return betSelections.stream().filter(v->v.getBetSelectionStatus().equals(BetSelectionStatus.FINISHED)).count() == betSelections.size();
+    }
+
+    @Override
+    public void resolveBetTicket(BetTicket betTicket) {
+        betTicket.setBetTicketStatus(BetTicketStatus.ENDED_NOT_CASHED);
+        List<BetSelection> betSelections = betTicket.getBetSelections();
+        boolean isAnyBetSelecionLost = betSelections.stream().anyMatch(v -> v.getBetSelectionResult().equals(BetSelectionResult.LOST));
+        boolean isAllBetSelecionVoid= betSelections.stream().allMatch(v -> v.getBetSelectionResult().equals(BetSelectionResult.VOID));
+        if(isAnyBetSelecionLost){
+            betTicket.setBetTicketResult(BetTicketResult.LOST);
+        } else if(isAllBetSelecionVoid){
+            betTicket.setBetTicketResult(BetTicketResult.CANCELLED);
+        } else {
+            betTicket.setBetTicketResult(BetTicketResult.WIN);
+        }
+        save(betTicket);
     }
 }

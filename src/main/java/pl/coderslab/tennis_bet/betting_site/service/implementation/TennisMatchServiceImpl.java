@@ -47,7 +47,10 @@ public class TennisMatchServiceImpl implements TennisMatchService {
     @Override
     public boolean isEventStatusChanged(TennisMatch updatedTennisMatch) {
         TennisMatch currentTennisMatch = getOne(updatedTennisMatch.getId());
-        return currentTennisMatch.getStatus().equals(updatedTennisMatch.getStatus());
+        if(currentTennisMatch != null){
+            return currentTennisMatch.getStatus().equals(updatedTennisMatch.getStatus());
+        }
+        return false;
     }
 
 }
