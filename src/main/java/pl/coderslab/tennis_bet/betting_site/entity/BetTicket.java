@@ -2,12 +2,14 @@ package pl.coderslab.tennis_bet.betting_site.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetTicketResult;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetTicketStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,8 @@ public class BetTicket {
     @NotNull
     @ManyToOne
     private User user;
+    @CreationTimestamp
+    private LocalDateTime timeOfCreation;
     @NotNull
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "betTicket")
     private List<BetSelection> betSelections = new ArrayList<>();

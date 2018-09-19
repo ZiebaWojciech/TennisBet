@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pl.coderslab.tennis_bet.betting_site.entity.BetTicket;
 import pl.coderslab.tennis_bet.betting_site.entity.User;
 import pl.coderslab.tennis_bet.betting_site.entity.transitionModel.CurrentUser;
 import pl.coderslab.tennis_bet.betting_site.service.BetTicketService;

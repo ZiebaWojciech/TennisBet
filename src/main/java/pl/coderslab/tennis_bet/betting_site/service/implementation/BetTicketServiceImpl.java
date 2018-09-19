@@ -40,12 +40,14 @@ public class BetTicketServiceImpl implements BetTicketService {
 
     @Override
     public boolean submitTicket(BigDecimal stake, BetTicket betTicket) {
-        if (!hasOddsChanged(betTicket)) {
+        if (hasOddsChanged(betTicket)) {
             return false;
         }
         betTicket.setStake(stake);
         betTicket.setBetTicketStatus(BetTicketStatus.SUBMITTED);
         betTicket.getBetSelections().forEach(v -> v.setBetSelectionStatus(BetSelectionStatus.SUBMITTED));
+//        betTicket.getBetSelections().forEach(v -> v.setBetSelectionStatus(BetSelectionStatus.SUBMITTED));
+        betTicket.setBetTicketResult(BetTicketResult.ONGOING);
         walletService.deductFromBalance(betTicket.getUser().getWallet(), stake);
         save(betTicket);
         return true;

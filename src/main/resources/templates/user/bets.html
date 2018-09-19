@@ -5,56 +5,50 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <div layout:fragment="page-content">
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Your account
+        <small sec:authentication="name"></small>
+    </h1>
+    <!-- Image Header -->
+    <img class="img-fluid rounded mb-4" src="http://placehold.it/1200x300" alt="">
 
     <!-- Page Content -->
     <div class="container">
-
-        <!-- Page Heading/Breadcrumbs -->
-        <h1 class="mt-4 mb-3">Your account
-            <small sec:authentication="name"></small>
-        </h1>
-
-        <!-- Image Header -->
-        <img class="img-fluid rounded mb-4" src="http://placehold.it/1200x300" alt="">
-
-        <!-- Marketing Icons Section -->
-        <div class="row">
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
-                    <h4 class="card-header">Your wallet</h4>
-                    <div class="card-body">
-                        <p class="card-text"> Check your balance, your transfer history, withdraw your winnings and recharge for more fun!</p>
-                        <p class="card-text" th:text="'Your current balance '+${user.wallet.balance} +' PLN'"> </p>
-                    </div>
-                    <div class="card-footer">
-                        <a th:href="@{/user/wallet}" class="btn btn-primary">Go to wallet</a>
-                    </div>
-                </div>
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-table"></i>
+                TRANSACTIONS HISTORY
             </div>
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
-                    <h4 class="card-header">Card Title</h4>
-                    <div class="card-body">
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ipsam eos, nam perspiciatis natus commodi similique totam consectetur praesentium molestiae atque exercitationem ut consequuntur, sed eveniet, magni nostrum sint fuga.</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
-                    <h4 class="card-header">Card Title</h4>
-                    <div class="card-body">
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Learn More</a>
-                    </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Time of creation</th>
+                            <th>Time of event</th>
+                            <th></th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Type of transaction</th>
+                            <th>Value [PLN]</th>
+                            <th>Time</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <tr th:each="transaction, iterStat : ${user.wallet.moneyTransactions}" th:object="${transaction}">
+                            <td th:text="*{transactionType}"></td>
+                            <td th:text="*{value}"></td>
+                            <td th:text="${#temporals.format(transaction.time,'yyyy.MM.dd HH:mm:ss')}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-        <!-- /.row -->
+
 
     </div>
     <!-- /.container -->
