@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennis_bet.betting_site.entity.BetSelection;
 import pl.coderslab.tennis_bet.betting_site.entity.BetTicket;
+import pl.coderslab.tennis_bet.betting_site.entity.MarketResults;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionResult;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionStatus;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionType;
@@ -22,8 +23,6 @@ import java.util.UUID;
 public class BetSelectionServiceImpl implements BetSelectionService {
     @Autowired
     BetSelectionRepository betSelectionRepository;
-    @Autowired
-    TennisMatchService tennisMatchService;
     @Autowired
     BetTicketService betTicketService;
 
@@ -73,8 +72,8 @@ public class BetSelectionServiceImpl implements BetSelectionService {
 
     @Override
     public void resolvingBetSelectionAfterCompletedEvent(BetSelection betSelection, TennisMatch tennisMatch) {
-        for (BetSelectionType eventResolvedType : tennisMatch.getResult().getBetSelectionTypes()) {
-            if (eventResolvedType.equals(betSelection.getBetSelectionType())) {
+        for (MarketResults marketResults : tennisMatch.getResult().getMarketResults()) {
+            if (marketResults.getBetSelectionType().equals(betSelection.getBetSelectionType())) {
                 betSelection.setBetSelectionResult(BetSelectionResult.WON);
             } else {
                 betSelection.setBetSelectionResult(BetSelectionResult.LOST);

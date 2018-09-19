@@ -22,6 +22,10 @@ public class WalletController {
     public void setModelAttributes(@AuthenticationPrincipal CurrentUser currentUser, Model model) {
         model.addAttribute("user", currentUser.getUser());
     }
+    @RequestMapping(path = "", method = RequestMethod.GET)
+    public String  userWallet() {
+        return "user/wallet";
+    }
 
     @RequestMapping(path = "/recharge",method = RequestMethod.GET)
     public String  rechargeInit() {
@@ -47,8 +51,5 @@ public class WalletController {
         }
         return "redirect:/user/wallet";
     }
-    //TODO pay for bet
-
-
 }
 

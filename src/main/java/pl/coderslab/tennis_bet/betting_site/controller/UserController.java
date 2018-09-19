@@ -23,14 +23,6 @@ public class UserController {
         model.addAttribute("user", currentUser.getUser());
     }
 
-    @RequestMapping(path = "/account", method = RequestMethod.GET)
-    public String  userAccount() {
-        return "user/account";
-    }
-    @RequestMapping(path = "/wallet", method = RequestMethod.GET)
-    public String  userWallet() {
-        return "user/wallet";
-    }
     @RequestMapping(path = "/details", method = RequestMethod.GET)
     public String  userDetails() {
         return "user/details";

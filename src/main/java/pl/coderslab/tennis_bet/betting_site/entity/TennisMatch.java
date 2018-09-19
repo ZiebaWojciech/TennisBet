@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.coderslab.tennis_bet.sport_events_data.entity.Player;
-import pl.coderslab.tennis_bet.sport_events_data.entity.Result;
 import pl.coderslab.tennis_bet.sport_events_data.entity.enumUtil.Country;
 import pl.coderslab.tennis_bet.sport_events_data.entity.enumUtil.EventStatus;
 
@@ -36,7 +35,7 @@ public class TennisMatch {
     @Enumerated(EnumType.STRING)
     private EventStatus status;
     @NotNull
-    @OneToOne
+    @OneToOne(mappedBy = "tennisMatch")
     private Result result;
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
@@ -44,7 +43,4 @@ public class TennisMatch {
 
     @OneToMany(mappedBy = "tennisMatch")
     private List<BetSelection> betSelectionsRelatedToMatch = new ArrayList<>();
-
-
-
 }

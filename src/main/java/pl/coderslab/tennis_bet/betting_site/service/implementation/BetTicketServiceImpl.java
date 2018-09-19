@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.coderslab.tennis_bet.betting_site.entity.BetSelection;
 import pl.coderslab.tennis_bet.betting_site.entity.BetTicket;
 import pl.coderslab.tennis_bet.betting_site.entity.Odd;
+import pl.coderslab.tennis_bet.betting_site.entity.User;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionResult;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionStatus;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetTicketResult;
@@ -26,6 +27,11 @@ public class BetTicketServiceImpl implements BetTicketService {
     WalletService walletService;
     @Autowired
     OddsService oddsService;
+
+    @Override
+    public List<BetTicket> getAllByUser(User user) {
+        return betTicketRepository.findAllByUser(user);
+    }
 
     @Override
     public BetTicket save(BetTicket betTicket) {
