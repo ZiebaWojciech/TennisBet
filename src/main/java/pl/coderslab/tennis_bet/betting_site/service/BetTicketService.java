@@ -19,7 +19,7 @@ public interface BetTicketService {
     void removeBetSelectionFromTicket(BetTicket betTicket, UUID temporalId);
     void submitTicket(BigDecimal stake, BetTicket betTicket);
 
-    BigDecimal calculateCashOutValue(BetTicket betTicket);
+    BigDecimal calculateTotalOdd(BetTicket betTicket);
 
     boolean isTicketCompleted(BetTicket betTicket);
 

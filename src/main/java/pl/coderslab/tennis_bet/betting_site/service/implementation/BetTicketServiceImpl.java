@@ -1,7 +1,6 @@
 package pl.coderslab.tennis_bet.betting_site.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennis_bet.betting_site.entity.*;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionResult;
@@ -49,7 +48,7 @@ public class BetTicketServiceImpl implements BetTicketService {
     @Override
     public void submitTicket(BigDecimal stake, BetTicket betTicket) {
         betTicket.setStake(stake);
-        betTicket.setCashOutValue(calculateCashOutValue(betTicket));
+        betTicket.setTotalOdd(calculateTotalOdd(betTicket));
         betTicket.setUncheckedBetSelectionsCounter(betTicket.getBetSelections().size());
         betTicket.setBetTicketStatus(BetTicketStatus.SUBMITTED);
         betTicket.setBetTicketResult(BetTicketResult.ONGOING);
@@ -105,18 +104,18 @@ public class BetTicketServiceImpl implements BetTicketService {
     public void cashOutTicket(BetTicket betTicket, User user) {
         betTicket.setBetTicketStatus(BetTicketStatus.ENDED_AND_CASHED);
         save(betTicket);
-        BigDecimal cashOutValue = calculateCashOutValue(betTicket);
+        BigDecimal cashOutValue = calculateTotalOdd(betTicket).multiply(betTicket.getStake());
         walletService.addToBalance(user.getWallet(),cashOutValue);
     }
 
     @Override
-    public BigDecimal calculateCashOutValue(BetTicket betTicket) {
+    public BigDecimal calculateTotalOdd(BetTicket betTicket) {
         BigDecimal totalOdd = BigDecimal.ONE;
         for(BetSelection betSelection : betTicket.getBetSelections()){
             if(betSelection.getBetSelectionResult() != BetSelectionResult.VOID){
                 totalOdd = totalOdd.multiply(betSelection.getOdd());
             }
         }
-        return totalOdd.multiply(betTicket.getStake());
+        return totalOdd;
     }
 }

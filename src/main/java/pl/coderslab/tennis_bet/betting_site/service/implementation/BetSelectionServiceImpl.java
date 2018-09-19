@@ -12,7 +12,6 @@ import pl.coderslab.tennis_bet.betting_site.repository.BetSelectionRepository;
 import pl.coderslab.tennis_bet.betting_site.service.BetSelectionService;
 import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
 import pl.coderslab.tennis_bet.betting_site.service.BetTicketService;
-import pl.coderslab.tennis_bet.betting_site.service.TennisMatchService;
 import pl.coderslab.tennis_bet.sport_events_data.entity.enumUtil.EventStatus;
 
 import java.math.BigDecimal;
@@ -60,8 +59,8 @@ public class BetSelectionServiceImpl implements BetSelectionService {
                 betSelection.setBetSelectionStatus(BetSelectionStatus.FINISHED);
                 betSelection.setBetSelectionResult(BetSelectionResult.VOID);
 
-                BigDecimal updatedCashOutValue = betTicketService.calculateCashOutValue(betSelection.getBetTicket());
-                betSelection.getBetTicket().setCashOutValue(updatedCashOutValue);
+                BigDecimal updatedTotalOdd = betTicketService.calculateTotalOdd(betSelection.getBetTicket());
+                betSelection.getBetTicket().setTotalOdd(updatedTotalOdd);
 
                 betSelection.getBetTicket().decrementUncheckedBetSelectionsCounter();
             } else if (tennisMatch.getStatus() == EventStatus.COMPLETED) {

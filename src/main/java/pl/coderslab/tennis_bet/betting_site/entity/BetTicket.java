@@ -36,7 +36,7 @@ public class BetTicket {
     @Enumerated(EnumType.STRING)
     private BetTicketResult betTicketResult;
 
-    private BigDecimal cashOutValue;
+    private BigDecimal totalOdd;
 
     private int uncheckedBetSelectionsCounter;
 
