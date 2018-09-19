@@ -2,10 +2,7 @@ package pl.coderslab.tennis_bet.betting_site.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.coderslab.tennis_bet.betting_site.entity.BetSelection;
-import pl.coderslab.tennis_bet.betting_site.entity.BetTicket;
-import pl.coderslab.tennis_bet.betting_site.entity.Odd;
-import pl.coderslab.tennis_bet.betting_site.entity.User;
+import pl.coderslab.tennis_bet.betting_site.entity.*;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionResult;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionStatus;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetTicketResult;
@@ -97,8 +94,24 @@ public class BetTicketServiceImpl implements BetTicketService {
         } else if(isAllBetSelecionVoid){
             betTicket.setBetTicketResult(BetTicketResult.CANCELLED);
         } else {
-            betTicket.setBetTicketResult(BetTicketResult.WIN);
+            betTicket.setBetTicketResult(BetTicketResult.WON);
         }
         save(betTicket);
+    }
+
+    @Override
+    public void cashOutTicket(BetTicket betTicket, User user) {
+        betTicket.setBetTicketStatus(BetTicketStatus.ENDED_AND_CASHED);
+        save(betTicket);
+        BigDecimal cashOutValue = calculateCashOutValue(betTicket);
+        walletService.addToBalance(user.getWallet(),cashOutValue);
+    }
+
+    private BigDecimal calculateCashOutValue(BetTicket betTicket) {
+        BigDecimal totalOdd = BigDecimal.ONE;
+        for(BetSelection betSelection : betTicket.getBetSelections()){
+            totalOdd = totalOdd.multiply(betSelection.getOdd());
+        }
+        return totalOdd.multiply(betTicket.getStake());
     }
 }

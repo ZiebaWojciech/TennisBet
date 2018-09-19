@@ -52,7 +52,8 @@
                                 <td th:text="*{stake}"></td>
                                 <td th:text="*{betTicketStatus}"></td>
                                 <td th:text="*{betTicketResult}"></td>
-                                <td><a th:href="@{/user/bets/details/{ticket_id}(ticket_id=*{id})}">Details</a></td>
+                                <td><a th:href="@{/user/bets/details/{ticket_id}(ticket_id=*{id})}">Details</a>
+                                    <a th:if="${ticket.betTicketStatus.name()=='ENDED_NOT_CASHED'}" th:href="@{/user/bets/cash-out/{ticket_id}(ticket_id=*{id})}">Cash-out</a></td>
                             </tr>
                             </tbody>
                         </table>

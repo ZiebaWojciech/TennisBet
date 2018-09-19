@@ -20,4 +20,6 @@ public interface BetTicketService {
     boolean isTicketCompleted(BetTicket betTicket);
 
     void resolveBetTicket(BetTicket betTicket);
+
+    void cashOutTicket(BetTicket betTicket, User user);
 }
