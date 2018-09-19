@@ -1,4 +1,4 @@
-package pl.coderslab.tennis_bet.betting_site.entity.transitionModel;
+package pl.coderslab.tennis_bet.betting_site.entity.transient_model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.coderslab.tennis_bet.betting_site.entity.BetTicket;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetTicketResult;
-import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetTicketStatus;
-import pl.coderslab.tennis_bet.betting_site.entity.transitionModel.CurrentUser;
+import pl.coderslab.tennis_bet.betting_site.entity.transient_model.CurrentUser;
 import pl.coderslab.tennis_bet.betting_site.service.BetTicketService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping(path = "/user")
@@ -38,7 +39,6 @@ public class AccountController {
     }
     @RequestMapping(path = "/bets/details/{ticketId}", method = RequestMethod.GET)
     public String  userBets(@PathVariable int ticketId, @AuthenticationPrincipal CurrentUser currentUser, Model model) {
-
         model.addAttribute("ticket", betTicketService.getOne(ticketId));
         return "user/ticket-details";
     }
@@ -48,9 +48,22 @@ public class AccountController {
         BetTicket betTicket = betTicketService.getOne(ticketId);
         if(!betTicket.getBetTicketResult().equals(BetTicketResult.WON)){
             model.addAttribute("cannotCashOut", "You are not allowed to cash out this ticket");
-            return "user/ticket-details";
+            return "user/tickets";
         }
         betTicketService.cashOutTicket(betTicket, currentUser.getUser());
+        return "redirect:/user/bets";
+    }
+
+    @RequestMapping(path = "/bets/cash-out/all", method = RequestMethod.GET)
+    public String  allTicketCashOut(@AuthenticationPrincipal CurrentUser currentUser, Model model) {
+        List<BetTicket> betTickets = betTicketService.getAllByUserAndWon(currentUser.getUser());
+        if(betTickets.size() == 0){
+            model.addAttribute("cannotCashOutAll", "You don't have any tickets to cash out");
+            return "user/tickets";
+        }
+        for(BetTicket betTicket : betTickets){
+            betTicketService.cashOutTicket(betTicket, currentUser.getUser());
+        }
         return "redirect:/user/bets";
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.tennis_bet.betting_site.entity.transitionModel.CurrentUser;
+import pl.coderslab.tennis_bet.betting_site.entity.transient_model.CurrentUser;
 import pl.coderslab.tennis_bet.betting_site.service.UserService;
 
 @Controller

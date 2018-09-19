@@ -59,6 +59,8 @@ public class BetSelectionServiceImpl implements BetSelectionService {
             if (tennisMatch.getStatus() == EventStatus.CANCELLED) {
                 betSelection.setBetSelectionStatus(BetSelectionStatus.FINISHED);
                 betSelection.setBetSelectionResult(BetSelectionResult.VOID);
+                BigDecimal updatedCashOutValue = betTicketService.calculateCashOutValue(betSelection.getBetTicket());
+                betSelection.getBetTicket().setCashOutValue(updatedCashOutValue);
             } else if (tennisMatch.getStatus() == EventStatus.COMPLETED) {
                 betSelection.setBetSelectionStatus(BetSelectionStatus.FINISHED);
                 resolvingBetSelectionAfterCompletedEvent(betSelection, tennisMatch);

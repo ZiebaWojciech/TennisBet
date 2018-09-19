@@ -10,12 +10,16 @@ import java.util.UUID;
 
 public interface BetTicketService {
     List<BetTicket> getAllByUser(User user);
+    List<BetTicket> getAllByUserAndWon(User user);
     BetTicket getOne(int id);
 
     BetTicket save(BetTicket betTicket);
 
-    boolean submitTicket(BigDecimal stake, BetTicket betTicket);
-    BetTicket removeBetSelectionFromTicket(BetTicket betTicket, UUID temporalId);
+    boolean hasOddsChanged(BetTicket betTicket);
+    void removeBetSelectionFromTicket(BetTicket betTicket, UUID temporalId);
+    void submitTicket(BigDecimal stake, BetTicket betTicket);
+
+    BigDecimal calculateCashOutValue(BetTicket betTicket);
 
     boolean isTicketCompleted(BetTicket betTicket);
 

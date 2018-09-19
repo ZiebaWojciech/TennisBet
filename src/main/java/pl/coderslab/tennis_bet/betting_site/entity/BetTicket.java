@@ -36,6 +36,8 @@ public class BetTicket {
     @Enumerated(EnumType.STRING)
     private BetTicketResult betTicketResult;
 
+    private BigDecimal cashOutValue;
+
     public void addBetSelection(BetSelection betSelection) {
         this.betSelections.add(betSelection);
     }

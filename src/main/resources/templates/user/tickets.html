@@ -18,7 +18,9 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <i class="fas fa-table"></i>
-                    YOUR BETS
+                    YOUR BETS <a th:href="@{/user/bets/cash-out/all}">Cash-out all</a>
+                    <h3 class="badge-danger" th:if="${cannotCashOut}" th:text="${cannotCashOut}"></h3>
+                    <h3 class="badge-danger" th:if="${cannotCashOutAll}" th:text="${cannotCashOutAll}"></h3>
                 </div>
                 <div class="card-body">
                     <h4 class="card-title" th:if="${tickets.size()==0}">

@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.tennis_bet.betting_site.entity.BetTicket;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetTicketStatus;
-import pl.coderslab.tennis_bet.betting_site.entity.transitionModel.CurrentUser;
+import pl.coderslab.tennis_bet.betting_site.entity.transient_model.CurrentUser;
 import pl.coderslab.tennis_bet.betting_site.service.BetSelectionService;
 import pl.coderslab.tennis_bet.betting_site.service.BetTicketService;
 import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
@@ -71,12 +71,11 @@ public class BettingController {
             model.addAttribute("notEnoughFunds", true);
             return "/betting/all-markets";
         }
-        //TODO refactor to call method that checks if odds has changed
-        if (!betTicketService.submitTicket(stake, betTicket)) {
+        if (betTicketService.hasOddsChanged(betTicket)) {
             model.addAttribute("oddsChanged", true);
             return "/betting/all-markets";
         }
-
+        betTicketService.submitTicket(stake, betTicket);
         request.getSession().removeAttribute("ticket");
         return "redirect:/betting/all";
     }

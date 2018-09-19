@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennis_bet.betting_site.entity.Role;
 import pl.coderslab.tennis_bet.betting_site.entity.User;
-import pl.coderslab.tennis_bet.betting_site.entity.transitionModel.CurrentUser;
+import pl.coderslab.tennis_bet.betting_site.entity.transient_model.CurrentUser;
 import pl.coderslab.tennis_bet.betting_site.service.UserService;
 
 import java.util.HashSet;

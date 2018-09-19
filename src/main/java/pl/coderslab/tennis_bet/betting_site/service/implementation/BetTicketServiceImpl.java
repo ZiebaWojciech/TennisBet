@@ -1,6 +1,7 @@
 package pl.coderslab.tennis_bet.betting_site.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennis_bet.betting_site.entity.*;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionResult;
@@ -31,6 +32,11 @@ public class BetTicketServiceImpl implements BetTicketService {
     }
 
     @Override
+    public List<BetTicket> getAllByUserAndWon(User user) {
+        return betTicketRepository.findAllByUserAndBetTicketResultEquals(user, BetTicketResult.WON);
+    }
+
+    @Override
     public BetTicket getOne(int id) {
         return betTicketRepository.getOne(id);
     }
@@ -41,23 +47,19 @@ public class BetTicketServiceImpl implements BetTicketService {
     }
 
     @Override
-    public boolean submitTicket(BigDecimal stake, BetTicket betTicket) {
-        if (hasOddsChanged(betTicket)) {
-            return false;
-        }
+    public void submitTicket(BigDecimal stake, BetTicket betTicket) {
         betTicket.setStake(stake);
+        betTicket.setCashOutValue(calculateCashOutValue(betTicket));
         betTicket.setBetTicketStatus(BetTicketStatus.SUBMITTED);
+        betTicket.setBetTicketResult(BetTicketResult.ONGOING);
         betTicket.getBetSelections().forEach(v -> v.setBetSelectionStatus(BetSelectionStatus.SUBMITTED));
         betTicket.getBetSelections().forEach(v -> v.setBetSelectionResult(BetSelectionResult.ONGOING));
-        betTicket.setBetTicketResult(BetTicketResult.ONGOING);
         walletService.deductFromBalance(betTicket.getUser().getWallet(), stake);
         save(betTicket);
-        return true;
-
-
     }
 
-    private boolean hasOddsChanged(BetTicket betTicket) {
+    @Override
+    public boolean hasOddsChanged(BetTicket betTicket) {
         for (BetSelection betSelection : betTicket.getBetSelections()) {
             Odd currentOdds = oddsService.getOddsOfEvent(betSelection.getTennisMatch());
             switch (betSelection.getBetSelectionType()) {
@@ -71,24 +73,23 @@ public class BetTicketServiceImpl implements BetTicketService {
     }
 
     @Override
-    public BetTicket removeBetSelectionFromTicket(BetTicket betTicket, UUID temporalId) {
+    public void removeBetSelectionFromTicket(BetTicket betTicket, UUID temporalId) {
         BetSelection betSelection = betTicket.getBetSelections().stream().filter(v -> v.getTemporalId().compareTo(temporalId) == 0).findFirst().get();
         betTicket.removeBetSelection(betSelection);
-        return betTicket;
     }
 
     @Override
     public boolean isTicketCompleted(BetTicket betTicket) {
         List<BetSelection> betSelections = betTicket.getBetSelections();
-        return betSelections.stream().filter(v->v.getBetSelectionStatus().equals(BetSelectionStatus.FINISHED)).count() == betSelections.size();
+        return betSelections.stream().filter(v->v.getBetSelectionStatus() == BetSelectionStatus.FINISHED).count() == betSelections.size();
     }
 
     @Override
     public void resolveBetTicket(BetTicket betTicket) {
         betTicket.setBetTicketStatus(BetTicketStatus.ENDED_NOT_CASHED);
         List<BetSelection> betSelections = betTicket.getBetSelections();
-        boolean isAnyBetSelecionLost = betSelections.stream().anyMatch(v -> v.getBetSelectionResult().equals(BetSelectionResult.LOST));
-        boolean isAllBetSelecionVoid= betSelections.stream().allMatch(v -> v.getBetSelectionResult().equals(BetSelectionResult.VOID));
+        boolean isAnyBetSelecionLost = betSelections.stream().anyMatch(v -> v.getBetSelectionResult() == BetSelectionResult.LOST);
+        boolean isAllBetSelecionVoid= betSelections.stream().allMatch(v -> v.getBetSelectionResult() == BetSelectionResult.VOID);
         if(isAnyBetSelecionLost){
             betTicket.setBetTicketResult(BetTicketResult.LOST);
         } else if(isAllBetSelecionVoid){
@@ -107,10 +108,13 @@ public class BetTicketServiceImpl implements BetTicketService {
         walletService.addToBalance(user.getWallet(),cashOutValue);
     }
 
-    private BigDecimal calculateCashOutValue(BetTicket betTicket) {
+    @Override
+    public BigDecimal calculateCashOutValue(BetTicket betTicket) {
         BigDecimal totalOdd = BigDecimal.ONE;
         for(BetSelection betSelection : betTicket.getBetSelections()){
-            totalOdd = totalOdd.multiply(betSelection.getOdd());
+            if(betSelection.getBetSelectionResult() != BetSelectionResult.VOID){
+                totalOdd = totalOdd.multiply(betSelection.getOdd());
+            }
         }
         return totalOdd.multiply(betTicket.getStake());
     }
