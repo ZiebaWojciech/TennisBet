@@ -20,4 +20,11 @@ public class BetTicket {
     private List<BetSelection> betSelections = new ArrayList<>();
     private BigDecimal stake;
     private TicketStatus ticketStatus;
+
+    public void addBetSelection(BetSelection betSelection){
+        this.betSelections.add(betSelection);
+    }
+    public void removeBetSelection(BetSelection betSelection){
+        this.betSelections.remove(betSelection);
+    }
 }

@@ -20,8 +20,8 @@ public class Result {
     private Player looser;
     @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
     private TennisMatch tennisMatch;
-
-    private int setsWonByPlayerOne;
-    private int setsWonByPlayerTwo;
+//TODO check if is to delete
+//    private int setsWonByPlayerOne;
+//    private int setsWonByPlayerTwo;
 }
 

@@ -3,6 +3,7 @@ package pl.coderslab.tennis_bet.sportDataFeed.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.coderslab.tennis_bet.betting_site.entity.Odd;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.enumUtil.Country;
 import pl.coderslab.tennis_bet.sportDataFeed.entity.enumUtil.EventStatus;
 
@@ -31,7 +32,9 @@ public class TennisMatch {
     @NotNull
     @Enumerated(EnumType.STRING)
     private EventStatus status;
-    //TODO service to refresh odds (schedule) but only before match (status)
-    private BigDecimal playerOneWinningOdd;
-    private BigDecimal playerTwoWinningOdd;
+
+    @NotNull
+    @OneToOne(cascade = CascadeType.ALL)
+    private Odd odds;
+
 }

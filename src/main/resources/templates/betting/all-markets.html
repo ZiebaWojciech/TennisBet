@@ -27,16 +27,17 @@
                             <tr>
                                 <th th:text="*{playerOne.name}+' '+*{playerOne.surname}+' wins'"></th>
                                 <td>
-                                    <form th:action="@{/bet/add-to-ticket}" method="post">
+                                    <form th:action="@{/betting/add-to-ticket/{game_id}(game_id=${upcomingTennisMatch.id})}" method="post">
                                         <!--TODO links to proper tennisMatches -->
-                                        <button name="selection" th:value="*{playerOne.id}" th:text="*{playerOneWinningOdd}" type="submit"></button>
+                                        <input type="hidden" th:value="*{odds.playerOneWinningOdd}" name="odd"/>
+                                        <button name="betSelectionType" th:value="'PlayerOne'" th:text="*{odds.playerOneWinningOdd}" type="submit"></button>
                                     </form>
                                 </td>
                                 <th th:text="*{playerTwo.name}+' '+*{playerTwo.surname}+' wins'"></th>
                                 <td>
-                                    <form th:action="@{/bet/add-to-ticket}" method="post">
-                                        <!--TODO links to proper tennisMatches -->
-                                        <button name="selection" th:value="*{playerOne.id}" th:text="*{playerTwoWinningOdd}" type="submit"></button>
+                                    <form th:action="@{/betting/add-to-ticket/{game_id}(game_id=${upcomingTennisMatch.id})}" method="post">
+                                        <input type="hidden" th:value="*{odds.playerTwoWinningOdd}" name="odd"/>
+                                        <button name="betSelectionType" th:value="'PlayerTwo'" th:text="*{odds.playerTwoWinningOdd}" type="submit"></button>
                                     </form>
                                 </td>
                             </tr>

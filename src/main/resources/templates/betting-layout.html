@@ -109,7 +109,9 @@
                     <a class="nav-link" th:href="@{/login}" th:text="'Login'"></a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <form th:action="@{/logout}" method="post"> <button class="btn btn-dark nav-link " type="submit" value="Logout"> Logout </button> </form>
+                    <form th:action="@{/logout}" method="post">
+                        <button class="btn btn-dark nav-link " type="submit" value="Logout"> Logout</button>
+                    </form>
                 </li>
             </ul>
         </div>
@@ -158,40 +160,27 @@
                 </div>
             </div>
 
-            <!-- Categories Widget -->
-            <div class="card my-4">
-                <h5 class="card-header" th:text="'Your ticket ('+${session.ticket.betSelections.size()}+' bets)'">Your ticket </h5>
+            <!-- BetTicket Widget -->
+            <div class="card my-4" sec:authorize="isAuthenticated()">
+                <h5 class="card-header" th:text="'Your ticket ('+${session.ticket.betSelections.size()}+' bets)'">Your
+                    ticket </h5>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <!--<div class="col-lg-6">-->
                             <ul class="list-unstyled mb-0">
                                 <li th:each="betSelection : ${session.ticket.betSelections}">
-                                    <p th:text="${session.ticket.betSelections}"></p>
-                                    <p th:text=""
-                                    <a href="#">Web Design</a>
-                                </li>
-                                <li>
-                                    <a href="#">HTML</a>
-                                </li>
-                                <li>
-                                    <a href="#">Freebies</a>
+                                    <p th:text="${betSelection.tennisMatch.playerOne.surname}+' vs '+${betSelection.tennisMatch.playerTwo.surname}"></p>
+                                    <p th:text="${betSelection.tennisMatch.playerOne.surname}+' vs '+${betSelection.tennisMatch.playerTwo.surname}"></p>
+                                    <p th:text="'@'+${betSelection.odd}"></p>
                                 </li>
                             </ul>
-                        </div>
-                        <div class="col-lg-6">
-                            <ul class="list-unstyled mb-0">
-                                <li>
-                                    <a href="#">JavaScript</a>
-                                </li>
-                                <li>
-                                    <a href="#">CSS</a>
-                                </li>
-                                <li>
-                                    <a href="#">Tutorials</a>
-                                </li>
-                            </ul>
-                        </div>
+                        <!--</div>-->
                     </div>
+                </div>
+            </div>
+            <div class="card my-4" sec:authorize="!isAuthenticated()">
+                <h5 class="card-header" >Your ticket <a th:href="@{/login}"> (login to start betting) </a></h5>
+                <div class="card-body">
                 </div>
             </div>
 
@@ -199,7 +188,8 @@
             <div class="card my-4">
                 <h5 class="card-header">Side Widget</h5>
                 <div class="card-body">
-                    You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                    You can put anything you want inside of these side widgets. They are easy to use, and feature the
+                    new Bootstrap 4 card containers!
                 </div>
             </div>
 
@@ -226,7 +216,6 @@
 </body>
 
 </html>
-
 
 
 <!-- Footer -->

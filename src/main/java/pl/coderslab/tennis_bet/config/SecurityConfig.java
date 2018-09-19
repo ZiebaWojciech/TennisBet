@@ -18,6 +18,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasRole("USER")
+                .antMatchers("/betting/all").permitAll()
+                .antMatchers("/betting/**").hasRole("USER")
                 .antMatchers("/login").anonymous()
                 .and().formLogin().defaultSuccessUrl("/homepage").loginPage("/login")
                 .and().exceptionHandling().accessDeniedPage("/403")

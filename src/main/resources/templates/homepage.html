@@ -44,48 +44,48 @@
             </a>
         </div>
     </header>
-    <div class="mb-4" id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="card">
-            <div class="card-header" role="tab" id="UpcomingEvents">
-                <h5 class="mb-0" th:text="'Upcoming matches'"> </h5>
-            </div>
-        </div>
-        <div th:each="upcomingTennisMatch, iterStat : ${upcomingTennisMatches}" class="card" th:object="${upcomingTennisMatch}">
-            <div class="card-header" role="tab" th:id="'heading'+${iterStat.count}">
-                <h5 class="mb-0">
-                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
-                       th:href="'#collapse'+${iterStat.count}" aria-expanded="false"
-                       th:aria-controls="'collapse'+${iterStat.count}" th:text="*{playerOne.name}+' '+*{playerOne.surname}+' vs '+*{playerTwo.name}+' '+*{playerTwo.surname}+', starts at '+${#temporals.format(upcomingTennisMatch.timeOfStart,'yyyy.MM.dd HH:mm')}"></a>
-                </h5>
-            </div>
-            <div th:id="'collapse'+${iterStat.count}" class="collapse" role="tabpanel"
-                 th:aria-labelledby="'heading'+${iterStat.count}">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th th:text="*{playerOne.name}+' '+*{playerOne.surname}+' wins'"></th>
-                                <td>
-                                    <form th:action="@{/bet/add-to-ticket}" method="post">
-                                        <!--TODO links to proper tennisMatches -->
-                                        <button name="selection" th:value="*{playerOne.id}" th:text="*{playerOneWinningOdd}" type="submit"></button>
-                                    </form>
-                                </td>
-                                <th th:text="*{playerTwo.name}+' '+*{playerTwo.surname}+' wins'"></th>
-                                <td>
-                                    <form th:action="@{/bet/add-to-ticket}" method="post">
-                                        <!--TODO links to proper tennisMatches -->
-                                        <button name="selection" th:value="*{playerOne.id}" th:text="*{playerTwoWinningOdd}" type="submit"></button>
-                                    </form>
-                                </td>
-                            </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!--<div class="mb-4" id="accordion" role="tablist" aria-multiselectable="true">-->
+        <!--<div class="card">-->
+            <!--<div class="card-header" role="tab" id="UpcomingEvents">-->
+                <!--<h5 class="mb-0" th:text="'Upcoming matches'"> </h5>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div th:each="upcomingTennisMatch, iterStat : ${upcomingTennisMatches}" class="card" th:object="${upcomingTennisMatch}">-->
+            <!--<div class="card-header" role="tab" th:id="'heading'+${iterStat.count}">-->
+                <!--<h5 class="mb-0">-->
+                    <!--<a class="collapsed" data-toggle="collapse" data-parent="#accordion"-->
+                       <!--th:href="'#collapse'+${iterStat.count}" aria-expanded="false"-->
+                       <!--th:aria-controls="'collapse'+${iterStat.count}" th:text="*{playerOne.name}+' '+*{playerOne.surname}+' vs '+*{playerTwo.name}+' '+*{playerTwo.surname}+', starts at '+${#temporals.format(upcomingTennisMatch.timeOfStart,'yyyy.MM.dd HH:mm')}"></a>-->
+                <!--</h5>-->
+            <!--</div>-->
+            <!--<div th:id="'collapse'+${iterStat.count}" class="collapse" role="tabpanel"-->
+                 <!--th:aria-labelledby="'heading'+${iterStat.count}">-->
+                <!--<div class="card-body">-->
+                    <!--<div class="table-responsive">-->
+                        <!--<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">-->
+                            <!--<thead>-->
+                            <!--<tr>-->
+                                <!--<th th:text="*{playerOne.name}+' '+*{playerOne.surname}+' wins'"></th>-->
+                                <!--<td>-->
+                                    <!--<form th:action="@{/bet/add-to-ticket}" method="post">-->
+                                        <!--&lt;!&ndash;TODO links to proper tennisMatches &ndash;&gt;-->
+                                        <!--<button name="selection" th:value="*{playerOne.id}" th:text="*{playerOneWinningOdd}" type="submit"></button>-->
+                                    <!--</form>-->
+                                <!--</td>-->
+                                <!--<th th:text="*{playerTwo.name}+' '+*{playerTwo.surname}+' wins'"></th>-->
+                                <!--<td>-->
+                                    <!--<form th:action="@{/bet/add-to-ticket}" method="post">-->
+                                        <!--&lt;!&ndash;TODO links to proper tennisMatches &ndash;&gt;-->
+                                        <!--<button name="selection" th:value="*{playerOne.id}" th:text="*{playerTwoWinningOdd}" type="submit"></button>-->
+                                    <!--</form>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--</thead>-->
+                        <!--</table>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 </div>
 </html>

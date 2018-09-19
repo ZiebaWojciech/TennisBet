@@ -37,8 +37,8 @@ public class OddsServiceImpl implements OddsService {
         List<TennisMatch> upcomingTennisMatches = tennisMatchService.getUpcomingTennisMatches();
         for(TennisMatch upcomingMatch : upcomingTennisMatches){
             BigDecimal[] odds = prematchOddsCalculate(upcomingMatch);
-            upcomingMatch.setPlayerOneWinningOdd(odds[0]);
-            upcomingMatch.setPlayerTwoWinningOdd(odds[0]);
+            upcomingMatch.getOdds().setPlayerOneWinningOdd(odds[0]);
+            upcomingMatch.getOdds().setPlayerTwoWinningOdd(odds[1]);
             tennisMatchService.save(upcomingMatch);
         }
     }
