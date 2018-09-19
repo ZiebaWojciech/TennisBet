@@ -67,7 +67,7 @@ public class BettingController {
         if (BigDecimal.ZERO.compareTo(stake) >= 0) {
             model.addAttribute("stakeMessage", "You cannot bet nothing or less!");
             return "/betting/all-markets";
-        } else if (currentUser.getUser().getWallet().getBalance().compareTo(stake) <= 0) {
+        } else if (currentUser.getUser().getWallet().getBalance().compareTo(stake) < 0) {
             model.addAttribute("notEnoughFunds", true);
             return "/betting/all-markets";
         }

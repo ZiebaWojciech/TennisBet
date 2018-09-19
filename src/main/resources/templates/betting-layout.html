@@ -72,12 +72,12 @@
                     <div class="row">
                         <form th:if="${session.ticket.betSelections.size()>0}" th:action="@{/betting/submit-ticket}"
                               method="post">
-                            <p th:if="${stakeMessage}" th:text="${stakeMessage}"></p>
-                            <p th:if="${doubleBet}" th:text="${doubleBet}"></p>
-                            <p th:if="${oddsChanged}"> Odds has changed <a th:href="@{/betting/delete-ticket}"> Start again </a> </p>
-                            <p th:if="${notEnoughFunds}">You don't have enough funds <a th:href="@{/user/wallet}">Recharge</a>
+                            <p class="badge-danger" th:if="${stakeMessage}" th:text="${stakeMessage}"></p>
+                            <p class="badge-danger" th:if="${doubleBet}" th:text="${doubleBet}"></p>
+                            <p class="badge-danger" th:if="${oddsChanged}"> Odds has changed <a th:href="@{/betting/delete-ticket}"> Start again </a> </p>
+                            <p class="badge-danger" th:if="${notEnoughFunds}">You don't have enough funds <a th:href="@{/user/wallet}">Recharge</a>
                             </p>
-                            <input name="stake" type="number" th:step="0.01">
+                            <input name="stake" type="number" th:step="0.01" required>
                             <button th:text="'Submit'" type="submit"></button>
                         </form>
                     </div>
