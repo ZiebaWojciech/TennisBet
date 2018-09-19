@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface BetTicketService {
     List<BetTicket> getAllByUser(User user);
-    List<BetTicket> getAllByUserAndWon(User user);
+    List<BetTicket> getAllByUserAndWonAndNotCashed(User user);
     BetTicket getOne(int id);
 
     BetTicket save(BetTicket betTicket);

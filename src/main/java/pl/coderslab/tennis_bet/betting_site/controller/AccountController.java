@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.coderslab.tennis_bet.betting_site.entity.BetTicket;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetTicketResult;
+import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetTicketStatus;
 import pl.coderslab.tennis_bet.betting_site.entity.transient_model.CurrentUser;
 import pl.coderslab.tennis_bet.betting_site.service.BetTicketService;
 
@@ -46,7 +47,7 @@ public class AccountController {
     @RequestMapping(path = "/bets/cash-out/{ticketId}", method = RequestMethod.GET)
     public String  singleTicketCashOut(@PathVariable int ticketId, @AuthenticationPrincipal CurrentUser currentUser, Model model) {
         BetTicket betTicket = betTicketService.getOne(ticketId);
-        if(!betTicket.getBetTicketResult().equals(BetTicketResult.WON)){
+        if(!(betTicket.getBetTicketResult() == BetTicketResult.WON) && !(betTicket.getBetTicketStatus() == BetTicketStatus.ENDED_NOT_CASHED)){
             model.addAttribute("cannotCashOut", "You are not allowed to cash out this ticket");
             return "user/tickets";
         }
@@ -56,7 +57,7 @@ public class AccountController {
 
     @RequestMapping(path = "/bets/cash-out/all", method = RequestMethod.GET)
     public String  allTicketCashOut(@AuthenticationPrincipal CurrentUser currentUser, Model model) {
-        List<BetTicket> betTickets = betTicketService.getAllByUserAndWon(currentUser.getUser());
+        List<BetTicket> betTickets = betTicketService.getAllByUserAndWonAndNotCashed(currentUser.getUser());
         if(betTickets.size() == 0){
             model.addAttribute("cannotCashOutAll", "You don't have any tickets to cash out");
             return "user/tickets";

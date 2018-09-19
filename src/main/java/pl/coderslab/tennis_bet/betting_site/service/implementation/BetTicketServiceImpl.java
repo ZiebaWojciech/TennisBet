@@ -31,8 +31,8 @@ public class BetTicketServiceImpl implements BetTicketService {
     }
 
     @Override
-    public List<BetTicket> getAllByUserAndWon(User user) {
-        return betTicketRepository.findAllByUserAndBetTicketResultEquals(user, BetTicketResult.WON);
+    public List<BetTicket> getAllByUserAndWonAndNotCashed(User user) {
+        return betTicketRepository.findAllByUserAndBetTicketResultEqualsAndBetTicketStatusEquals(user, BetTicketResult.WON, BetTicketStatus.ENDED_NOT_CASHED);
     }
 
     @Override
