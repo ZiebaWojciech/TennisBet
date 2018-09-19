@@ -71,8 +71,8 @@ public class BettingController {
             model.addAttribute("notEnoughFunds", true);
             return "/betting/all-markets";
         }
-
-        if (betTicketService.submitTicket(stake, betTicket)) {
+        //TODO refactor to call method that checks if odds has changed
+        if (!betTicketService.submitTicket(stake, betTicket)) {
             model.addAttribute("oddsChanged", true);
             return "/betting/all-markets";
         }

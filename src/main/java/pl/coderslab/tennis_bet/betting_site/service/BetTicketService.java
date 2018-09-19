@@ -10,6 +10,8 @@ import java.util.UUID;
 
 public interface BetTicketService {
     List<BetTicket> getAllByUser(User user);
+    BetTicket getOne(int id);
+
     BetTicket save(BetTicket betTicket);
 
     boolean submitTicket(BigDecimal stake, BetTicket betTicket);

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{main-layout}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<div layout:fragment="page-content">
+    <div class="container">
+        <!-- Page Heading/Breadcrumbs -->
+        <h1 class="mt-4 mb-3">Your account
+            <small sec:authentication="name"></small>
+        </h1>
+        <!-- Image Header -->
+        <img class="img-fluid rounded mb-4" src="http://placehold.it/1200x300" alt="">
+
+        <!-- Page Content -->
+        <div class="container">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table"></i>
+                    YOUR BETS
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title" th:if="${bets.size()==0}">
+                        You don't have any bets
+                        <a th:href="@{/betting/all}"> start betting now! </a>
+                    </h4>
+                    <div class="table-responsive" th:if="${bets.size()>0}">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Time of creation</th>
+                                <th>Stake</th>
+                                <th>Status</th>
+                                <th>Result</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Time of creation</th>
+                                <th>Stake</th>
+                                <th>Status</th>
+                                <th>Result</th>
+                                <th>Actions</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            <tr th:each="ticket: ${ticket}" th:object="${ticket}">
+                                <td th:text="${#temporals.format(bet.timeOfCreation,'yyyy.MM.dd HH:mm:ss')}"></td>
+                                <td th:text="*{stake}"></td>
+                                <td th:text="*{betTicketStatus}"></td>
+                                <td th:text="*{betTicketResult}"></td>
+                                <td><a th:href="@{user/bets/details/{ticket_id}(ticket_id=*{id})}">Details</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </div>
+</html>

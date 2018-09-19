@@ -34,6 +34,11 @@ public class BetTicketServiceImpl implements BetTicketService {
     }
 
     @Override
+    public BetTicket getOne(int id) {
+        return betTicketRepository.getOne(id);
+    }
+
+    @Override
     public BetTicket save(BetTicket betTicket) {
         return betTicketRepository.save(betTicket);
     }
@@ -46,7 +51,7 @@ public class BetTicketServiceImpl implements BetTicketService {
         betTicket.setStake(stake);
         betTicket.setBetTicketStatus(BetTicketStatus.SUBMITTED);
         betTicket.getBetSelections().forEach(v -> v.setBetSelectionStatus(BetSelectionStatus.SUBMITTED));
-//        betTicket.getBetSelections().forEach(v -> v.setBetSelectionStatus(BetSelectionStatus.SUBMITTED));
+        betTicket.getBetSelections().forEach(v -> v.setBetSelectionResult(BetSelectionResult.ONGOING));
         betTicket.setBetTicketResult(BetTicketResult.ONGOING);
         walletService.deductFromBalance(betTicket.getUser().getWallet(), stake);
         save(betTicket);
