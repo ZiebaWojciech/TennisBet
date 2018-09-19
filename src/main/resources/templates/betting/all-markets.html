@@ -5,46 +5,51 @@
 
 <div layout:fragment="page-content">
 
-    <div class="mb-4" id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="card">
-            <div class="card-header" role="tab" id="UpcomingEvents">
-                <h5 class="mb-0" th:text="'Upcoming matches'"> </h5>
+    <!-- Page Content -->
+    <div class="container">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-table"></i>
+                UPCOMING EVENTS
             </div>
-        </div>
-        <div th:each="upcomingTennisMatch, iterStat : ${upcomingTennisMatches}" class="card" th:object="${upcomingTennisMatch}">
-            <div class="card-header" role="tab" th:id="'heading'+${iterStat.count}">
-                <h5 class="mb-0">
-                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
-                       th:href="'#collapse'+${iterStat.count}" aria-expanded="false"
-                       th:aria-controls="'collapse'+${iterStat.count}" th:text="*{playerOne.name}+' '+*{playerOne.surname}+' vs '+*{playerTwo.name}+' '+*{playerTwo.surname}+', starts at '+${#temporals.format(upcomingTennisMatch.timeOfStart,'yyyy.MM.dd HH:mm')}"></a>
-                </h5>
-            </div>
-            <div th:id="'collapse'+${iterStat.count}" class="collapse" role="tabpanel"
-                 th:aria-labelledby="'heading'+${iterStat.count}">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th th:text="*{playerOne.name}+' '+*{playerOne.surname}+' wins'"></th>
-                                <td>
-                                    <form th:action="@{/betting/add-to-ticket/{game_id}(game_id=${upcomingTennisMatch.id})}" method="post">
-                                        <!--TODO links to proper tennisMatches -->
-                                        <input type="hidden" th:value="*{odds.playerOneWinningOdd}" name="odd"/>
-                                        <button name="betSelectionType" th:value="'PlayerOne'" th:text="*{odds.playerOneWinningOdd}" type="submit"></button>
-                                    </form>
-                                </td>
-                                <th th:text="*{playerTwo.name}+' '+*{playerTwo.surname}+' wins'"></th>
-                                <td>
-                                    <form th:action="@{/betting/add-to-ticket/{game_id}(game_id=${upcomingTennisMatch.id})}" method="post">
-                                        <input type="hidden" th:value="*{odds.playerTwoWinningOdd}" name="odd"/>
-                                        <button name="betSelectionType" th:value="'PlayerTwo'" th:text="*{odds.playerTwoWinningOdd}" type="submit"></button>
-                                    </form>
-                                </td>
-                            </tr>
-                            </thead>
-                        </table>
-                    </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Tennis match</th>
+                            <th>Time of start</th>
+                            <th>Player one wins [1]</th>
+                            <th>Player two wins [2]</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Tennis match</th>
+                            <th>Time of start</th>
+                            <th>Player one wins [1]</th>
+                            <th>Player two wins [2]</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <tr th:each="upcomingTennisMatch, iterStat : ${upcomingTennisMatches}"  th:object="${upcomingTennisMatch}">
+                            <td th:text="*{playerOne.name}+' '+*{playerOne.surname}+' vs '+*{playerTwo.name}+' '+*{playerTwo.surname}"></td>
+                            <td th:text="${#temporals.format(upcomingTennisMatch.timeOfStart,'yyyy.MM.dd HH:mm')}"></td>
+                            <td>
+                                <form th:action="@{/betting/add-to-ticket/{game_id}(game_id=${upcomingTennisMatch.id})}" method="post">
+                                    <input type="hidden" th:value="*{odds.playerOneWinningOdd}" name="odd"/>
+                                    <button name="betSelectionType" th:value="'PlayerOne'" th:text="*{odds.playerOneWinningOdd}" type="submit"></button>
+                                </form>
+                            </td>
+                            <td>
+                                <form th:action="@{/betting/add-to-ticket/{game_id}(game_id=${upcomingTennisMatch.id})}" method="post">
+                                    <input type="hidden" th:value="*{odds.playerTwoWinningOdd}" name="odd"/>
+                                    <button name="betSelectionType" th:value="'PlayerTwo'" th:text="*{odds.playerTwoWinningOdd}" type="submit"></button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

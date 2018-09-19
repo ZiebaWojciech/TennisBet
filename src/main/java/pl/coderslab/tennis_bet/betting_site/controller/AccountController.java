@@ -35,6 +35,7 @@ public class AccountController {
     }
     @RequestMapping(path = "/bets/details/{ticketId}", method = RequestMethod.GET)
     public String  userBets(@PathVariable int ticketId, @AuthenticationPrincipal CurrentUser currentUser, Model model) {
+
         model.addAttribute("ticket", betTicketService.getOne(ticketId));
         return "user/ticket-details";
     }

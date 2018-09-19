@@ -21,11 +21,11 @@
                     YOUR BETS
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title" th:if="${bets.size()==0}">
+                    <h4 class="card-title" th:if="${tickets.size()==0}">
                         You don't have any bets
                         <a th:href="@{/betting/all}"> start betting now! </a>
                     </h4>
-                    <div class="table-responsive" th:if="${bets.size()>0}">
+                    <div class="table-responsive" th:if="${tickets.size()>0}">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                             <tr>
@@ -33,6 +33,8 @@
                                 <th>Stake</th>
                                 <th>Status</th>
                                 <th>Result</th>
+                                <th>Actions</th>
+
                             </tr>
                             </thead>
                             <tfoot>
@@ -45,12 +47,12 @@
                             </tr>
                             </tfoot>
                             <tbody>
-                            <tr th:each="ticket: ${ticket}" th:object="${ticket}">
-                                <td th:text="${#temporals.format(bet.timeOfCreation,'yyyy.MM.dd HH:mm:ss')}"></td>
+                            <tr th:each="ticket: ${tickets}" th:object="${ticket}">
+                                <td th:text="${#temporals.format(ticket.timeOfCreation,'yyyy.MM.dd HH:mm:ss')}"></td>
                                 <td th:text="*{stake}"></td>
                                 <td th:text="*{betTicketStatus}"></td>
                                 <td th:text="*{betTicketResult}"></td>
-                                <td><a th:href="@{user/bets/details/{ticket_id}(ticket_id=*{id})}">Details</a></td>
+                                <td><a th:href="@{/user/bets/details/{ticket_id}(ticket_id=*{id})}">Details</a></td>
                             </tr>
                             </tbody>
                         </table>

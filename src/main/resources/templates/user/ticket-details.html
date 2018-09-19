@@ -7,7 +7,7 @@
 <div layout:fragment="page-content">
     <div class="container">
         <!-- Page Heading/Breadcrumbs -->
-        <h1 class="mt-4 mb-3">Your account
+        <h1 class="mt-4 mb-3">Ticket details
             <small sec:authentication="name"></small>
         </h1>
         <!-- Image Header -->
@@ -18,39 +18,36 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <i class="fas fa-table"></i>
-                    YOUR BETS
+                    TICKET DETAILS
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title" th:if="${bets.size()==0}">
-                        You don't have any bets
-                        <a th:href="@{/betting/all}"> start betting now! </a>
-                    </h4>
-                    <div class="table-responsive" th:if="${bets.size()>0}">
+                    <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                             <tr>
-                                <th>Time of creation</th>
-                                <th>Stake</th>
+                                <th>Tennis match</th>
+                                <th>Selection type</th>
+                                <th>Odd</th>
                                 <th>Status</th>
                                 <th>Result</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th>Time of creation</th>
-                                <th>Stake</th>
+                                <th>Tennis match</th>
+                                <th>Selection type</th>
+                                <th>Odd</th>
                                 <th>Status</th>
                                 <th>Result</th>
-                                <th>Actions</th>
                             </tr>
                             </tfoot>
                             <tbody>
-                            <tr th:each="ticket: ${ticket}" th:object="${ticket}">
-                                <td th:text="${#temporals.format(bet.timeOfCreation,'yyyy.MM.dd HH:mm:ss')}"></td>
-                                <td th:text="*{stake}"></td>
-                                <td th:text="*{betTicketStatus}"></td>
-                                <td th:text="*{betTicketResult}"></td>
-                                <td><a th:href="@{user/bets/details/{ticket_id}(ticket_id=*{id})}">Details</a></td>
+                            <tr th:each="betSelection : ${ticket.betSelections}" th:object="${betSelection}">
+                                <td th:text="*{tennisMatch.playerOne.name} + ' '+ *{tennisMatch.playerOne.surname}+' vs '+ *{tennisMatch.playerTwo.name}+' '+*{tennisMatch.playerTwo.surname}"></td>
+                                <td th:text="*{betSelectionType}"></td>
+                                <td th:text="*{odd}"></td>
+                                <td th:text="*{betSelectionStatus}"></td>
+                                <td th:text="*{betSelectionResult}"></td>
                             </tr>
                             </tbody>
                         </table>
