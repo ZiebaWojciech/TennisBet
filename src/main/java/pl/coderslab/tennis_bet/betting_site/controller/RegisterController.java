@@ -24,13 +24,22 @@ public class RegisterController {
     @RequestMapping(path = "", method = RequestMethod.GET)
     public String  registerUserInit(Model model) {
         model.addAttribute("user", new User());
-        return "/registration/registration-form";
+        return "registration/registration-form";
     }
 
     @RequestMapping(path = "", method = RequestMethod.POST)
-    public String registerUser(@Valid User user, BindingResult result) {
+    public String registerUser(@Valid User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "/registration/registration-form";
+            return "registration/registration-form";
+        }
+        if(userService.getAll().stream().anyMatch(u->u.getUsername().equals(user.getUsername()))){
+            model.addAttribute("takenUsername", "Username taken");
+            return "registration/registration-form";
+
+        }
+        if(userService.getAll().stream().anyMatch(u->u.getEmail().equals(user.getEmail()))){
+            model.addAttribute("takenEmail", "Email taken");
+            return "registration/registration-form";
         }
         userService.saveNewUser(user);
         return "redirect:/homepage";

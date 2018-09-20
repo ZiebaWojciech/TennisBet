@@ -36,19 +36,6 @@
         <!-- Sidebar Widgets Column -->
         <div class="col-md-4">
 
-            <!-- Search Widget -->
-            <div class="card mb-4">
-                <h5 class="card-header">Search</h5>
-                <div class="card-body">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                  <button class="btn btn-secondary" type="button">Go!</button>
-                </span>
-                    </div>
-                </div>
-            </div>
-
             <!-- BetTicket Widget -->
             <div class="card my-4" sec:authorize="isAuthenticated()">
                 <h5 class="card-header" th:text="'Your ticket ('+${session.ticket.betSelections.size()}+' bets)'">Your
@@ -73,13 +60,15 @@
                         <p class="badge-pill badge-info" th:text="'Total odds: '+${session.ticket.totalOdd}"></p>
                         <br/>
 
-                        <form  th:action="@{/betting/submit-ticket}"
+                        <form th:action="@{/betting/submit-ticket}"
                               method="post">
                             <p class="badge-danger" th:if="${stakeMessage}" th:text="${stakeMessage}"></p>
                             <p class="badge-danger" th:if="${matchStarted}" th:text="${matchStarted}"></p>
                             <p class="badge-danger" th:if="${doubleBet}" th:text="${doubleBet}"></p>
-                            <p class="badge-danger" th:if="${oddsChanged}"> Odds has changed <a th:href="@{/betting/delete-ticket}"> Start again </a> </p>
-                            <p class="badge-danger" th:if="${notEnoughFunds}">You don't have enough funds <a th:href="@{/user/wallet}">Recharge</a>
+                            <p class="badge-danger" th:if="${oddsChanged}"> Odds has changed <a
+                                    th:href="@{/betting/delete-ticket}"> Start again </a></p>
+                            <p class="badge-danger" th:if="${notEnoughFunds}">You don't have enough funds <a
+                                    th:href="@{/user/wallet}">Recharge</a>
                             </p>
                             <input name="stake" type="number" th:step="0.01" required>
                             <button th:text="'Submit'" type="submit"></button>
@@ -95,11 +84,19 @@
 
             <!-- Side Widget -->
             <div class="card my-4">
+
                 <h5 class="card-header">Side Widget</h5>
-                <div class="card-body">
-                    You can put anything you want inside of these side widgets. They are easy to use, and feature
-                    the
-                    new Bootstrap 4 card containers!
+                <div>
+                    <div class="card h-100">
+                       <img class="card-img-top" src="/images/logo.png">
+                        <div class="card-body">
+                            <h4 class="card-title">
+
+                            </h4>
+                            <p class="card-text"> </p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

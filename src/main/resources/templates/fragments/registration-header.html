@@ -40,8 +40,6 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <p class="nav-link" th:if="${user}" th:text="'Your balance: '+${user.wallet.balance}+' PLN'">Your account</p>
-                        <!--<p class="nav-link" th:text="'Your balance: '+${user.wallet.balance}+' PLN'">Your account</p>-->
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/betting/all}">Sport betting</a>
