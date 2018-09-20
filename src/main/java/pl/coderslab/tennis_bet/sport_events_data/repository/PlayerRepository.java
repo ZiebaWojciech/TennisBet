@@ -6,4 +6,5 @@ import pl.coderslab.tennis_bet.sport_events_data.entity.Player;
 
 @Repository
 public interface PlayerRepository extends JpaRepository<Player, Integer> {
+
 }

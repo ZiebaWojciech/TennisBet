@@ -1,23 +1,18 @@
-package pl.coderslab.tennis_bet.betting_site.service;
+package pl.coderslab.tennis_bet.sport_events_data.service;
 
 import pl.coderslab.tennis_bet.betting_site.entity.Result;
 import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
 import pl.coderslab.tennis_bet.sport_events_data.dto.ResultDTO;
+import pl.coderslab.tennis_bet.sport_events_data.dto.TennisMatchDTO;
+import pl.coderslab.tennis_bet.sport_events_data.dto.TennisSetDTO;
 import pl.coderslab.tennis_bet.sport_events_data.entity.TennisGame;
 import pl.coderslab.tennis_bet.sport_events_data.entity.TennisSet;
 
 import java.util.List;
 
-public interface ResultService {
-    Result getOne(int id);
 
-    Result getOneByTennisMatch(TennisMatch tennisMatch);
-
-    List<Result> getAll();
-
-    Result save(Result result);
-
-    void delete(Result result);
-
-    void deleteById(int id);
+public interface ResultDTOService {
+    Result convertResultDtoToEntity(ResultDTO resultDTO);
 }
+
+

@@ -10,7 +10,6 @@ import java.time.LocalDate;
 @Setter
 @JsonIgnoreProperties({"id"})
 public class AtpRankingPositionDTO {
-    private long id;
     private PlayerDTO player;
     private LocalDate date;
     private int points;

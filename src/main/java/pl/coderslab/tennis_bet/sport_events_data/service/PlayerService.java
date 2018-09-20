@@ -11,7 +11,7 @@ public interface PlayerService {
 
     Player save(Player player);
 
-    boolean isNewPlayer(PlayerDTO checkedPlayer, List<Player> allPlayers);
+    boolean unknownPlayer(PlayerDTO checkedPlayer, List<Player> allPlayers);
     boolean isSamePlayer(PlayerDTO checkedPlayer, Player player);
     Player playerByPlayerDTO(PlayerDTO checkedPlayer);
     int playerHashCode(Player player);

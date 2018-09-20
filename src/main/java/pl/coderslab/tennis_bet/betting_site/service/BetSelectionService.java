@@ -7,6 +7,7 @@ import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
 import java.math.BigDecimal;
 
 public interface BetSelectionService {
+    BetSelection save(BetSelection betSelection);
     BetTicket addNewBetSelectionToBetTicket(BetTicket betTicket, String betSelectionType, BigDecimal odd, TennisMatch tennisMatch);
     boolean isBetUniqueForEvent(BetTicket betTicket, TennisMatch tennisMatch);
 

@@ -47,7 +47,7 @@ public class AccountController {
     @RequestMapping(path = "/bets/cash-out/{ticketId}", method = RequestMethod.GET)
     public String  singleTicketCashOut(@PathVariable int ticketId, @AuthenticationPrincipal CurrentUser currentUser, Model model) {
         BetTicket betTicket = betTicketService.getOne(ticketId);
-        if(!(betTicket.getBetTicketResult() == BetTicketResult.WON) && !(betTicket.getBetTicketStatus() == BetTicketStatus.ENDED_NOT_CASHED)){
+        if(!(betTicket.getBetTicketResult() == BetTicketResult.WON) || !(betTicket.getBetTicketStatus() == BetTicketStatus.ENDED_NOT_CASHED)){
             model.addAttribute("cannotCashOut", "You are not allowed to cash out this ticket");
             return "user/tickets";
         }

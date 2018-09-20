@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennis_bet.betting_site.entity.BetSelection;
 import pl.coderslab.tennis_bet.betting_site.entity.BetTicket;
-import pl.coderslab.tennis_bet.betting_site.entity.MarketResults;
+import pl.coderslab.tennis_bet.betting_site.entity.MarketResult;
 import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionResult;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionStatus;
@@ -12,9 +12,12 @@ import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionType;
 import pl.coderslab.tennis_bet.betting_site.repository.BetSelectionRepository;
 import pl.coderslab.tennis_bet.betting_site.service.BetSelectionService;
 import pl.coderslab.tennis_bet.betting_site.service.BetTicketService;
+import pl.coderslab.tennis_bet.betting_site.service.MarketResultService;
+import pl.coderslab.tennis_bet.betting_site.service.TennisMatchService;
 import pl.coderslab.tennis_bet.sport_events_data.entity.enumUtil.EventStatus;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,7 +27,13 @@ public class BetSelectionServiceImpl implements BetSelectionService {
     BetSelectionRepository betSelectionRepository;
     @Autowired
     BetTicketService betTicketService;
+    @Autowired
+    MarketResultService marketResultService;
 
+    @Override
+    public BetSelection save(BetSelection betSelection) {
+        return betSelectionRepository.save(betSelection);
+    }
 
     @Override
     public BetTicket addNewBetSelectionToBetTicket(BetTicket betTicket, String betSelectionType, BigDecimal odd, TennisMatch tennisMatch) {
@@ -54,7 +63,7 @@ public class BetSelectionServiceImpl implements BetSelectionService {
     @Override
     public void resolveBetAfterEventStatusChange(TennisMatch tennisMatch) {
         List<BetSelection> betSelectionsRelatedToTennisMatch = tennisMatch.getBetSelectionsRelatedToMatch();
-        for(BetSelection betSelection : betSelectionsRelatedToTennisMatch){
+        for (BetSelection betSelection : betSelectionsRelatedToTennisMatch) {
             if (tennisMatch.getStatus() == EventStatus.CANCELLED) {
                 betSelection.setBetSelectionStatus(BetSelectionStatus.FINISHED);
                 betSelection.setBetSelectionResult(BetSelectionResult.VOID);
@@ -64,22 +73,28 @@ public class BetSelectionServiceImpl implements BetSelectionService {
 
                 betSelection.getBetTicket().decrementUncheckedBetSelectionsCounter();
             } else if (tennisMatch.getStatus() == EventStatus.COMPLETED) {
-                resolvingBetSelectionAfterCompletedEvent(betSelection, tennisMatch);
                 betSelection.getBetTicket().decrementUncheckedBetSelectionsCounter();
+                resolvingBetSelectionAfterCompletedEvent(betSelection, tennisMatch);
             }
             betTicketService.save(betSelection.getBetTicket());
         }
     }
 
+
+
     @Override
     public void resolvingBetSelectionAfterCompletedEvent(BetSelection betSelection, TennisMatch tennisMatch) {
         betSelection.setBetSelectionStatus(BetSelectionStatus.FINISHED);
-        for (MarketResults marketResults : tennisMatch.getResult().getMarketResults()) {
-            if (marketResults.getBetSelectionType().equals(betSelection.getBetSelectionType())) {
+        for (MarketResult marketResult : tennisMatch.getResult().getMarketResults()) {
+            if (marketResult.getBetSelectionType().equals(betSelection.getBetSelectionType())) {
                 betSelection.setBetSelectionResult(BetSelectionResult.WON);
             } else {
                 betSelection.setBetSelectionResult(BetSelectionResult.LOST);
             }
+            if(betTicketService.isTicketCompleted(betSelection.getBetTicket())){
+                betTicketService.resolveBetTicket(betSelection.getBetTicket());
+            }
+            save(betSelection);
         }
     }
 }

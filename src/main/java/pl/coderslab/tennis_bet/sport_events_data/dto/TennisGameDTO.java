@@ -6,8 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TennisGameDTO {
-    private int id;
     private int playerOnePoints;
     private int playerTwoPoints;
-    private PlayerDTO tennisGameWinner;
+//    private PlayerDTO tennisGameWinner;
 }

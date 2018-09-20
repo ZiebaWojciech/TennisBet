@@ -6,9 +6,6 @@ import pl.coderslab.tennis_bet.betting_site.entity.Result;
 import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
 import pl.coderslab.tennis_bet.betting_site.repository.ResultRepository;
 import pl.coderslab.tennis_bet.betting_site.service.ResultService;
-import pl.coderslab.tennis_bet.sport_events_data.entity.TennisGame;
-import pl.coderslab.tennis_bet.sport_events_data.entity.TennisSet;
-import pl.coderslab.tennis_bet.sport_events_data.service.TennisGameService;
 import pl.coderslab.tennis_bet.sport_events_data.service.TennisSetService;
 
 import java.util.List;
@@ -17,22 +14,8 @@ import java.util.List;
 public class ResultServiceImpl implements ResultService {
     private final ResultRepository resultRepository;
 
-    private TennisGameService tennisGameService;
-    private TennisSetService tennisSetService;
-
-    @Autowired
     public ResultServiceImpl(ResultRepository resultRepository) {
         this.resultRepository = resultRepository;
-    }
-
-    @Autowired
-    public void setTennisGameService(TennisGameService tennisGameService) {
-        this.tennisGameService = tennisGameService;
-    }
-
-    @Autowired
-    public void setTennisSetService(TennisSetService tennisSetService) {
-        this.tennisSetService = tennisSetService;
     }
 
     @Override
@@ -41,7 +24,7 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
-    public Result getOneByEvent(TennisMatch tennisMatch) {
+    public Result getOneByTennisMatch(TennisMatch tennisMatch) {
         return resultRepository.getByTennisMatch(tennisMatch);
     }
 
@@ -55,21 +38,14 @@ public class ResultServiceImpl implements ResultService {
         return resultRepository.save(result);
     }
 
-
     @Override
-    public TennisSet getCurrentSet(Result result) {
-        return result.getSets().stream()
-                .filter(TennisSet::isInPlay)
-                .findAny()
-                .orElse(null);
+    public void delete(Result result) {
+        resultRepository.delete(result);
     }
 
     @Override
-    public TennisGame getCurrentGame(Result result) {
-        return getCurrentSet(result).getGames().stream()
-                .filter(TennisGame::isInPlay)
-                .findAny()
-                .orElse(null);
+    public void deleteById(int id) {
+        resultRepository.deleteById(id);
     }
 
 }

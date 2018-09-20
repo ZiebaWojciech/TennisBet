@@ -24,6 +24,7 @@ public class BetSelection {
     @ManyToOne
     private BetTicket betTicket;
     @NotNull
+    @Enumerated(EnumType.STRING)
     private BetSelectionType betSelectionType;
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -34,7 +35,6 @@ public class BetSelection {
     @NotNull
     private BigDecimal odd;
 
-    @NotNull
     @Transient
     private UUID temporalId;
 }

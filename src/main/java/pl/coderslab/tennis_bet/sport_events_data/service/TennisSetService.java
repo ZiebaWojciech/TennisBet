@@ -11,7 +11,4 @@ public interface TennisSetService {
     List<TennisSet> getAll();
 
     TennisSet save(TennisSet tennisSet);
-
-    long countGamesWonByPlayerOne(Result result);
-    long countGamesWonByPlayerTwo(Result result);
 }

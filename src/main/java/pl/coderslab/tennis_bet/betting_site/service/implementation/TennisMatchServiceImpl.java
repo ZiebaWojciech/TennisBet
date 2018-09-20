@@ -2,7 +2,9 @@ package pl.coderslab.tennis_bet.betting_site.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.coderslab.tennis_bet.betting_site.entity.MarketResult;
 import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
+import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionType;
 import pl.coderslab.tennis_bet.betting_site.repository.TennisMatchRepository;
 import pl.coderslab.tennis_bet.betting_site.service.BetSelectionService;
 import pl.coderslab.tennis_bet.betting_site.service.TennisMatchService;
@@ -12,6 +14,7 @@ import pl.coderslab.tennis_bet.sport_events_data.service.PlayerDTOService;
 import pl.coderslab.tennis_bet.sport_events_data.service.PlayerService;
 import pl.coderslab.tennis_bet.sport_events_data.service.TennisMatchDTOService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -50,6 +53,9 @@ public class TennisMatchServiceImpl implements TennisMatchService {
     @Override
     public TennisMatch save(TennisMatch tennisMatch) {
         if (isEventStatusChanged(tennisMatch)) {
+            if(tennisMatch.getStatus() == EventStatus.COMPLETED){
+                tennisMatch = setEventMarketResults(tennisMatch);
+            }
             betSelectionService.resolveBetAfterEventStatusChange(tennisMatch);
         }
         return tennisMatchRepository.save(tennisMatch);
@@ -68,12 +74,26 @@ public class TennisMatchServiceImpl implements TennisMatchService {
     }
 
     @Override
+    public TennisMatch setEventMarketResults(TennisMatch tennisMatch) {
+        List<MarketResult> marketResults = new ArrayList<>();
+        if (tennisMatch.getResult().getWinner().getId() == tennisMatch.getPlayerOne().getId()) {
+            marketResults.add(new MarketResult(BetSelectionType.PLAYER_ONE_WINS, tennisMatch.getResult()));
+        }
+
+        if (tennisMatch.getResult().getWinner().getId() == tennisMatch.getPlayerTwo().getId()) {
+            marketResults.add(new MarketResult(BetSelectionType.PLAYER_TWO_WINS, tennisMatch.getResult()));
+        }
+        tennisMatch.getResult().setMarketResults(marketResults);
+        return tennisMatch;
+    }
+
+    @Override
     public int tennisMatchHashCode(TennisMatch tennisMatch) {
         return Objects.hash(tennisMatch.getCountry(), tennisMatch.getTimeOfStart(), playerService.playerHashCode(tennisMatch.getPlayerOne()), playerService.playerHashCode(tennisMatch.getPlayerTwo()));
     }
 
     @Override
-    public boolean isNewTennisMatch(TennisMatchDTO checkedTennisMatch, List<TennisMatch> tennisMatches) {
+    public boolean unknownTennisMatch(TennisMatchDTO checkedTennisMatch, List<TennisMatch> tennisMatches) {
         return tennisMatches.stream().noneMatch(v -> isSameTennisMatch(checkedTennisMatch, v));
     }
 
@@ -82,6 +102,12 @@ public class TennisMatchServiceImpl implements TennisMatchService {
         return tennisMatchDTOService.tennisMatchDtoHashCode(checkedTennisMatch) == tennisMatchHashCode(tennisMatch);
     }
 
+    @Override
+    public TennisMatch getTennisMatchByTennisMatchDTO(TennisMatchDTO tennisMatchDTO) {
+        List<TennisMatch> allTennisMatches = getAll();
+        return allTennisMatches.stream().filter(v->tennisMatchHashCode(v) == tennisMatchDTOService.tennisMatchDtoHashCode(tennisMatchDTO)).findFirst().get();
+
+    }
 
 
 }

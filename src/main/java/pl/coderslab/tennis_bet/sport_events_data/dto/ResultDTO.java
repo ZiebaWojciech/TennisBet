@@ -1,18 +1,21 @@
 package pl.coderslab.tennis_bet.sport_events_data.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-import pl.coderslab.tennis_bet.betting_site.entity.MarketResults;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
+@JsonIgnoreProperties({"id"})
 public class ResultDTO {
-    private List<TennisSetDTO> sets = new ArrayList<>();
-    private TennisMatchDTO tennisMatch;
+    @JsonProperty("event")
+    private TennisMatchDTO tennisMatchDto;
     private PlayerDTO winner;
     private PlayerDTO looser;
-    private List<MarketResults> marketResults = new ArrayList<>();
+    @JsonProperty("sets")
+    private List<TennisSetDTO> setDtos = new ArrayList<>();
 }

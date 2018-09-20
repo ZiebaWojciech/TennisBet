@@ -6,6 +6,7 @@ import pl.coderslab.tennis_bet.sport_events_data.entity.Player;
 import pl.coderslab.tennis_bet.sport_events_data.entity.TennisSet;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,16 +15,21 @@ import java.util.List;
 @Setter
 public class Result {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @OneToMany(cascade = {CascadeType.ALL})
     private List<TennisSet> sets = new ArrayList<>();
-    @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
+
+    @NotNull
+    @OneToOne
     private TennisMatch tennisMatch;
+
     @ManyToOne
     private Player winner;
     @ManyToOne
     private Player looser;
     @OneToMany(mappedBy = "result", cascade = CascadeType.ALL)
-    private List<MarketResults> marketResults = new ArrayList<>();
+    private List<MarketResult> marketResults = new ArrayList<>();
 }
 

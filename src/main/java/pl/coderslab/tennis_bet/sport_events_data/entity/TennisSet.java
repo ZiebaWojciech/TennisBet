@@ -12,19 +12,20 @@ import java.util.List;
 @Setter
 public class TennisSet {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int sequenceNumber;
+//    private int sequenceNumber;
 
     @OneToMany(cascade = {CascadeType.ALL})
     private List<TennisGame> games = new ArrayList<>();
 
-    private int gamesWonByPlayerOne;
-    private int gamesWonByPlayerTwo;
+//    private int gamesWonByPlayerOne;
+//    private int gamesWonByPlayerTwo;
 
-    private boolean inPlay;
+//    private boolean inPlay;
 
-    @ManyToOne
-    private Player tennisSetWinner;
+//    @ManyToOne
+//    private Player tennisSetWinner;
 
 }

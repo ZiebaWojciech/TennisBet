@@ -38,7 +38,8 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public boolean isNewPlayer(PlayerDTO checkedPlayer, List<Player> allPlayers) {
+    public boolean unknownPlayer(PlayerDTO checkedPlayer, List<Player> allPlayers) {
+//        return
         return allPlayers.stream().noneMatch(v->isSamePlayer(checkedPlayer, v));
     }
 

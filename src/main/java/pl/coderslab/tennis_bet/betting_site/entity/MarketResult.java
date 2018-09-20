@@ -10,14 +10,23 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Getter
 @Setter
-public class MarketResults {
+public class MarketResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull
+    @Enumerated(EnumType.STRING)
     private BetSelectionType betSelectionType;
 
     @NotNull
     @ManyToOne
     private Result result;
+
+    public MarketResult() {
+    }
+
+    public MarketResult(@NotNull BetSelectionType betSelectionType, @NotNull Result result) {
+        this.betSelectionType = betSelectionType;
+        this.result = result;
+    }
 }

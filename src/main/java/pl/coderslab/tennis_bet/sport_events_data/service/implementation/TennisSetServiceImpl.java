@@ -43,17 +43,5 @@ public class TennisSetServiceImpl implements TennisSetService {
     public TennisSet save(TennisSet tennisSet) {
         return tennisSetRepository.save(tennisSet);
     }
-    @Override
-    public long countGamesWonByPlayerOne(Result result) {
-        return resultService.getCurrentSet(result).getGames().stream()
-                .filter(game -> result.getTennisMatch().getPlayerOne().equals(game.getTennisGameWinner()))
-                .count();
-    }
-    @Override
-    public long countGamesWonByPlayerTwo(Result result) {
-        return resultService.getCurrentSet(result).getGames().stream()
-                .filter(game -> result.getTennisMatch().getPlayerTwo().equals(game.getTennisGameWinner()))
-                .count();
-    }
 
 }

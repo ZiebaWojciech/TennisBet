@@ -8,4 +8,5 @@ import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
 @Repository
 public interface ResultRepository extends JpaRepository<Result, Integer> {
     Result getByTennisMatch(TennisMatch tennisMatch);
+    void deleteById(int id);
 }

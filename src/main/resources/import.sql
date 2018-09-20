@@ -226,3 +226,12 @@ INSERT INTO tennis_bet.odd (id, player_one_winning_odd, player_two_winning_odd, 
 INSERT INTO tennis_bet.odd (id, player_one_winning_odd, player_two_winning_odd, tennis_match_id) VALUES (5, 2.89, 1.36, 5);
 
 INSERT INTO tennis_bet.wallet (id, balance, user_id) VALUES (1, 10.00, 1);
+
+INSERT INTO tennis_bet.bet_selection (id, bet_selection_result, bet_selection_status, bet_selection_type, odd, bet_ticket_id, tennis_match_id) VALUES (2, 'ONGOING', 'SUBMITTED', 'PLAYER_ONE_WINS', 4.67, 2, 3);
+INSERT INTO tennis_bet.bet_selection (id, bet_selection_result, bet_selection_status, bet_selection_type, odd, bet_ticket_id, tennis_match_id) VALUES (3, 'ONGOING', 'SUBMITTED', 'PLAYER_ONE_WINS', 1.36, 3, 4);
+INSERT INTO tennis_bet.bet_selection (id, bet_selection_result, bet_selection_status, bet_selection_type, odd, bet_ticket_id, tennis_match_id) VALUES (4, 'ONGOING', 'SUBMITTED', 'PLAYER_ONE_WINS', 4.67, 4, 3);
+INSERT INTO tennis_bet.bet_selection (id, bet_selection_result, bet_selection_status, bet_selection_type, odd, bet_ticket_id, tennis_match_id) VALUES (5, 'ONGOING', 'SUBMITTED', 'PLAYER_ONE_WINS', 2.89, 4, 5);
+
+INSERT INTO tennis_bet.bet_ticket (id, bet_ticket_result, bet_ticket_status, stake, time_of_creation, total_odd, unchecked_bet_selections_counter, user_id) VALUES (2, 'ONGOING', 'SUBMITTED', 1.00, '2018-09-20 19:27:14', 4.67, 1, 1);
+INSERT INTO tennis_bet.bet_ticket (id, bet_ticket_result, bet_ticket_status, stake, time_of_creation, total_odd, unchecked_bet_selections_counter, user_id) VALUES (3, 'ONGOING', 'SUBMITTED', 1.00, '2018-09-20 19:27:22', 1.36, 1, 1);
+INSERT INTO tennis_bet.bet_ticket (id, bet_ticket_result, bet_ticket_status, stake, time_of_creation, total_odd, unchecked_bet_selections_counter, user_id) VALUES (4, 'ONGOING', 'SUBMITTED', 1.00, '2018-09-20 20:07:57', 13.50, 2, 1);

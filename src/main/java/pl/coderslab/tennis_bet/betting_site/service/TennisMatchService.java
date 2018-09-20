@@ -13,9 +13,12 @@ public interface TennisMatchService {
     TennisMatch save(TennisMatch tennisMatch);
 
     boolean isEventStatusChanged(TennisMatch updatedTennisMatch);
+    TennisMatch setEventMarketResults(TennisMatch tennisMatch);
 
     int tennisMatchHashCode(TennisMatch tennisMatch);
-    boolean isNewTennisMatch(TennisMatchDTO tennisMatchDTO, List<TennisMatch> allTennisMatches);
+    boolean unknownTennisMatch(TennisMatchDTO tennisMatchDTO, List<TennisMatch> allTennisMatches);
     boolean isSameTennisMatch(TennisMatchDTO checkedTennisMatch, TennisMatch tennisMatch);
+
+    TennisMatch getTennisMatchByTennisMatchDTO(TennisMatchDTO tennisMatchDTO);
 
 }
