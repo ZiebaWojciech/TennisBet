@@ -6,11 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.tennis_bet.betting_site.entity.BetTicket;
+import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetTicketStatus;
 import pl.coderslab.tennis_bet.betting_site.entity.transient_model.CurrentUser;
 import pl.coderslab.tennis_bet.betting_site.service.BetSelectionService;
 import pl.coderslab.tennis_bet.betting_site.service.BetTicketService;
-import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
 import pl.coderslab.tennis_bet.betting_site.service.TennisMatchService;
 
 import javax.servlet.http.HttpServletRequest;

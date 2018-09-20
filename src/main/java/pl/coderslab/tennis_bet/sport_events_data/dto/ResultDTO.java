@@ -3,10 +3,7 @@ package pl.coderslab.tennis_bet.sport_events_data.dto;
 import lombok.Getter;
 import lombok.Setter;
 import pl.coderslab.tennis_bet.betting_site.entity.MarketResults;
-import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
-import pl.coderslab.tennis_bet.sport_events_data.entity.TennisSet;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

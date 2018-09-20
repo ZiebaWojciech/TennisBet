@@ -1,6 +1,5 @@
 package pl.coderslab.tennis_bet.betting_site.entity;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

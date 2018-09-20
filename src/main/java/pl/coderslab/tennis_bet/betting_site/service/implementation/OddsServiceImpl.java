@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennis_bet.betting_site.entity.Odd;
+import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
 import pl.coderslab.tennis_bet.betting_site.repository.OddsRepository;
 import pl.coderslab.tennis_bet.betting_site.service.OddsService;
+import pl.coderslab.tennis_bet.betting_site.service.TennisMatchService;
 import pl.coderslab.tennis_bet.sport_events_data.entity.AtpRankingPosition;
-import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
 import pl.coderslab.tennis_bet.sport_events_data.entity.Player;
 import pl.coderslab.tennis_bet.sport_events_data.service.AtpRankingPositionService;
-import pl.coderslab.tennis_bet.betting_site.service.TennisMatchService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -78,7 +78,7 @@ public class OddsServiceImpl implements OddsService {
     }
 
     private int getHomePlayFactor(Player player, TennisMatch tennisMatch) {
-        return player.getCountryCode().equals(tennisMatch.getCountry()) ? 1 : 0;
+        return player.getCountry().equals(tennisMatch.getCountry()) ? 1 : 0;
     }
 
     private double getPlayerAge(Player player) {

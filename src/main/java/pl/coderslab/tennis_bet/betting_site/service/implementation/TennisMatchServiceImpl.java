@@ -3,22 +3,33 @@ package pl.coderslab.tennis_bet.betting_site.service.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
-import pl.coderslab.tennis_bet.betting_site.service.BetSelectionService;
-import pl.coderslab.tennis_bet.sport_events_data.entity.enumUtil.EventStatus;
 import pl.coderslab.tennis_bet.betting_site.repository.TennisMatchRepository;
+import pl.coderslab.tennis_bet.betting_site.service.BetSelectionService;
 import pl.coderslab.tennis_bet.betting_site.service.TennisMatchService;
+import pl.coderslab.tennis_bet.sport_events_data.dto.TennisMatchDTO;
+import pl.coderslab.tennis_bet.sport_events_data.entity.enumUtil.EventStatus;
+import pl.coderslab.tennis_bet.sport_events_data.service.PlayerDTOService;
+import pl.coderslab.tennis_bet.sport_events_data.service.PlayerService;
+import pl.coderslab.tennis_bet.sport_events_data.service.TennisMatchDTOService;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TennisMatchServiceImpl implements TennisMatchService {
     private final TennisMatchRepository tennisMatchRepository;
     private final BetSelectionService betSelectionService;
+    private final PlayerService playerService;
+    private final PlayerDTOService playerDTOService;
+    private final TennisMatchDTOService tennisMatchDTOService;
 
     @Autowired
-    public TennisMatchServiceImpl(TennisMatchRepository tennisMatchRepository, BetSelectionService betSelectionService) {
+    public TennisMatchServiceImpl(TennisMatchRepository tennisMatchRepository, BetSelectionService betSelectionService, PlayerService playerService, PlayerDTOService playerDTOService, TennisMatchDTOService tennisMatchDTOService) {
         this.tennisMatchRepository = tennisMatchRepository;
         this.betSelectionService = betSelectionService;
+        this.playerService = playerService;
+        this.playerDTOService = playerDTOService;
+        this.tennisMatchDTOService = tennisMatchDTOService;
     }
 
     @Override
@@ -38,7 +49,7 @@ public class TennisMatchServiceImpl implements TennisMatchService {
 
     @Override
     public TennisMatch save(TennisMatch tennisMatch) {
-        if(isEventStatusChanged(tennisMatch)){
+        if (isEventStatusChanged(tennisMatch)) {
             betSelectionService.resolveBetAfterEventStatusChange(tennisMatch);
         }
         return tennisMatchRepository.save(tennisMatch);
@@ -46,11 +57,31 @@ public class TennisMatchServiceImpl implements TennisMatchService {
 
     @Override
     public boolean isEventStatusChanged(TennisMatch updatedTennisMatch) {
+        if (updatedTennisMatch.getId() == 0) {
+            return false;
+        }
         TennisMatch currentTennisMatch = getOne(updatedTennisMatch.getId());
-        if(currentTennisMatch != null){
+        if (currentTennisMatch != null) {
             return currentTennisMatch.getStatus() == updatedTennisMatch.getStatus();
         }
         return false;
     }
+
+    @Override
+    public int tennisMatchHashCode(TennisMatch tennisMatch) {
+        return Objects.hash(tennisMatch.getCountry(), tennisMatch.getTimeOfStart(), playerService.playerHashCode(tennisMatch.getPlayerOne()), playerService.playerHashCode(tennisMatch.getPlayerTwo()));
+    }
+
+    @Override
+    public boolean isNewTennisMatch(TennisMatchDTO checkedTennisMatch, List<TennisMatch> tennisMatches) {
+        return tennisMatches.stream().noneMatch(v -> isSameTennisMatch(checkedTennisMatch, v));
+    }
+
+    @Override
+    public boolean isSameTennisMatch(TennisMatchDTO checkedTennisMatch, TennisMatch tennisMatch) {
+        return tennisMatchDTOService.tennisMatchDtoHashCode(checkedTennisMatch) == tennisMatchHashCode(tennisMatch);
+    }
+
+
 
 }

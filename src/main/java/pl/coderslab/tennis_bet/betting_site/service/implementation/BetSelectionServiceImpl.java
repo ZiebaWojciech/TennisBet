@@ -5,12 +5,12 @@ import org.springframework.stereotype.Service;
 import pl.coderslab.tennis_bet.betting_site.entity.BetSelection;
 import pl.coderslab.tennis_bet.betting_site.entity.BetTicket;
 import pl.coderslab.tennis_bet.betting_site.entity.MarketResults;
+import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionResult;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionStatus;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionType;
 import pl.coderslab.tennis_bet.betting_site.repository.BetSelectionRepository;
 import pl.coderslab.tennis_bet.betting_site.service.BetSelectionService;
-import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
 import pl.coderslab.tennis_bet.betting_site.service.BetTicketService;
 import pl.coderslab.tennis_bet.sport_events_data.entity.enumUtil.EventStatus;
 

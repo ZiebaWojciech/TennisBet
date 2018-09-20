@@ -12,12 +12,14 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
 public class TennisMatch {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -34,13 +36,13 @@ public class TennisMatch {
     @NotNull
     @Enumerated(EnumType.STRING)
     private EventStatus status;
-    @NotNull
     @OneToOne(mappedBy = "tennisMatch")
     private Result result;
-    @NotNull
+//    @NotNull TODO odds while creating?
     @OneToOne(cascade = CascadeType.ALL)
     private Odd odds;
 
     @OneToMany(mappedBy = "tennisMatch")
     private List<BetSelection> betSelectionsRelatedToMatch = new ArrayList<>();
+
 }

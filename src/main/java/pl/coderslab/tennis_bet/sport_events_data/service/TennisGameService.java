@@ -1,6 +1,6 @@
 package pl.coderslab.tennis_bet.sport_events_data.service;
 
-import pl.coderslab.tennis_bet.sport_events_data.entity.*;
+import pl.coderslab.tennis_bet.sport_events_data.entity.TennisGame;
 
 import java.util.List;
 
