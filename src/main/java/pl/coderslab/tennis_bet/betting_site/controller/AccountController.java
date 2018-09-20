@@ -19,8 +19,12 @@ import java.util.List;
 @Controller
 @RequestMapping(path = "/user")
 public class AccountController {
+    private final BetTicketService betTicketService;
+
     @Autowired
-    BetTicketService betTicketService;
+    public AccountController(BetTicketService betTicketService) {
+        this.betTicketService = betTicketService;
+    }
 
     @ModelAttribute
     public void setModelAttributes(@AuthenticationPrincipal CurrentUser currentUser, Model model) {
@@ -38,6 +42,7 @@ public class AccountController {
     public String  userBets() {
         return "user/tickets";
     }
+
     @RequestMapping(path = "/bets/details/{ticketId}", method = RequestMethod.GET)
     public String  userBets(@PathVariable int ticketId, @AuthenticationPrincipal CurrentUser currentUser, Model model) {
         model.addAttribute("ticket", betTicketService.getOne(ticketId));
@@ -62,9 +67,8 @@ public class AccountController {
             model.addAttribute("cannotCashOutAll", "You don't have any tickets to cash out");
             return "user/tickets";
         }
-        for(BetTicket betTicket : betTickets){
-            betTicketService.cashOutTicket(betTicket, currentUser.getUser());
-        }
+        betTicketService.cashOutAllPossibleTickets(betTickets, currentUser.getUser());
+
         return "redirect:/user/bets";
     }
 }

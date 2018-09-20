@@ -19,7 +19,6 @@ public class Odd {
     @OneToOne
     private TennisMatch tennisMatch;
 
-    //TODO service to refresh odds (schedule) but only before match (status)
     private BigDecimal playerOneWinningOdd;
     private BigDecimal playerTwoWinningOdd;
 

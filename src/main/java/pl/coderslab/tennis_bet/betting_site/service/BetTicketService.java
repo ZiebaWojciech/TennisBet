@@ -25,4 +25,6 @@ public interface BetTicketService {
     void resolveBetTicket(BetTicket betTicket);
 
     void cashOutTicket(BetTicket betTicket, User user);
+
+    void cashOutAllPossibleTickets(List<BetTicket> betTickets, User user);
 }

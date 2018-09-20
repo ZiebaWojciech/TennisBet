@@ -3,22 +3,17 @@ package pl.coderslab.tennis_bet.betting_site.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
-import pl.coderslab.tennis_bet.betting_site.entity.MoneyTransaction;
 import pl.coderslab.tennis_bet.betting_site.entity.User;
 import pl.coderslab.tennis_bet.betting_site.entity.Wallet;
-import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.TransactionType;
 import pl.coderslab.tennis_bet.betting_site.repository.WalletRepository;
 import pl.coderslab.tennis_bet.betting_site.service.implementation.WalletServiceImpl;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

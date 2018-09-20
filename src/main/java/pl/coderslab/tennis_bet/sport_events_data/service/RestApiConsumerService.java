@@ -1,19 +1,14 @@
 package pl.coderslab.tennis_bet.sport_events_data.service;
 
-import lombok.Synchronized;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import pl.coderslab.tennis_bet.betting_site.entity.Odd;
 import pl.coderslab.tennis_bet.betting_site.entity.Result;
 import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
-import pl.coderslab.tennis_bet.betting_site.repository.TennisMatchRepository;
 import pl.coderslab.tennis_bet.betting_site.service.OddsService;
 import pl.coderslab.tennis_bet.betting_site.service.ResultService;
 import pl.coderslab.tennis_bet.betting_site.service.TennisMatchService;
@@ -21,8 +16,6 @@ import pl.coderslab.tennis_bet.sport_events_data.dto.PlayerDTO;
 import pl.coderslab.tennis_bet.sport_events_data.dto.ResultDTO;
 import pl.coderslab.tennis_bet.sport_events_data.dto.TennisMatchDTO;
 import pl.coderslab.tennis_bet.sport_events_data.entity.Player;
-import pl.coderslab.tennis_bet.sport_events_data.repository.PlayerRepository;
-import pl.coderslab.tennis_bet.sport_events_data.service.*;
 
 import java.math.BigDecimal;
 import java.util.List;

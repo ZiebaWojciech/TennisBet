@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Getter
@@ -38,7 +37,6 @@ public class TennisMatch {
     private EventStatus status;
     @OneToOne(mappedBy = "tennisMatch")
     private Result result;
-//    @NotNull TODO odds while creating?
     @OneToOne(cascade = CascadeType.ALL)
     private Odd odds;
 

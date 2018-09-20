@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.coderslab.tennis_bet.betting_site.service.TennisMatchService;
 
 @Controller
-@RequestMapping(path = "/homepage")
 public class HomepageController {
-    @Autowired
-    TennisMatchService tennisMatchService;
+    private final TennisMatchService tennisMatchService;
 
-    @RequestMapping(path = "", method = RequestMethod.GET)
+    @Autowired
+    public HomepageController(TennisMatchService tennisMatchService) {
+        this.tennisMatchService = tennisMatchService;
+    }
+
+    @RequestMapping(path = "/homepage", method = RequestMethod.GET)
     public String homepage(Model model){
         model.addAttribute("upcomingTennisMatches", tennisMatchService.getUpcomingTennisMatches());
         return "homepage";

@@ -111,6 +111,13 @@ public class BetTicketServiceImpl implements BetTicketService {
     }
 
     @Override
+    public void cashOutAllPossibleTickets(List<BetTicket> betTickets, User user) {
+        for(BetTicket betTicket : betTickets){
+            cashOutTicket(betTicket, user);
+        }
+    }
+
+    @Override
     public BigDecimal calculateTotalOdd(BetTicket betTicket) {
         BigDecimal totalOdd = BigDecimal.ONE;
         for(BetSelection betSelection : betTicket.getBetSelections()){

@@ -21,12 +21,16 @@ import java.util.UUID;
 @Controller
 @RequestMapping(path = "/betting")
 public class BettingController {
+    private final TennisMatchService tennisMatchService;
+    private final BetTicketService betTicketService;
+    private final BetSelectionService betSelectionService;
+
     @Autowired
-    TennisMatchService tennisMatchService;
-    @Autowired
-    BetTicketService betTicketService;
-    @Autowired
-    BetSelectionService betSelectionService;
+    public BettingController(TennisMatchService tennisMatchService, BetTicketService betTicketService, BetSelectionService betSelectionService) {
+        this.tennisMatchService = tennisMatchService;
+        this.betTicketService = betTicketService;
+        this.betSelectionService = betSelectionService;
+    }
 
     @ModelAttribute
     public void setEmptyTicketAndUpcomingMatches(@AuthenticationPrincipal CurrentUser currentUser, HttpServletRequest request, Model model) {
@@ -54,9 +58,9 @@ public class BettingController {
         TennisMatch tennisMatch = tennisMatchService.getOne(gameId);
         if (!betSelectionService.isBetUniqueForEvent(betTicket, tennisMatch)) {
             model.addAttribute("doubleBet", "You cannot bet twice on this same event");
-        } else {
-            betTicket = betSelectionService.addNewBetSelectionToBetTicket(betTicket, betSelectionType, odd, tennisMatch);
+            return "betting/all-markets";
         }
+        betTicket = betSelectionService.addNewBetSelectionToBetTicket(betTicket, betSelectionType, odd, tennisMatch);
         betTicket.setTotalOdd(betTicketService.calculateTotalOdd(betTicket));
         request.getSession().setAttribute("ticket", betTicket);
         return "betting/all-markets";
@@ -78,7 +82,7 @@ public class BettingController {
             return "/betting/all-markets";
         }
         for (BetSelection betSelection : betTicket.getBetSelections()) {
-            if (tennisMatchService.hasEventStarted(betSelection.getTennisMatch())){
+            if (tennisMatchService.hasEventStarted(betSelection.getTennisMatch())) {
                 model.addAttribute("matchStarted", "Match has already started");
                 return "/betting/all-markets";
             }

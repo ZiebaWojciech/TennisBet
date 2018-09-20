@@ -42,7 +42,7 @@ public class RegisterController {
             return "registration/registration-form";
         }
         userService.saveNewUser(user);
-        return "redirect:/homepage";
+        return "redirect:/login";
     }
 }
 
