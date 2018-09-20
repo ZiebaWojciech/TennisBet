@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+import pl.coderslab.tennis_bet.betting_site.entity.Odd;
 import pl.coderslab.tennis_bet.betting_site.entity.Result;
 import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
 import pl.coderslab.tennis_bet.betting_site.repository.TennisMatchRepository;
@@ -20,6 +21,7 @@ import pl.coderslab.tennis_bet.sport_events_data.entity.Player;
 import pl.coderslab.tennis_bet.sport_events_data.repository.PlayerRepository;
 import pl.coderslab.tennis_bet.sport_events_data.service.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -124,6 +126,8 @@ public class RestApiConsumerService {
         } else {
             newTennisMatch.setPlayerTwo(playerService.playerByPlayerDTO(tennisMatchDTO.getPlayerTwoDto()));
         }
+        BigDecimal[] odds = oddsService.prematchOddsCalculate(newTennisMatch);
+        newTennisMatch.setOdds(new Odd(newTennisMatch, odds[0], odds[1]));
         tennisMatchService.save(newTennisMatch);
         System.out.println("new event saved");
     }

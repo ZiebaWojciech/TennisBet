@@ -198,14 +198,8 @@ INSERT INTO tennis_bet.player (id, birthday, country, name, surname) VALUES (8, 
 INSERT INTO tennis_bet.player (id, birthday, country, name, surname) VALUES (9, '1990-11-13', 'POL', 'Jerzy', 'Janowicz');
 INSERT INTO tennis_bet.player (id, birthday, country, name, surname) VALUES (10, '1997-08-07', 'POL', 'Michał', 'Dembek');
 
-INSERT INTO tennis_bet.tennis_match (id, country, status, time_of_start, odds_id, player_one_id, player_two_id) VALUES (1, 'ESP', 'SCHEDULED', '2018-09-16 20:00:00',1,  2, 3);
-INSERT INTO tennis_bet.tennis_match (id, country, status, time_of_start, odds_id, player_one_id, player_two_id) VALUES (2, 'ESP', 'SCHEDULED', '2018-09-16 20:00:00',2,  1, 5);
-INSERT INTO tennis_bet.tennis_match (id, country, status, time_of_start, odds_id, player_one_id, player_two_id) VALUES (3, 'ESP', 'SCHEDULED', '2018-09-16 10:10:00',3,  2, 1);
-INSERT INTO tennis_bet.tennis_match (id, country, status, time_of_start, odds_id, player_one_id, player_two_id) VALUES (4, 'ESP', 'SCHEDULED', '2018-09-16 10:01:00',4,  1, 2);
-INSERT INTO tennis_bet.tennis_match (id, country, status, time_of_start, odds_id, player_one_id, player_two_id) VALUES (5, 'GBR', 'SCHEDULED', '2019-09-16 10:01:00',5,  2, 4);
 INSERT INTO tennis_bet.role (id, name) VALUES (1, 'ROLE_USER');
 INSERT INTO tennis_bet.role (id, name) VALUES (2, 'ROLE_ADMIN');
-
 
 INSERT INTO tennis_bet.user_roles (user_id, roles_id) VALUES (1, 1);
 INSERT INTO tennis_bet.user_roles (user_id, roles_id) VALUES (2, 1);
@@ -214,24 +208,4 @@ INSERT INTO tennis_bet.user_roles (user_id, roles_id) VALUES (2, 2);
 INSERT INTO tennis_bet.user (id, active, email, name, password, surname, username) VALUES (1, true, 'example@example.com', 'John', '$2a$10$JmgyEisjCcKwi5vu7iTS6eXetb/l8LiKki9p0diSH/oZhxjy2VwkK', 'Doe', 'example_user');
 INSERT INTO tennis_bet.user (id, active, email, name, password, surname, username) VALUES (2, true, 'admin@mail.com', 'Admin', '$2a$10$ejoqOAg.lci9PO8zZHUf5O0k3YHrCdYMpXWNDQ4xVG4xebNFt9ai2', 'Smith', 'example_admin');
 
-INSERT INTO tennis_bet.money_transaction (id, time, transaction_type, value, wallet_id) VALUES (1, '2018-09-17 22:03:32', 'RECHARGE', 10.00, 1);
-INSERT INTO tennis_bet.money_transaction (id, time, transaction_type, value, wallet_id) VALUES (2, '2018-09-17 22:03:32', 'RECHARGE', 10.00, 1);
-INSERT INTO tennis_bet.money_transaction (id, time, transaction_type, value, wallet_id) VALUES (3, '2018-09-17 22:03:32', 'RECHARGE', 10.00, 1);
-INSERT INTO tennis_bet.money_transaction (id, time, transaction_type, value, wallet_id) VALUES (4, '2018-09-17 22:03:32', 'RECHARGE', 10.00, 1);
-
-INSERT INTO tennis_bet.odd (id, player_one_winning_odd, player_two_winning_odd, tennis_match_id) VALUES (1, 3.25, 1.29, 1);
-INSERT INTO tennis_bet.odd (id, player_one_winning_odd, player_two_winning_odd, tennis_match_id) VALUES (2, 3.25, 1.29, 2);
-INSERT INTO tennis_bet.odd (id, player_one_winning_odd, player_two_winning_odd, tennis_match_id) VALUES (3, 4.67, 1.16, 3);
-INSERT INTO tennis_bet.odd (id, player_one_winning_odd, player_two_winning_odd, tennis_match_id) VALUES (4, 1.36, 2.88, 4);
-INSERT INTO tennis_bet.odd (id, player_one_winning_odd, player_two_winning_odd, tennis_match_id) VALUES (5, 2.89, 1.36, 5);
-
 INSERT INTO tennis_bet.wallet (id, balance, user_id) VALUES (1, 10.00, 1);
-
-INSERT INTO tennis_bet.bet_selection (id, bet_selection_result, bet_selection_status, bet_selection_type, odd, bet_ticket_id, tennis_match_id) VALUES (2, 'ONGOING', 'SUBMITTED', 'PLAYER_ONE_WINS', 4.67, 2, 3);
-INSERT INTO tennis_bet.bet_selection (id, bet_selection_result, bet_selection_status, bet_selection_type, odd, bet_ticket_id, tennis_match_id) VALUES (3, 'ONGOING', 'SUBMITTED', 'PLAYER_ONE_WINS', 1.36, 3, 4);
-INSERT INTO tennis_bet.bet_selection (id, bet_selection_result, bet_selection_status, bet_selection_type, odd, bet_ticket_id, tennis_match_id) VALUES (4, 'ONGOING', 'SUBMITTED', 'PLAYER_ONE_WINS', 4.67, 4, 3);
-INSERT INTO tennis_bet.bet_selection (id, bet_selection_result, bet_selection_status, bet_selection_type, odd, bet_ticket_id, tennis_match_id) VALUES (5, 'ONGOING', 'SUBMITTED', 'PLAYER_ONE_WINS', 2.89, 4, 5);
-
-INSERT INTO tennis_bet.bet_ticket (id, bet_ticket_result, bet_ticket_status, stake, time_of_creation, total_odd, unchecked_bet_selections_counter, user_id) VALUES (2, 'ONGOING', 'SUBMITTED', 1.00, '2018-09-20 19:27:14', 4.67, 1, 1);
-INSERT INTO tennis_bet.bet_ticket (id, bet_ticket_result, bet_ticket_status, stake, time_of_creation, total_odd, unchecked_bet_selections_counter, user_id) VALUES (3, 'ONGOING', 'SUBMITTED', 1.00, '2018-09-20 19:27:22', 1.36, 1, 1);
-INSERT INTO tennis_bet.bet_ticket (id, bet_ticket_result, bet_ticket_status, stake, time_of_creation, total_odd, unchecked_bet_selections_counter, user_id) VALUES (4, 'ONGOING', 'SUBMITTED', 1.00, '2018-09-20 20:07:57', 13.50, 2, 1);

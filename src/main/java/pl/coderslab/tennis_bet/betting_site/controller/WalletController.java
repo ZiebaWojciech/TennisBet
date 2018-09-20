@@ -37,7 +37,7 @@ public class WalletController {
 
     @RequestMapping(path = "/recharge", method = RequestMethod.POST)
     public String  recharge(@AuthenticationPrincipal CurrentUser currentUser, @RequestParam("rechargeAmount") BigDecimal amount) {
-        walletService.addToBalance(currentUser.getUser().getWallet(), amount);
+        walletService.rechargeFunds(currentUser.getUser(), amount);
         return "redirect:/user/wallet";
     }
 
@@ -48,7 +48,7 @@ public class WalletController {
 
     @RequestMapping(path = "/withdraw", method = RequestMethod.POST)
     public String  withdraw(@AuthenticationPrincipal CurrentUser currentUser, @RequestParam("deductionAmount") BigDecimal amount, Model model) {
-        if(!walletService.deductFromBalance(currentUser.getUser().getWallet(), amount)){
+        if(!walletService.withdraw(currentUser.getUser(), amount)){
             model.addAttribute("deductionSuccess", "Problem occurred. You probably don't have enough funds.");
             return "user/withdraw-form";
         }

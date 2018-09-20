@@ -73,6 +73,7 @@
                         <form th:if="${session.ticket.betSelections.size()>0}" th:action="@{/betting/submit-ticket}"
                               method="post">
                             <p class="badge-danger" th:if="${stakeMessage}" th:text="${stakeMessage}"></p>
+                            <p class="badge-danger" th:if="${matchStarted}" th:text="${matchStarted}"></p>
                             <p class="badge-danger" th:if="${doubleBet}" th:text="${doubleBet}"></p>
                             <p class="badge-danger" th:if="${oddsChanged}"> Odds has changed <a th:href="@{/betting/delete-ticket}"> Start again </a> </p>
                             <p class="badge-danger" th:if="${notEnoughFunds}">You don't have enough funds <a th:href="@{/user/wallet}">Recharge</a>

@@ -57,7 +57,7 @@ public class BetTicketServiceImpl implements BetTicketService {
         betTicket.setBetTicketResult(BetTicketResult.ONGOING);
         betTicket.getBetSelections().forEach(v -> v.setBetSelectionStatus(BetSelectionStatus.SUBMITTED));
         betTicket.getBetSelections().forEach(v -> v.setBetSelectionResult(BetSelectionResult.ONGOING));
-        walletService.deductFromBalance(betTicket.getUser().getWallet(), stake);
+        walletService.payForTicket(betTicket.getUser(), stake);
         save(betTicket);
     }
 
@@ -107,7 +107,7 @@ public class BetTicketServiceImpl implements BetTicketService {
         betTicket.setBetTicketStatus(BetTicketStatus.ENDED_AND_CASHED);
         save(betTicket);
         BigDecimal cashOutValue = calculateTotalOdd(betTicket).multiply(betTicket.getStake());
-        walletService.addToBalance(user.getWallet(),cashOutValue);
+        walletService.cashOutTicket(user,cashOutValue);
     }
 
     @Override

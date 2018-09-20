@@ -26,9 +26,10 @@ public class MoneyTransaction {
     }
 
 
-    public MoneyTransaction(TransactionType transactionType, LocalDateTime time, BigDecimal value) {
+    public MoneyTransaction(TransactionType transactionType, LocalDateTime time, BigDecimal value, Wallet wallet) {
         this.transactionType = transactionType;
         this.time = time;
         this.value = value;
+        this.wallet = wallet;
     }
 }

@@ -14,6 +14,7 @@ import pl.coderslab.tennis_bet.sport_events_data.service.PlayerDTOService;
 import pl.coderslab.tennis_bet.sport_events_data.service.PlayerService;
 import pl.coderslab.tennis_bet.sport_events_data.service.TennisMatchDTOService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -107,6 +108,11 @@ public class TennisMatchServiceImpl implements TennisMatchService {
         List<TennisMatch> allTennisMatches = getAll();
         return allTennisMatches.stream().filter(v->tennisMatchHashCode(v) == tennisMatchDTOService.tennisMatchDtoHashCode(tennisMatchDTO)).findFirst().get();
 
+    }
+
+    @Override
+    public boolean hasEventStarted(TennisMatch tennisMatch) {
+        return tennisMatch.getTimeOfStart().compareTo(LocalDateTime.now()) <0;
     }
 
 

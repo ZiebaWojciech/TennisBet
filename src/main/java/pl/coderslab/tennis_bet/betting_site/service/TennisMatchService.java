@@ -21,4 +21,5 @@ public interface TennisMatchService {
 
     TennisMatch getTennisMatchByTennisMatchDTO(TennisMatchDTO tennisMatchDTO);
 
+    boolean hasEventStarted(TennisMatch tennisMatch);
 }

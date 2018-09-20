@@ -32,31 +32,71 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    public void addToBalance(Wallet wallet, BigDecimal amount) {
+    public Wallet save(Wallet wallet) {
+        return walletRepository.save(wallet);
+    }
+
+    @Override
+    public void rechargeFunds(User user, BigDecimal amount) {
+        Wallet wallet = user.getWallet();
+        wallet = addToBalance(wallet, amount);
+        wallet.addMoneyTransaction(new MoneyTransaction(TransactionType.RECHARGE, LocalDateTime.now(), amount, wallet));
+        user.setWallet(save(wallet));
+    }
+
+    @Override
+    public void cashOutTicket(User user, BigDecimal amount) {
+        Wallet wallet = user.getWallet();
+        wallet = addToBalance(wallet, amount);
+        wallet.addMoneyTransaction(new MoneyTransaction(TransactionType.CASH_OUT, LocalDateTime.now(), amount, wallet));
+        user.setWallet(save(wallet));
+    }
+
+    @Override
+    public Wallet addToBalance(Wallet wallet, BigDecimal amount) {
         synchronized (wallet) {
             amount = amount.setScale(2, BigDecimal.ROUND_HALF_UP);
             wallet.setBalance(wallet.getBalance().add(amount));
-            wallet.addMoneyTransaction(new MoneyTransaction(TransactionType.RECHARGE,LocalDateTime.now(), amount));
-            walletRepository.save(wallet);
+            return save(wallet);
         }
 
     }
 
     @Override
-    public boolean deductFromBalance(Wallet wallet, BigDecimal amount) {
+    public boolean payForTicket(User user, BigDecimal amount) {
+        Wallet wallet = user.getWallet();
+        wallet = deductFromBalance(wallet, amount);
+        if (wallet == null) {
+            return false;
+        }
+        wallet.addMoneyTransaction(new MoneyTransaction(TransactionType.PAY_FOR_TICKET, LocalDateTime.now(), amount, wallet));
+        user.setWallet(save(wallet));
+        return true;
+    }
+
+    @Override
+    public boolean withdraw(User user, BigDecimal amount) {
+        Wallet wallet = user.getWallet();
+        wallet = deductFromBalance(wallet, amount);
+        if (wallet == null) {
+            return false;
+        }
+        wallet.addMoneyTransaction(new MoneyTransaction(TransactionType.WITHDRAWAL, LocalDateTime.now(), amount, wallet));
+        user.setWallet(save(wallet));
+        return true;
+    }
+
+    @Override
+    public Wallet deductFromBalance(Wallet wallet, BigDecimal amount) {
         synchronized (wallet) {
             BigDecimal balance = wallet.getBalance();
             amount = amount.setScale(2, BigDecimal.ROUND_HALF_UP);
-            if(balance.subtract(amount).compareTo(BigDecimal.ZERO) >= 0){
+            if (balance.subtract(amount).compareTo(BigDecimal.ZERO) >= 0) {
                 balance = balance.subtract(amount);
                 wallet.setBalance(balance);
-                wallet.addMoneyTransaction(new MoneyTransaction(TransactionType.WITHDRAW, LocalDateTime.now(), amount));
-                walletRepository.save(wallet);
-                return true;
-            } else {
-                return false;
+                return save(wallet);
             }
-
         }
+        return null;
     }
 }

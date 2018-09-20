@@ -5,6 +5,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.tennis_bet.betting_site.entity.BetSelection;
 import pl.coderslab.tennis_bet.betting_site.entity.BetTicket;
 import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetTicketStatus;
@@ -74,6 +75,12 @@ public class BettingController {
         if (betTicketService.hasOddsChanged(betTicket)) {
             model.addAttribute("oddsChanged", true);
             return "/betting/all-markets";
+        }
+        for (BetSelection betSelection : betTicket.getBetSelections()) {
+            if (tennisMatchService.hasEventStarted(betSelection.getTennisMatch())){
+                model.addAttribute("matchStarted", "Match has already started");
+                return "/betting/all-markets";
+            }
         }
         betTicketService.submitTicket(stake, betTicket);
         request.getSession().removeAttribute("ticket");

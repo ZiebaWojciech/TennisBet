@@ -8,8 +8,15 @@ import java.math.BigDecimal;
 public interface WalletService {
     Wallet getOne(int id);
     Wallet getByUser(User user);
+    Wallet save(Wallet wallet);
 
-    void addToBalance(Wallet wallet, BigDecimal ammount);
-    boolean deductFromBalance(Wallet wallet, BigDecimal ammount);
+    void rechargeFunds(User user, BigDecimal amount);
+    void cashOutTicket(User user, BigDecimal amount);
+    Wallet addToBalance(Wallet wallet, BigDecimal amount);
+
+    boolean payForTicket(User user, BigDecimal amount);
+    boolean withdraw(User user, BigDecimal amount);
+
+    Wallet deductFromBalance(Wallet wallet, BigDecimal amount);
 
 }
