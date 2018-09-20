@@ -24,11 +24,6 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
-    public Result getOneByTennisMatch(TennisMatch tennisMatch) {
-        return resultRepository.getByTennisMatch(tennisMatch);
-    }
-
-    @Override
     public List<Result> getAll() {
         return resultRepository.findAll();
     }

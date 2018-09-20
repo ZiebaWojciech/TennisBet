@@ -11,8 +11,6 @@ import java.util.List;
 public interface ResultService {
     Result getOne(int id);
 
-    Result getOneByTennisMatch(TennisMatch tennisMatch);
-
     List<Result> getAll();
 
     Result save(Result result);
