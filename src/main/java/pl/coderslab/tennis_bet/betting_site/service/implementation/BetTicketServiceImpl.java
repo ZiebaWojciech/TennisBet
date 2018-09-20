@@ -22,16 +22,21 @@ import java.util.UUID;
 @Service
 public class BetTicketServiceImpl implements BetTicketService {
     private final BetTicketRepository betTicketRepository;
-    private final WalletService walletService;
-    private final OddsService oddsService;
+    private WalletService walletService;
+    private OddsService oddsService;
 
     @Autowired
-    public BetTicketServiceImpl(BetTicketRepository betTicketRepository, WalletService walletService, OddsService oddsService) {
+    public BetTicketServiceImpl(BetTicketRepository betTicketRepository) {
         this.betTicketRepository = betTicketRepository;
-        this.walletService = walletService;
+    }
+    @Autowired
+    public void setOddsService(OddsService oddsService) {
         this.oddsService = oddsService;
     }
-
+    @Autowired
+    public void setWalletService(WalletService walletService) {
+        this.walletService = walletService;
+    }
     @Override
     public List<BetTicket> getAllByUser(User user) {
         return betTicketRepository.findAllByUser(user);
@@ -132,4 +137,6 @@ public class BetTicketServiceImpl implements BetTicketService {
 
         return totalOdd.setScale(2,BigDecimal.ROUND_HALF_UP);
     }
+
+
 }

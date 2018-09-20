@@ -1,23 +1,16 @@
 package pl.coderslab.tennis_bet.sport_events_data.service.implementation;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.coderslab.tennis_bet.betting_site.entity.TennisGame;
 import pl.coderslab.tennis_bet.sport_events_data.dto.TennisGameDTO;
 import pl.coderslab.tennis_bet.sport_events_data.dto.TennisSetDTO;
-import pl.coderslab.tennis_bet.betting_site.entity.TennisGame;
 import pl.coderslab.tennis_bet.sport_events_data.service.TennisGameDtoService;
-import pl.coderslab.tennis_bet.sport_events_data.service.TennisGameService;
-import pl.coderslab.tennis_bet.sport_events_data.service.TennisMatchDTOService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class TennisGameDtoServiceImpl implements TennisGameDtoService {
-    @Autowired
-    TennisMatchDTOService tennisMatchDTOService;
-    @Autowired
-    TennisGameService tennisGameService;
 
     @Override
     public TennisGame convertTennisGameDtoToEntity(TennisGameDTO tennisGameDTO) {
@@ -34,7 +27,6 @@ public class TennisGameDtoServiceImpl implements TennisGameDtoService {
         for (TennisGameDTO tennisGameDto : tennisGameDtos) {
             TennisGame tennisGame = convertTennisGameDtoToEntity(tennisGameDto);
             tennisGames.add(tennisGame);
-//            tennisGameService.save(tennisGame);
         }
         return tennisGames;
     }

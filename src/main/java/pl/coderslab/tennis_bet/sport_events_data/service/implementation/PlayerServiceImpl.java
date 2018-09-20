@@ -2,8 +2,8 @@ package pl.coderslab.tennis_bet.sport_events_data.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.coderslab.tennis_bet.sport_events_data.dto.PlayerDTO;
 import pl.coderslab.tennis_bet.betting_site.entity.Player;
+import pl.coderslab.tennis_bet.sport_events_data.dto.PlayerDTO;
 import pl.coderslab.tennis_bet.sport_events_data.repository.PlayerRepository;
 import pl.coderslab.tennis_bet.sport_events_data.service.PlayerDTOService;
 import pl.coderslab.tennis_bet.sport_events_data.service.PlayerService;

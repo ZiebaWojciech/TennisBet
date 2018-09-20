@@ -9,11 +9,10 @@ import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionResult;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionStatus;
 import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.BetSelectionType;
+import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.EventStatus;
 import pl.coderslab.tennis_bet.betting_site.repository.BetSelectionRepository;
 import pl.coderslab.tennis_bet.betting_site.service.BetSelectionService;
 import pl.coderslab.tennis_bet.betting_site.service.BetTicketService;
-import pl.coderslab.tennis_bet.betting_site.service.MarketResultService;
-import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.EventStatus;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -21,16 +20,19 @@ import java.util.UUID;
 
 @Service
 public class BetSelectionServiceImpl implements BetSelectionService {
-    private final BetSelectionRepository betSelectionRepository;
-    private final BetTicketService betTicketService;
-    private final MarketResultService marketResultService;
+    private BetSelectionRepository betSelectionRepository;
+    private BetTicketService betTicketService;
 
     @Autowired
-    public BetSelectionServiceImpl(BetSelectionRepository betSelectionRepository, BetTicketService betTicketService, MarketResultService marketResultService) {
+    public BetSelectionServiceImpl(BetSelectionRepository betSelectionRepository) {
         this.betSelectionRepository = betSelectionRepository;
-        this.betTicketService = betTicketService;
-        this.marketResultService = marketResultService;
     }
+
+    @Autowired
+    public void setBetTicketService(BetTicketService betTicketService) {
+        this.betTicketService = betTicketService;
+    }
+
 
     @Override
     public BetSelection save(BetSelection betSelection) {
@@ -83,7 +85,6 @@ public class BetSelectionServiceImpl implements BetSelectionService {
     }
 
 
-
     @Override
     public void resolvingBetSelectionAfterCompletedEvent(BetSelection betSelection, TennisMatch tennisMatch) {
         betSelection.setBetSelectionStatus(BetSelectionStatus.FINISHED);
@@ -93,10 +94,12 @@ public class BetSelectionServiceImpl implements BetSelectionService {
             } else {
                 betSelection.setBetSelectionResult(BetSelectionResult.LOST);
             }
-            if(betTicketService.isTicketCompleted(betSelection.getBetTicket())){
+            if (betTicketService.isTicketCompleted(betSelection.getBetTicket())) {
                 betTicketService.resolveBetTicket(betSelection.getBetTicket());
             }
             save(betSelection);
         }
     }
+
+
 }

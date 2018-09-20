@@ -10,10 +10,14 @@ import pl.coderslab.tennis_bet.sport_events_data.service.TennisSetDtoService;
 
 @Service
 public class ResultDTOServiceImpl implements ResultDTOService {
+    private final TennisSetDtoService tennisSetDtoService;
+    private final PlayerService playerService;
+
     @Autowired
-    TennisSetDtoService tennisSetDtoService;
-    @Autowired
-    PlayerService playerService;
+    public ResultDTOServiceImpl(TennisSetDtoService tennisSetDtoService, PlayerService playerService) {
+        this.tennisSetDtoService = tennisSetDtoService;
+        this.playerService = playerService;
+    }
 
     @Override
     public Result convertResultDtoToEntity(ResultDTO resultDTO) {

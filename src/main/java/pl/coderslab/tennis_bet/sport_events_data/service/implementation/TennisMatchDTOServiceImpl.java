@@ -12,10 +12,15 @@ import java.util.Objects;
 
 @Service
 public class TennisMatchDTOServiceImpl implements TennisMatchDTOService {
+    private final PlayerDTOService playerDTOService;
+    private final ResultDTOService resultDTOService;
+
     @Autowired
-    PlayerDTOService playerDTOService;
-    @Autowired
-    ResultDTOService resultDTOService;
+    public TennisMatchDTOServiceImpl(PlayerDTOService playerDTOService, ResultDTOService resultDTOService) {
+        this.playerDTOService = playerDTOService;
+        this.resultDTOService = resultDTOService;
+    }
+
     @Override
     public int tennisMatchDtoHashCode(TennisMatchDTO tennisMatchDTO) {
         return Objects.hash(tennisMatchDTO.getCountry(), tennisMatchDTO.getTimeOfStart(), playerDTOService.playerDtoHashCode(tennisMatchDTO.getPlayerOneDto()), playerDTOService.playerDtoHashCode(tennisMatchDTO.getPlayerTwoDto()));

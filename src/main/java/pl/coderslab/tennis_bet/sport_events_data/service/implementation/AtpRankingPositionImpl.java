@@ -11,8 +11,7 @@ import java.util.List;
 
 @Service
 public class AtpRankingPositionImpl implements AtpRankingPositionService {
-    final
-    AtpRankingPositionRepository atpRankingPositionRepository;
+    private final AtpRankingPositionRepository atpRankingPositionRepository;
 
     @Autowired
     public AtpRankingPositionImpl(AtpRankingPositionRepository atpRankingPositionRepository) {
