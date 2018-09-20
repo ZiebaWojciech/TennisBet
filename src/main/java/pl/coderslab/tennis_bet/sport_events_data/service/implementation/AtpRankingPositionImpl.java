@@ -2,7 +2,7 @@ package pl.coderslab.tennis_bet.sport_events_data.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.coderslab.tennis_bet.sport_events_data.entity.AtpRankingPosition;
+import pl.coderslab.tennis_bet.betting_site.entity.AtpRankingPosition;
 import pl.coderslab.tennis_bet.sport_events_data.repository.AtpRankingPositionRepository;
 import pl.coderslab.tennis_bet.sport_events_data.service.AtpRankingPositionService;
 

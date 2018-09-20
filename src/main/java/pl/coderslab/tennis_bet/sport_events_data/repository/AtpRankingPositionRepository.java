@@ -2,7 +2,7 @@ package pl.coderslab.tennis_bet.sport_events_data.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pl.coderslab.tennis_bet.sport_events_data.entity.AtpRankingPosition;
+import pl.coderslab.tennis_bet.betting_site.entity.AtpRankingPosition;
 
 import java.time.LocalDate;
 import java.util.List;

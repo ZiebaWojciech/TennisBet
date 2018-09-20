@@ -21,12 +21,16 @@ import java.util.UUID;
 
 @Service
 public class BetTicketServiceImpl implements BetTicketService {
+    private final BetTicketRepository betTicketRepository;
+    private final WalletService walletService;
+    private final OddsService oddsService;
+
     @Autowired
-    BetTicketRepository betTicketRepository;
-    @Autowired
-    WalletService walletService;
-    @Autowired
-    OddsService oddsService;
+    public BetTicketServiceImpl(BetTicketRepository betTicketRepository, WalletService walletService, OddsService oddsService) {
+        this.betTicketRepository = betTicketRepository;
+        this.walletService = walletService;
+        this.oddsService = oddsService;
+    }
 
     @Override
     public List<BetTicket> getAllByUser(User user) {

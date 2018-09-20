@@ -3,7 +3,7 @@ package pl.coderslab.tennis_bet.sport_events_data.service.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennis_bet.betting_site.service.ResultService;
-import pl.coderslab.tennis_bet.sport_events_data.entity.TennisGame;
+import pl.coderslab.tennis_bet.betting_site.entity.TennisGame;
 import pl.coderslab.tennis_bet.sport_events_data.repository.TennisGameRepository;
 import pl.coderslab.tennis_bet.sport_events_data.service.TennisGameService;
 import pl.coderslab.tennis_bet.sport_events_data.service.TennisSetService;

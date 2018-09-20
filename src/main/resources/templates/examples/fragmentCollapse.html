@@ -1,0 +1,43 @@
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">FAQ
+        <small>Subheading</small>
+    </h1>
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a th:href="@{/homepage}">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a th:href="@{/user/account}">Your account</a>
+        </li>
+        <li class="breadcrumb-item active">Wallet</li>
+    </ol>
+
+    <div class="mb-4" id="accordion" role="tablist" aria-multiselectable="true">
+        <div th:each="transaction, iterStat : ${user.wallet.moneyTransactions}" class="card">
+            <div class="card-header" role="tab" th:id="'heading'+${iterStat.count}">
+                <h5 class="mb-0">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                       th:href="'#collapse'+${iterStat.count}" aria-expanded="false"
+                       th:aria-controls="'collapse'+${iterStat.count}" th:text="${transaction.transactionType}"></a>
+                </h5>
+            </div>
+            <div th:id="'collapse'+${iterStat.count}" class="collapse" role="tabpanel"
+                 th:aria-labelledby="'headingTwo'+${iterStat.count}">
+                <div class="card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                    wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                    eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                    assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+                    sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                    farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                    labore sustainable VHS.
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container -->

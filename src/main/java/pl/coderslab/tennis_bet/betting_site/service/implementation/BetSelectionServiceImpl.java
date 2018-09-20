@@ -13,7 +13,7 @@ import pl.coderslab.tennis_bet.betting_site.repository.BetSelectionRepository;
 import pl.coderslab.tennis_bet.betting_site.service.BetSelectionService;
 import pl.coderslab.tennis_bet.betting_site.service.BetTicketService;
 import pl.coderslab.tennis_bet.betting_site.service.MarketResultService;
-import pl.coderslab.tennis_bet.sport_events_data.entity.enumUtil.EventStatus;
+import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.EventStatus;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -21,12 +21,16 @@ import java.util.UUID;
 
 @Service
 public class BetSelectionServiceImpl implements BetSelectionService {
+    private final BetSelectionRepository betSelectionRepository;
+    private final BetTicketService betTicketService;
+    private final MarketResultService marketResultService;
+
     @Autowired
-    BetSelectionRepository betSelectionRepository;
-    @Autowired
-    BetTicketService betTicketService;
-    @Autowired
-    MarketResultService marketResultService;
+    public BetSelectionServiceImpl(BetSelectionRepository betSelectionRepository, BetTicketService betTicketService, MarketResultService marketResultService) {
+        this.betSelectionRepository = betSelectionRepository;
+        this.betTicketService = betTicketService;
+        this.marketResultService = marketResultService;
+    }
 
     @Override
     public BetSelection save(BetSelection betSelection) {

@@ -8,8 +8,12 @@ import pl.coderslab.tennis_bet.betting_site.service.MarketResultService;
 
 @Service
 public class MarketResultServiceImpl implements MarketResultService {
+    private final MarketResultRepository marketResultRepository;
+
     @Autowired
-    MarketResultRepository marketResultRepository;
+    public MarketResultServiceImpl(MarketResultRepository marketResultRepository) {
+        this.marketResultRepository = marketResultRepository;
+    }
 
     @Override
     public MarketResult save(MarketResult marketResult) {

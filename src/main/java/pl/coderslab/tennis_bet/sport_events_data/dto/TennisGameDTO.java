@@ -8,5 +8,4 @@ import lombok.Setter;
 public class TennisGameDTO {
     private int playerOnePoints;
     private int playerTwoPoints;
-//    private PlayerDTO tennisGameWinner;
 }

@@ -9,8 +9,7 @@ import pl.coderslab.tennis_bet.betting_site.repository.TennisMatchRepository;
 import pl.coderslab.tennis_bet.betting_site.service.BetSelectionService;
 import pl.coderslab.tennis_bet.betting_site.service.TennisMatchService;
 import pl.coderslab.tennis_bet.sport_events_data.dto.TennisMatchDTO;
-import pl.coderslab.tennis_bet.sport_events_data.entity.enumUtil.EventStatus;
-import pl.coderslab.tennis_bet.sport_events_data.service.PlayerDTOService;
+import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.EventStatus;
 import pl.coderslab.tennis_bet.sport_events_data.service.PlayerService;
 import pl.coderslab.tennis_bet.sport_events_data.service.TennisMatchDTOService;
 
@@ -24,15 +23,13 @@ public class TennisMatchServiceImpl implements TennisMatchService {
     private final TennisMatchRepository tennisMatchRepository;
     private final BetSelectionService betSelectionService;
     private final PlayerService playerService;
-    private final PlayerDTOService playerDTOService;
     private final TennisMatchDTOService tennisMatchDTOService;
 
     @Autowired
-    public TennisMatchServiceImpl(TennisMatchRepository tennisMatchRepository, BetSelectionService betSelectionService, PlayerService playerService, PlayerDTOService playerDTOService, TennisMatchDTOService tennisMatchDTOService) {
+    public TennisMatchServiceImpl(TennisMatchRepository tennisMatchRepository, BetSelectionService betSelectionService, PlayerService playerService, TennisMatchDTOService tennisMatchDTOService) {
         this.tennisMatchRepository = tennisMatchRepository;
         this.betSelectionService = betSelectionService;
         this.playerService = playerService;
-        this.playerDTOService = playerDTOService;
         this.tennisMatchDTOService = tennisMatchDTOService;
     }
 

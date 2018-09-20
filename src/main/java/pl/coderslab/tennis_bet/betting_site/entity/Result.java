@@ -2,8 +2,6 @@ package pl.coderslab.tennis_bet.betting_site.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.coderslab.tennis_bet.sport_events_data.entity.Player;
-import pl.coderslab.tennis_bet.sport_events_data.entity.TennisSet;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

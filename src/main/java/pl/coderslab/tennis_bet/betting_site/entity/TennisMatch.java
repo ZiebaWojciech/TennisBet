@@ -3,9 +3,8 @@ package pl.coderslab.tennis_bet.betting_site.entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-import pl.coderslab.tennis_bet.sport_events_data.entity.Player;
-import pl.coderslab.tennis_bet.sport_events_data.entity.enumUtil.Country;
-import pl.coderslab.tennis_bet.sport_events_data.entity.enumUtil.EventStatus;
+import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.Country;
+import pl.coderslab.tennis_bet.betting_site.entity.enumUtil.EventStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

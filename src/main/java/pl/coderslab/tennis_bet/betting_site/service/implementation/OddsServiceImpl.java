@@ -8,8 +8,8 @@ import pl.coderslab.tennis_bet.betting_site.entity.TennisMatch;
 import pl.coderslab.tennis_bet.betting_site.repository.OddsRepository;
 import pl.coderslab.tennis_bet.betting_site.service.OddsService;
 import pl.coderslab.tennis_bet.betting_site.service.TennisMatchService;
-import pl.coderslab.tennis_bet.sport_events_data.entity.AtpRankingPosition;
-import pl.coderslab.tennis_bet.sport_events_data.entity.Player;
+import pl.coderslab.tennis_bet.betting_site.entity.AtpRankingPosition;
+import pl.coderslab.tennis_bet.betting_site.entity.Player;
 import pl.coderslab.tennis_bet.sport_events_data.service.AtpRankingPositionService;
 
 import java.math.BigDecimal;
