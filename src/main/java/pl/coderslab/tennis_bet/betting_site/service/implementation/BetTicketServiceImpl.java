@@ -80,19 +80,18 @@ public class BetTicketServiceImpl implements BetTicketService {
 
     @Override
     public boolean isTicketCompleted(BetTicket betTicket) {
-        List<BetSelection> betSelections = betTicket.getBetSelections();
-        return betSelections.stream().filter(v->v.getBetSelectionStatus() == BetSelectionStatus.FINISHED).count() == betSelections.size();
+        return betTicket.getUncheckedBetSelectionsCounter() == 0;
     }
 
     @Override
     public void resolveBetTicket(BetTicket betTicket) {
         betTicket.setBetTicketStatus(BetTicketStatus.ENDED_NOT_CASHED);
         List<BetSelection> betSelections = betTicket.getBetSelections();
-        boolean isAnyBetSelecionLost = betSelections.stream().anyMatch(v -> v.getBetSelectionResult() == BetSelectionResult.LOST);
-        boolean isAllBetSelecionVoid= betSelections.stream().allMatch(v -> v.getBetSelectionResult() == BetSelectionResult.VOID);
-        if(isAnyBetSelecionLost){
+        boolean isAnyBetSelectionLost = betSelections.stream().anyMatch(v -> v.getBetSelectionResult() == BetSelectionResult.LOST);
+        boolean isAllBetSelectionVoid= betSelections.stream().allMatch(v -> v.getBetSelectionResult() == BetSelectionResult.VOID);
+        if(isAnyBetSelectionLost){
             betTicket.setBetTicketResult(BetTicketResult.LOST);
-        } else if(isAllBetSelecionVoid){
+        } else if(isAllBetSelectionVoid){
             betTicket.setBetTicketResult(BetTicketResult.CANCELLED);
         } else {
             betTicket.setBetTicketResult(BetTicketResult.WON);
