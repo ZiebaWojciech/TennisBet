@@ -118,6 +118,7 @@ public class BetTicketServiceImpl implements BetTicketService {
                 totalOdd = totalOdd.multiply(betSelection.getOdd());
             }
         }
-        return totalOdd;
+
+        return totalOdd.setScale(2,BigDecimal.ROUND_HALF_UP);
     }
 }

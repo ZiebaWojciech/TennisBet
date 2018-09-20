@@ -69,8 +69,11 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="row">
-                        <form th:if="${session.ticket.betSelections.size()>0}" th:action="@{/betting/submit-ticket}"
+                    <div class="row" th:if="${session.ticket.betSelections.size()>0}">
+                        <p class="badge-pill badge-info" th:text="'Total odds: '+${session.ticket.totalOdd}"></p>
+                        <br/>
+
+                        <form  th:action="@{/betting/submit-ticket}"
                               method="post">
                             <p class="badge-danger" th:if="${stakeMessage}" th:text="${stakeMessage}"></p>
                             <p class="badge-danger" th:if="${matchStarted}" th:text="${matchStarted}"></p>

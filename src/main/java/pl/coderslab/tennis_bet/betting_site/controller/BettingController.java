@@ -57,6 +57,7 @@ public class BettingController {
         } else {
             betTicket = betSelectionService.addNewBetSelectionToBetTicket(betTicket, betSelectionType, odd, tennisMatch);
         }
+        betTicket.setTotalOdd(betTicketService.calculateTotalOdd(betTicket));
         request.getSession().setAttribute("ticket", betTicket);
         return "betting/all-markets";
     }
@@ -91,6 +92,8 @@ public class BettingController {
     public String removeBetSelectionFromTicket(@RequestParam("temporalId") UUID temporalId, HttpServletRequest request, Model model) {
         BetTicket betTicket = ((BetTicket) request.getSession().getAttribute("ticket"));
         betTicketService.removeBetSelectionFromTicket(betTicket, temporalId);
+        betTicket.setTotalOdd(betTicketService.calculateTotalOdd(betTicket));
+
         return "redirect:/betting/all";
     }
 
