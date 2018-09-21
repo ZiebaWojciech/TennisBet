@@ -209,3 +209,9 @@ INSERT INTO tennis_bet.user (id, active, email, name, password, surname, usernam
 INSERT INTO tennis_bet.user (id, active, email, name, password, surname, username) VALUES (2, true, 'admin@mail.com', 'Admin', '$2a$10$ejoqOAg.lci9PO8zZHUf5O0k3YHrCdYMpXWNDQ4xVG4xebNFt9ai2', 'Smith', 'example_admin');
 
 INSERT INTO tennis_bet.wallet (id, balance, user_id) VALUES (1, 10.00, 1);
+
+INSERT INTO tennis_bet.bet_selection (id, bet_selection_result, bet_selection_status, bet_selection_type, odd, bet_ticket_id, tennis_match_id) VALUES (1, 'LOST', 'FINISHED', 'PLAYER_ONE_WINS', 2.49, 1, 6);
+INSERT INTO tennis_bet.bet_selection (id, bet_selection_result, bet_selection_status, bet_selection_type, odd, bet_ticket_id, tennis_match_id) VALUES (2, 'WON', 'FINISHED', 'PLAYER_TWO_WINS', 1.48, 2, 6);
+
+INSERT INTO tennis_bet.bet_ticket (id, bet_ticket_result, bet_ticket_status, stake, time_of_creation, total_odd, unchecked_bet_selections_counter, user_id) VALUES (1, 'LOST', 'ENDED_NOT_CASHED', 1.00, '2018-09-21 08:43:41', 2.49, 1, 1);
+INSERT INTO tennis_bet.bet_ticket (id, bet_ticket_result, bet_ticket_status, stake, time_of_creation, total_odd, unchecked_bet_selections_counter, user_id) VALUES (2, 'WON', 'ENDED_NOT_CASHED', 1.00, '2018-09-21 08:43:47', 1.48, 1, 1);

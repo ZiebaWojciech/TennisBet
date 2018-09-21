@@ -50,12 +50,12 @@ public class TennisMatchServiceImpl implements TennisMatchService {
 
     @Override
     public TennisMatch save(TennisMatch tennisMatch) {
-        if (isEventStatusChanged(tennisMatch)) {
-            if(tennisMatch.getStatus() == EventStatus.COMPLETED){
-                tennisMatch = setEventMarketResults(tennisMatch);
-            }
-            betSelectionService.resolveBetAfterEventStatusChange(tennisMatch);
+        //TODO check why this condition does not work properly (Lazy initializer? The entitiy is not null, but all field are)
+//        if (isEventStatusChanged(tennisMatch)) {
+        if (tennisMatch.getStatus() == EventStatus.COMPLETED) {
+            tennisMatch = setEventMarketResults(tennisMatch);
         }
+        betSelectionService.resolveBetAfterEventStatusChange(tennisMatch);
         return tennisMatchRepository.save(tennisMatch);
     }
 
@@ -103,13 +103,13 @@ public class TennisMatchServiceImpl implements TennisMatchService {
     @Override
     public TennisMatch getTennisMatchByTennisMatchDTO(TennisMatchDTO tennisMatchDTO) {
         List<TennisMatch> allTennisMatches = getAll();
-        return allTennisMatches.stream().filter(v->tennisMatchHashCode(v) == tennisMatchDTOService.tennisMatchDtoHashCode(tennisMatchDTO)).findFirst().get();
+        return allTennisMatches.stream().filter(v -> tennisMatchHashCode(v) == tennisMatchDTOService.tennisMatchDtoHashCode(tennisMatchDTO)).findFirst().get();
 
     }
 
     @Override
     public boolean hasEventStarted(TennisMatch tennisMatch) {
-        return tennisMatch.getTimeOfStart().compareTo(LocalDateTime.now()) <0;
+        return tennisMatch.getTimeOfStart().compareTo(LocalDateTime.now()) < 0;
     }
 
 

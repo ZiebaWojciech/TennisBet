@@ -14,7 +14,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping(path = "/register")
 public class RegisterController {
-    private  final UserService userService;
+    private final UserService userService;
 
     @Autowired
     public RegisterController(UserService userService) {
@@ -22,7 +22,7 @@ public class RegisterController {
     }
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public String  registerUserInit(Model model) {
+    public String registerUserInit(Model model) {
         model.addAttribute("user", new User());
         return "registration/registration-form";
     }
@@ -32,15 +32,19 @@ public class RegisterController {
         if (result.hasErrors()) {
             return "registration/registration-form";
         }
-        if(userService.getAll().stream().anyMatch(u->u.getUsername().equals(user.getUsername()))){
+        //TODO make this validation in annotations at entity fields,
+        if (userService.getAll().stream().anyMatch(u -> u.getUsername().equals(user.getUsername()))) {
             model.addAttribute("takenUsername", "Username taken");
+            model.addAttribute("user", user);
             return "registration/registration-form";
 
         }
-        if(userService.getAll().stream().anyMatch(u->u.getEmail().equals(user.getEmail()))){
+        if (userService.getAll().stream().anyMatch(u -> u.getEmail().equals(user.getEmail()))) {
             model.addAttribute("takenEmail", "Email taken");
+            model.addAttribute("user", user);
             return "registration/registration-form";
         }
+
         userService.saveNewUser(user);
         return "redirect:/login";
     }
